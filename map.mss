@@ -18,9 +18,6 @@
 @color_airport_runways: #eee;
 @color_airport_runways_detail: #f2f2f2;
 
-@major_road: steelblue;
-@minor_road_high_zoom: steelblue;
-
 Map {
   background-color: @color_physical;
 }
