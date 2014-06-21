@@ -553,6 +553,12 @@ Map {
     line-width: 28;
     line-color: @color_transport_inline;
 
+    [is_bridge='yes'] {
+      ::casing {
+        line-width: 44;
+      }
+    }
+
     [is_link='yes'] {
       ::casing {
         line-width: 14;
@@ -561,6 +567,12 @@ Map {
 
       line-width: 10;
       line-color: @color_transport_inline;
+
+      [is_bridge='yes'] {
+        ::casing {
+          line-width: 15;
+        }
+      }
     }
 
     [is_tunnel='yes'] {
@@ -581,6 +593,12 @@ Map {
     line-width: 35;
     line-color: @color_transport_casing;
 
+    [is_bridge='yes'] {
+      ::casing {
+        line-width: 51;
+      }
+    }
+
     [is_link='yes'] {
       ::casing {
         line-width: 20;
@@ -588,6 +606,12 @@ Map {
 
       line-width: 16;
       line-color: @color_transport_casing;
+
+      [is_bridge='yes'] {
+        ::casing {
+          line-width: 21;
+        }
+      }
     }
 
     [is_tunnel='yes'] {
@@ -774,6 +798,12 @@ Map {
     line-width: 18;
     line-color: @color_transport_inline;
 
+    [is_bridge='yes'] {
+      ::casing {
+        line-width: 24;
+      }
+    }
+
     [is_link='yes'] {
       ::casing {
         line-width: 13;
@@ -782,6 +812,12 @@ Map {
 
       line-width: 9;
       line-color: @color_transport_inline;
+
+      [is_bridge='yes'] {
+        ::casing {
+          line-width: 14;
+        }
+      }
     }
 
     [is_tunnel='yes'] {
@@ -801,6 +837,12 @@ Map {
     line-width: 26;
     line-color: @color_transport_casing;
 
+    [is_bridge='yes'] {
+      ::casing {
+        line-width: 32;
+      }
+    }
+
     [is_link='yes'] {
       ::casing {
         line-width: 17;
@@ -808,6 +850,12 @@ Map {
 
       line-width: 13;
       line-color: @color_transport_casing;
+
+      [is_bridge='yes'] {
+        ::casing {
+          line-width: 18;
+        }
+      }
     }
 
     [is_tunnel='yes'] {

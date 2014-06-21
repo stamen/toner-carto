@@ -479,6 +479,7 @@ Layer:
       minzoom: 14
       maxzoom: 14
       cache-features: on
+      group-by: explicit_layer
     Datasource:
       <<: *postgis
       table: planet_osm_line_z14
@@ -490,6 +491,7 @@ Layer:
     properties:
       minzoom: 15
       cache-features: on
+      group-by: explicit_layer
     Datasource:
       <<: *postgis
       table: planet_osm_line_z15plus
