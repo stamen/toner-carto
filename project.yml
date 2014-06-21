@@ -1,0 +1,538 @@
+# == Global project settings ===========================================
+
+name:             toner-background
+description:      ''
+attribution:      'Map Data © OpenStreetMap'
+bounds:           [-123.640, 36.791, -121.025, 38.719]
+center:           [-122.5369, 37.8704, 13]
+format:           png
+interactivity:    false
+minzoom:          0
+maxzoom:          20
+srs:              '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+metatile:         1
+
+
+# == Layer & Datasource defaults =======================================
+
+_layer_default:   &layer
+  'srs-name':     '3857'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_pg_default:      &postgis
+  type:           postgis
+  dbname:         '{{dbname}}'
+  host:           '{{dbhost}}'
+  user:           '{{dbuser}}'
+  password:       '{{dbpassword}}'
+  port:           '{{dbport}}'
+  geometry_field: way
+  srid:           3857
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_shp_default:     &shapefile
+  type:           shape
+  estimate_extent: false
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+
+# == Stylesheets =======================================================
+
+Stylesheet:
+  - map.mss
+
+
+# == Layers ============================================================
+
+Layer:
+
+  - <<: *layer
+    name: land-shapes-110m
+    id:   land-shapes-110m
+    class: shore
+    properties:
+      maxzoom: 1
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_110m_land-merc.zip
+
+  - <<: *layer
+    name: country-shapes-110m
+    id:   country-shapes-110m
+    class: shore
+    properties:
+      minzoom: 2
+      maxzoom: 2
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_110m_admin_0_countries_lakes-merc.zip
+
+  - <<: *layer
+    name: country-shapes-50m
+    id:   country-shapes-50m
+    class: shore
+    properties:
+      minzoom: 3
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip
+
+  - <<: *layer
+    name: country-shapes-10m
+    id:   country-shapes-10m
+    class: shore
+    properties:
+      minzoom: 6
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip
+
+  - <<: *layer
+    name: coastline-10m
+    id:   coastline-10m
+    class: shore
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_coastline-merc.zip
+
+  - <<: *layer
+    name: land
+    id:   land
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/land-polygons-split-3857/land_polygons.shp
+
+  - <<: *layer
+    name: admin1-lines-50m
+    id:   admin1-lines-50m
+    properties:
+      minzoom: 3
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_admin_1_states_provinces_lines_shp-merc.zip
+
+  - <<: *layer
+    name: admin1-lines-10m
+    id:   admin1-lines-10m
+    properties:
+      minzoom: 6
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines_shp-merc.zip
+
+  - <<: *layer
+    name: ne_10m_admin_0_boundary_lines_land
+    id:   ne_10m_admin_0_boundary_lines_land
+    class: country-boundary-10m
+    properties:
+      minzoom: 6
+      maxzoom: 9
+      cache-features: on
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip
+
+  - <<: *layer
+    name: admin1-lines-osm
+    id:   admin1-lines-osm
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *postgis
+      table: >
+        (
+          SELECT
+            way,
+            tags -> 'name' AS name
+          FROM planet_osm_polygon
+          WHERE way && !bbox!
+            AND tags -> 'boundary' IN ('administrative')
+            AND tags -> 'admin_level' IN ('4')
+          ORDER BY z_order ASC, osm_id
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-high
+    id:   green-areas-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas
+          WHERE geometry && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-med
+    id:   green-areas-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas_z13
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-low
+    id:   green-areas-low
+    properties:
+      minzoom: 10
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas_z10
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: brown-areas-high
+    id:   brown-areas-high
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_brown_areas
+          WHERE geometry && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: brown-areas-med
+    id:   brown-areas-med
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_brown_areas_z13
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: brown-areas-low
+    id:   brown-areas-low
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_brown_areas_z10
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: aeroways
+    id:   aeroways
+    Datasource:
+      <<: *postgis
+      table: >
+        (
+          SELECT
+            way,
+            tags -> 'name' AS name,
+            tags -> 'aeroway' AS aeroway
+          FROM planet_osm_line
+          WHERE way && !bbox!
+            AND tags ? 'aeroway'
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-high
+    id:   water-bodies-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas
+          WHERE geometry && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-med
+    id:   water-bodies-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z13
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-low
+    id:   water-bodies-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z10
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: lakes-110m
+    id:   lakes-110m
+    class: shore
+    properties:
+      maxzoom: 2
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_110m_lakes-merc.zip
+
+  - <<: *layer
+    name: lakes-50m
+    id:   lakes-50m
+    class: shore
+    properties:
+      minzoom: 3
+      maxzoom: 6
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_lakes-merc.zip
+
+  - <<: *layer
+    name: lakes-10m
+    id:   lakes-10m
+    class: shore lakes
+    properties:
+      minzoom: 7
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_lakes-merc.zip
+
+  - <<: *layer
+    name: ne-roads
+    id:   ne-roads
+    properties:
+      minzoom: 6
+      maxzoom: 8
+    Datasource:
+      cache-features: on
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_roads-merc.zip
+
+  - <<: *layer
+    name: parking-areas
+    id:   parking-areas
+    status: off
+    Datasource:
+      <<: *postgis
+      table: >
+        (
+          SELECT
+            way,
+            tags -> 'name' AS name
+          FROM planet_osm_polygon
+          WHERE way && !bbox!
+            AND tags -> 'amenity' IN ('parking')
+          ORDER BY z_order ASC, way_area DESC, osm_id
+        ) AS _
+
+  - <<: *layer
+    name: z10-roads
+    id:   z10-roads
+    class: roads
+    properties:
+      minzoom: 9
+      maxzoom: 10
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      table: planet_osm_line_z10
+
+  - <<: *layer
+    name: z11-roads
+    id:   z11-roads
+    class: roads
+    properties:
+      minzoom: 11
+      maxzoom: 11
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      table: planet_osm_line_z11
+
+  - <<: *layer
+    name: z12-roads
+    id:   z12-roads
+    class: roads
+    properties:
+      minzoom: 12
+      maxzoom: 12
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      table: planet_osm_line_z12
+
+  - <<: *layer
+    name: z13-roads
+    id:   z13-roads
+    class: roads
+    properties:
+      minzoom: 13
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      table: planet_osm_line_z13
+
+  - <<: *layer
+    name: z14-roads
+    id:   z14-roads
+    class: roads
+    properties:
+      minzoom: 14
+      maxzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      table: planet_osm_line_z14
+
+  - <<: *layer
+    name: z15plus-roads
+    id:   z15plus-roads
+    class: roads
+    properties:
+      minzoom: 15
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      table: planet_osm_line_z15plus
+
+  - <<: *layer
+    name: buildings-high
+    id:   buildings-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_buildings
+          WHERE geometry && !bbox!
+          ORDER BY osm_id
+        ) AS _
+
+  - <<: *layer
+    name: buildings-med
+    id:   buildings-med
+    properties:
+      minzoom: 13
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_buildings_z13
+          WHERE geometry_orig && !bbox!
+          ORDER BY osm_id
+        ) AS _
