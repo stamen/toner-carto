@@ -30,6 +30,7 @@ Map {
   line-color: @color_physical;
   line-cap: round;
   line-join: round;
+  line-width: 0;
 }
 
 #country-shapes-110m {
