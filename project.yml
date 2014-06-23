@@ -424,77 +424,20 @@ Layer:
         ) AS _
 
   - <<: *layer
-    name: z10-roads
-    id:   z10-roads
+    name: roads
+    id:   roads
     class: roads
     properties:
       minzoom: 9
-      maxzoom: 10
-      cache-features: on
-    Datasource:
-      <<: *postgis
-      table: planet_osm_line_z10
-
-  - <<: *layer
-    name: z11-roads
-    id:   z11-roads
-    class: roads
-    properties:
-      minzoom: 11
-      maxzoom: 11
-      cache-features: on
-    Datasource:
-      <<: *postgis
-      table: planet_osm_line_z11
-
-  - <<: *layer
-    name: z12-roads
-    id:   z12-roads
-    class: roads
-    properties:
-      minzoom: 12
-      maxzoom: 12
-      cache-features: on
-    Datasource:
-      <<: *postgis
-      table: planet_osm_line_z12
-
-  - <<: *layer
-    name: z13-roads
-    id:   z13-roads
-    class: roads
-    properties:
-      minzoom: 13
-      maxzoom: 13
-      cache-features: on
-    Datasource:
-      <<: *postgis
-      table: planet_osm_line_z13
-
-  - <<: *layer
-    name: z14-roads
-    id:   z14-roads
-    class: roads
-    properties:
-      minzoom: 14
-      maxzoom: 14
       cache-features: on
       group-by: explicit_layer
     Datasource:
       <<: *postgis
-      table: planet_osm_line_z14
-
-  - <<: *layer
-    name: z15plus-roads
-    id:   z15plus-roads
-    class: roads
-    properties:
-      minzoom: 15
-      cache-features: on
-      group-by: explicit_layer
-    Datasource:
-      <<: *postgis
-      table: planet_osm_line_z15plus
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!)
+        ) AS _
 
   - <<: *layer
     name: buildings-high
