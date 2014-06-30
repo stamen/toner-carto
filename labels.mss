@@ -144,3 +144,14 @@
     }
   }
 }
+
+#poi_station_labels {
+  [zoom=17][railway='station'] { 
+	point-file: url('images/subway_sm.png'); 
+  }
+  
+  [zoom>=18][railway='station'] { 
+	point-file: url('images/subway.png'); 
+}
+}
+

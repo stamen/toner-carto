@@ -455,3 +455,20 @@ Layer:
          WHERE highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link')
          ORDER BY priority ASC, length DESC)
          AS _
+
+  - <<: *layer
+    name: poi_station_labels 
+    id:   poi_station_labels
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (SELECT geometry,
+                name,
+                railway,
+                highway
+         FROM osm_stations
+         WHERE railway IN ('station') OR highway IN ('bus_stop'))
+         AS _
