@@ -90,62 +90,6 @@
                 ]
             }
         },
-        "places": {
-          "fields":[
-            {
-              "type": "id",
-              "name": "osm_id",
-              "key": null
-            },
-            {
-              "type": "geometry",
-              "name": "geometry",
-              "key": null
-            },
-            {
-              "type": "string",
-              "name": "name",
-              "key": "name"
-            },
-            {
-              "type": "string",
-              "name": "place",
-              "key": "place"
-            },
-            {
-              "args": {
-                  "ranks": [
-                      "country",
-                      "state",
-                      "region",
-                      "county",
-                      "city",
-                      "town",
-                      "village",
-                      "hamlet",
-                      "suburb",
-                      "locality"
-                  ]
-              },
-              "type": "zorder",
-              "name": "z_order",
-              "key": "z_order"
-            }
-          ],
-          "type":"point",
-          "mappings":{
-            "places":{
-              "mapping":{
-                "place":[
-                  "city",
-                  "town",
-                  "hamlet",
-                  "village"
-                ]
-              }
-            }
-          }
-        },
         "stations": {
           "fields":[
             {
