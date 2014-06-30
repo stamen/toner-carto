@@ -42,6 +42,7 @@ _shp_default:     &shapefile
 
 Stylesheet:
   - map.mss
+  - labels.mss
 
 
 # == Layers ============================================================
