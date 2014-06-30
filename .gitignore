@@ -4,3 +4,7 @@ shp/
 project.mml
 .env
 stylesheet.xml
+.DS_Store
+*.swp
+node_modules
+.thumb.png
