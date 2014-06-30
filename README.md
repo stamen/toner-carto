@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
 AS $$
 BEGIN
