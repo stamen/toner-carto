@@ -147,16 +147,16 @@ Layer:
       minzoom: 10
     Datasource:
       <<: *postgis
+      geometry_field: geometry
       table: >
         (
           SELECT
-            way,
-            tags -> 'name' AS name
-          FROM planet_osm_polygon
-          WHERE way && !bbox!
-            AND tags -> 'boundary' IN ('administrative')
-            AND tags -> 'admin_level' IN ('4')
-          ORDER BY z_order ASC, osm_id
+            geometry,
+            name
+          FROM osm_admin
+          WHERE geometry && !bbox!
+            AND type = 'administrative'
+            AND admin_level = 4
         ) AS _
 
   - <<: *layer
@@ -170,14 +170,12 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_green_areas
           WHERE geometry && !bbox!
-          ORDER BY osm_id
         ) AS _
 
   - <<: *layer
@@ -192,14 +190,12 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_green_areas_z13
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
+          WHERE geometry && !bbox!
         ) AS _
 
   - <<: *layer
@@ -214,88 +210,12 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_green_areas_z10
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
-        ) AS _
-
-  - <<: *layer
-    name: brown-areas-high
-    id:   brown-areas-high
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            osm_id,
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_brown_areas
           WHERE geometry && !bbox!
-          ORDER BY osm_id
-        ) AS _
-
-  - <<: *layer
-    name: brown-areas-med
-    id:   brown-areas-med
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            osm_id,
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_brown_areas_z13
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
-        ) AS _
-
-  - <<: *layer
-    name: brown-areas-low
-    id:   brown-areas-low
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            osm_id,
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_brown_areas_z10
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
-        ) AS _
-
-  - <<: *layer
-    name: aeroways
-    id:   aeroways
-    Datasource:
-      <<: *postgis
-      table: >
-        (
-          SELECT
-            way,
-            tags -> 'name' AS name,
-            tags -> 'aeroway' AS aeroway
-          FROM planet_osm_line
-          WHERE way && !bbox!
-            AND tags ? 'aeroway'
-          ORDER BY osm_id
         ) AS _
 
   - <<: *layer
@@ -309,14 +229,12 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_water_areas
           WHERE geometry && !bbox!
-          ORDER BY osm_id
         ) AS _
 
   - <<: *layer
@@ -331,14 +249,12 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_water_areas_z13
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
+          WHERE geometry && !bbox!
         ) AS _
 
   - <<: *layer
@@ -353,14 +269,12 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_water_areas_z10
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
+          WHERE geometry && !bbox!
         ) AS _
 
   - <<: *layer
@@ -407,32 +321,15 @@ Layer:
       file: shp/natural_earth/ne_10m_roads-merc.zip
 
   - <<: *layer
-    name: parking-areas
-    id:   parking-areas
-    status: off
-    Datasource:
-      <<: *postgis
-      table: >
-        (
-          SELECT
-            way,
-            tags -> 'name' AS name
-          FROM planet_osm_polygon
-          WHERE way && !bbox!
-            AND tags -> 'amenity' IN ('parking')
-          ORDER BY z_order ASC, way_area DESC, osm_id
-        ) AS _
-
-  - <<: *layer
     name: roads
     id:   roads
     class: roads
     properties:
       minzoom: 9
       cache-features: on
-      group-by: explicit_layer
     Datasource:
       <<: *postgis
+      geometry_field: geometry
       table: >
         (
           SELECT *
@@ -457,7 +354,6 @@ Layer:
             area
           FROM osm_buildings
           WHERE geometry && !bbox!
-          ORDER BY osm_id
         ) AS _
 
   - <<: *layer
@@ -472,12 +368,10 @@ Layer:
       table: >
         (
           SELECT
-            osm_id,
             name,
             type,
             geometry,
             area
           FROM osm_buildings_z13
-          WHERE geometry_orig && !bbox!
-          ORDER BY osm_id
+          WHERE geometry && !bbox!
         ) AS _
