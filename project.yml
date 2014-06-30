@@ -375,3 +375,82 @@ Layer:
           FROM osm_buildings_z13
           WHERE geometry && !bbox!
         ) AS _
+
+  - <<: *layer
+    name: minor_road_labels
+    id:   minor_road_labels
+    properties:
+      minzoom: 16
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (SELECT geometry,
+                name,
+                highway,
+                ST_Length(geometry) AS length,
+                (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0
+                      WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 1
+                      WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 2
+                      WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link') THEN 3
+                      WHEN highway = 'secondary' THEN 4
+                      WHEN highway = 'tertiary' THEN 5
+                      ELSE 9 END) AS priority,
+                (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'
+                      WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
+                      WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'
+                      WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
+                      ELSE '' END) AS kind,
+                (CASE WHEN tunnel = 1 THEN 'yes'
+                      ELSE 'no' END) AS is_tunnel,
+                (CASE WHEN bridge = 1 THEN 'yes'
+                      ELSE 'no' END) AS is_bridge
+         FROM osm_roads
+         WHERE highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary')
+         ORDER BY priority ASC, length DESC)
+         AS _
+
+  - <<: *layer
+    name: major_road_labels
+    id:   major_road_labels
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (SELECT geometry,
+            (CASE WHEN highway = 'motorway'
+                  THEN ''
+                  ELSE name
+                  END) AS name,
+            (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15
+                  THEN REGEXP_REPLACE(ref, E'\s*;\s*', E' / ', 'g')
+                  ELSE ''
+                  END) AS ref,
+            (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15
+                  THEN CHAR_LENGTH(ref)
+                  ELSE 0
+                  END) AS ref_length,
+            highway,
+            ST_Length(geometry) AS length,
+            (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0
+                  WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 1
+                  WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 2
+                  WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link') THEN 3
+                  WHEN highway = 'secondary' THEN 4
+                  WHEN highway = 'tertiary' THEN 5
+                  ELSE 9 END) AS priority,
+            (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'
+                  WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
+                  WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'
+                  WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
+                  ELSE '' END) AS kind,
+            (CASE WHEN tunnel = 1 THEN 'yes'
+                  ELSE 'no' END) AS is_tunnel,
+            (CASE WHEN bridge = 1 THEN 'yes'
+                  ELSE 'no' END) AS is_bridge
+         FROM osm_roads
+         WHERE highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link')
+         ORDER BY priority ASC, length DESC)
+         AS _
