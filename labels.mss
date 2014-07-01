@@ -57,9 +57,11 @@
   [zoom=12] {
     text-dy: 7;
     text-size: @text_font_size_xsm;
+    text-min-distance: 4;
   }
   [zoom=13] {
     text-dy: 8;
+    text-min-distance: 5;
     [highway='trunk'] {
 		text-size: @text_font_size_sm;
     }
@@ -69,6 +71,7 @@
   }
 
   [zoom=14] {
+    text-min-distance: 5;
     [highway='trunk'],[highway='primary'] {
 		text-dy: 9;
       	text-size: @text_font_size_medium;
@@ -80,6 +83,7 @@
   }
 
   [zoom=15] {
+    text-min-distance: 10;
     [highway='trunk'],[highway='primary'] {
 		text-dy: @text_font_size_xsm;
       	text-size: 15;
@@ -91,6 +95,7 @@
   }
 
   [zoom=16] {
+    text-min-distance: 12;
     text-dy: 13;
     [highway='trunk'],[highway='primary'] { 
       	text-size: @text_font_size_medium;
@@ -103,6 +108,7 @@
   }
 
   [zoom=17] {
+    text-min-distance: 12;
     [highway='trunk'] {
 		text-dy: 16;
       	text-size: @text_font_size_medium_plus;
@@ -126,6 +132,7 @@
   }
 
   [zoom>=18] {
+    text-min-distance: 12;
     [highway='trunk'] {
 		text-size: @text_font_size_medium_plus;
     }
@@ -152,6 +159,5 @@
   
   [zoom>=18][railway='station'] { 
 	point-file: url('images/subway.png'); 
+  }
 }
-}
-
