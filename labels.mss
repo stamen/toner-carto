@@ -1,15 +1,22 @@
 @text_font_transport_bold: 'Arial Bold';
+@text_font_physical_bold: 'Arial Bold';
+@text_font_administrative: 'Arial Regular';
+@text_font_administrative_bold: 'Arial Bold';
 @text_font_water: 'Arial Italic';
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
 @label_color_transport_halo: #fff;
 @label_color_physical: #000;
 @label_color_physical_halo: #fff;
+@label_color_administrative: #000;
+@label_color_administrative_halo: #fff;
+
 @text_font_size_xxsm: 10;
 @text_font_size_xsm: 12;
 @text_font_size_sm: 13;
 @text_font_size_medium: 14;
 @text_font_size_medium_plus: 16;
+@text_font_size_large: 18;
 @text_font_halo_radius_large: 2;
 
 #minor_road_labels {
@@ -263,4 +270,106 @@
       text-wrap-width: 40; 
     }
   }
+}
+
+#continents[zoom>=1][zoom<3]
+{
+  	text-name: "[name]";
+    text-face-name: @text_font_physical_bold;
+    text-wrap-width: 32;
+    text-size: @text_font_size_medium;
+    text-fill: @label_color_physical;
+    text-halo-radius: 3;
+    text-halo-fill: @label_color_physical_halo;
+  	text-placement: point;
+}
+
+#admin1-labels-50m-z4 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z4]";
+    text-size:  @text_font_size_xsm;
+}
+
+#admin1-labels-50m-z5 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z5]";
+    text-size:  @text_font_size_medium_plus;
+}
+
+#admin1-labels-50m-z6 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z6]";
+    text-size:  @text_font_size_large;
+}
+
+#admin1-labels-50m-z7 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z7]";
+    text-size:  @text_font_size_large;
+}
+
+#admin0-labels-z3[longfrom>3] {
+  	text-name: "[shortname]";
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-size: @text_font_size_sm;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo;
+}
+
+#admin0-labels-z3[longfrom<=3] {
+  	text-name: "[name]";
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-size: @text_font_size_sm;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo;
+}
+
+#admin0-labels-z4 {
+  	text-name: "[name]";
+    text-face-name: @text_font_administrative_bold;
+    text-wrap-width: 80;
+    text-size: @text_font_size_medium;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo;
+}
+
+#admin0-labels-z5 {
+  	text-name: "[name]";
+    text-face-name: @text_font_administrative_bold;
+    text-wrap-width: 80;
+    text-size: @text_font_size_medium_plus;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo;
+}
+
+#admin0-labels-z6 {
+  	text-name: "[name]";
+    text-face-name: @text_font_administrative_bold;
+    text-wrap-width: 80;
+    text-size: @text_font_size_large;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo;
 }
