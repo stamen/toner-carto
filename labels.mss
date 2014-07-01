@@ -3,6 +3,8 @@
 @text_font_administrative: 'Arial Regular';
 @text_font_administrative_bold: 'Arial Bold';
 @text_font_water: 'Arial Italic';
+@text_font_water_bold: 'Arial Bold Italic';
+
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
 @label_color_transport_halo: #fff;
@@ -372,4 +374,28 @@
     text-fill: @label_color_administrative;
     text-halo-radius: @text_font_halo_radius_large;
     text-halo-fill: @label_color_administrative_halo;
+}
+
+#ne_110m_geography_marine_polys[zoom=2][scalerank=0],
+#ne_110m_geography_marine_polys[zoom=3],
+#ne_50m_geography_marine_polys[zoom=4][scalerank<4] {
+    text-name: "[name]";
+	text-face-name: @text_font_water_bold;
+    text-wrap-width: 80;
+    text-size: @text_font_size_medium;
+    text-fill: @label_color_physical_halo;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_physical;
+}
+
+#ne_50m_geography_marine_polys[zoom=5],
+#ne_10m_geography_marine_polys[zoom>=6][zoom<=8]
+{
+  	text-name: "[name]";
+    text-face-name: @text_font_water;
+    text-wrap-width: 80;
+    text-size: @text_font_size_medium;
+    text-fill: @label_color_physical_halo;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_physical;
 }

@@ -690,3 +690,36 @@ Layer:
       <<: *shapefile
       file: shp/labels_admin/admin-0-labels-z6.shp
 
+  - <<: *layer
+    name: ne_110m_geography_marine_polys
+    id:   ne_110m_geography_marine_polys
+    properties:
+      minzoom: 2
+      maxzoom: 3
+    Datasource:
+      cache-features: on
+      <<: *shapefile
+      file: shp/natural_earth/ne_110m_geography_marine_polys-merc.zip
+
+  - <<: *layer
+    name: ne_50m_geography_marine_polys
+    id:   ne_50m_geography_marine_polys
+    properties:
+      minzoom: 4
+      maxzoom: 5
+    Datasource:
+      cache-features: on
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_geography_marine_polys-merc.zip
+
+  - <<: *layer
+    name: ne_10m_geography_marine_polys
+    id:   ne_10m_geography_marine_polys
+    properties:
+      minzoom: 6
+      maxzoom: 8
+    Datasource:
+      cache-features: on
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_geography_marine_polys-merc.zip
+
