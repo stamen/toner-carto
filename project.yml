@@ -472,3 +472,121 @@ Layer:
          FROM osm_stations
          WHERE railway IN ('station') OR highway IN ('bus_stop'))
          AS _
+
+  - <<: *layer
+    name: water-bodies-labels-high
+    id:   water-bodies-labels-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-labels-med
+    id:   water-bodies-labels-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-labels-low
+    id:   water-bodies-labels-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z10
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-labels-high
+    id:   green-areas-labels-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-labels-med
+    id:   green-areas-labels-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-labels-low
+    id:   green-areas-labels-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas_z10
+          WHERE geometry && !bbox!
+        ) AS _

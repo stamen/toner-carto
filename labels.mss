@@ -1,7 +1,10 @@
 @text_font_transport_bold: 'Arial Bold';
+@text_font_water: 'Arial Italic';
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
 @label_color_transport_halo: #fff;
+@label_color_physical: #000;
+@label_color_physical_halo: #fff;
 @text_font_size_xxsm: 10;
 @text_font_size_xsm: 12;
 @text_font_size_sm: 13;
@@ -159,5 +162,105 @@
   
   [zoom>=18][railway='station'] { 
 	point-file: url('images/subway.png'); 
+  }
+}
+
+#water-bodies-labels-low,
+#water-bodies-labels-med,
+#water-bodies-labels-high {
+  [zoom=9][area>100000000],
+  [zoom=10][area>100000000],
+  [zoom=11][area>25000000],
+  [zoom=12][area>5000000],
+  [zoom=13][area>2000000],
+  [zoom=14][area>200000],
+  [zoom=15][area>50000],
+  [zoom=16][area>10000],
+  [zoom>=17] {
+ 	text-name: "[name]";
+	text-face-name: @text_font_water;
+    text-placement: point;
+    text-max-char-angle-delta: 30;
+    text-wrap-width: 40;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-allow-overlap: false;
+    text-fill: @label_color_physical_halo;
+    text-halo-fill: @label_color_physical;
+    [zoom>9][zoom<12] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 200;
+      text-wrap-width: 50;
+    }
+    [zoom=12] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 200;
+      text-wrap-width: 70;
+    }
+    [zoom=13] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 100;
+      text-wrap-width: 70;
+    }
+    [zoom=14] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 100;
+      text-wrap-width: 70;
+    }
+    [zoom>=15] {
+      text-size: @text_font_size_sm;
+      text-spacing: 100;
+      text-wrap-width: 40; 
+    }
+  }
+}
+
+#green-areas-labels-low,
+#green-areas-labels-med,
+#green-areas-labels-high {
+  [zoom=9][area>100000000],
+  [zoom=10][area>100000000],
+  [zoom=11][area>25000000],
+  [zoom=12][area>5000000],
+  [zoom=13][area>2000000],
+  [zoom=14][area>200000],
+  [zoom=15][area>50000],
+  [zoom=16][area>10000],
+  [zoom>=17] {
+ 	text-name: "[name]";
+	text-face-name: @text_font_water;
+    text-placement: point;
+    text-max-char-angle-delta: 30;
+    text-wrap-width: 40;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-allow-overlap: false;
+    
+    text-fill: @label_color_physical;
+    text-halo-fill: @label_color_physical_halo;
+    
+    [zoom>9][zoom<12] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 200;
+      text-wrap-width: 50;
+    }
+    [zoom=12] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 200;
+      text-wrap-width: 70;
+    }
+    [zoom=13] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 100;
+      text-wrap-width: 70;
+    }
+    [zoom=14] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 100;
+      text-wrap-width: 70;
+    }
+    [zoom>=15] {
+      text-size: @text_font_size_sm;
+      text-spacing: 100;
+      text-wrap-width: 40; 
+    }
   }
 }
