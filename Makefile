@@ -26,4 +26,7 @@ sql:
 	psql -f highroad.sql
 
 sfo:
-	imposm3 import -mapping=imposm3_mapping.json -read sf-bay-area.osm.pbf -connection="postgis://localhost/sfo" -write -deployproduction -overwritecache -optimize
+	dropdb sfo2
+	createdb sfo2
+	psql sfo2 -c "create extension postgis"
+	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/sf-bay-area.osm.pbf -connection="postgis://localhost/sfo2" -write -deployproduction -overwritecache -optimize

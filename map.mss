@@ -208,7 +208,8 @@ Map {
   [zoom=17][area>=4000],
   [zoom>=18],
   {
-    polygon-pattern-file: url("images/stripe.png");
+    polygon-pattern-file: url("images/stripe2.png");
+    polygon-pattern-alignment: global;
     line-width: 0.5;
     line-color: @color_building_outline;
   }
