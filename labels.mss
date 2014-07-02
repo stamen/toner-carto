@@ -4,6 +4,7 @@
 @text_font_administrative_bold: 'Arial Bold';
 @text_font_water: 'Arial Italic';
 @text_font_water_bold: 'Arial Bold Italic';
+@text_font_city: 'Arial Regular';
 
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
@@ -12,6 +13,8 @@
 @label_color_physical_halo: #fff;
 @label_color_administrative: #000;
 @label_color_administrative_halo: #fff;
+@label_color_city: #000;
+@label_color_city_halo: #fff;
 
 @text_font_size_xxsm: 10;
 @text_font_size_xsm: 12;
@@ -29,7 +32,7 @@
   text-fill: @label_color_transport;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_transport_halo;
-  text-spacing: 100;
+  text-avoid-edges: true;
   
   [zoom=16] {
     text-dy: 10; 
@@ -59,6 +62,7 @@
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_transport_halo;
   text-spacing: 100;
+  text-avoid-edges: true;
 
   [zoom>=16][highway='primary'] {
 	text-halo-radius: @text_font_halo_radius_large;
@@ -192,7 +196,6 @@
     text-max-char-angle-delta: 30;
     text-wrap-width: 40;
     text-halo-radius: @text_font_halo_radius_large;
-    text-allow-overlap: false;
     text-fill: @label_color_physical_halo;
     text-halo-fill: @label_color_physical;
     [zoom>9][zoom<12] {
@@ -241,7 +244,6 @@
     text-max-char-angle-delta: 30;
     text-wrap-width: 40;
     text-halo-radius: @text_font_halo_radius_large;
-    text-allow-overlap: false;
     
     text-fill: @label_color_physical;
     text-halo-fill: @label_color_physical_halo;
@@ -283,7 +285,6 @@
     text-fill: @label_color_physical;
     text-halo-radius: 3;
     text-halo-fill: @label_color_physical_halo;
-  	text-placement: point;
 }
 
 #admin1-labels-50m-z4 {
@@ -398,4 +399,23 @@
     text-fill: @label_color_physical_halo;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_physical;
+}
+
+#city_labels_z4 {
+  	text-name: "[name]";
+    text-face-name: @text_font_city;
+    text-fill: @label_color_city;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_city_halo;
+  	text-size: @text_font_size_xxsm;
+  	[font_size=14] {
+  		text-size: @text_font_size_medium;  
+  	}
+}
+
+#city_points_z4 {
+  	marker-width: 7;
+  	marker-fill: black;
+  	marker-line-color: white;
+  	marker-line-width: 2;
 }

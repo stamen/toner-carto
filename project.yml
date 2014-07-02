@@ -378,6 +378,16 @@ Layer:
         ) AS _
 
   - <<: *layer
+    name: city_points_z4
+    id:   city_points_z4
+    properties:
+      minzoom: 4
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: merged_points_z4.shp
+
+  - <<: *layer
     name: minor_road_labels
     id:   minor_road_labels
     properties:
@@ -598,7 +608,6 @@ Layer:
       minzoom: 1
       maxzoom: 2
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/dymo/continents_900913.shp
 
@@ -609,7 +618,6 @@ Layer:
       minzoom: 4
       maxzoom: 4
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-1-labels-z4.shp
 
@@ -620,7 +628,6 @@ Layer:
       minzoom: 5
       maxzoom: 5
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-1-labels-z5.shp
 
@@ -631,7 +638,6 @@ Layer:
       minzoom: 6
       maxzoom: 6
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-1-labels-z6.shp
 
@@ -642,7 +648,6 @@ Layer:
       minzoom: 7
       maxzoom: 7
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-1-labels-z7.shp
 
@@ -653,7 +658,6 @@ Layer:
       minzoom: 3
       maxzoom: 3
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin_0_countries_110m-points.shp
 
@@ -664,7 +668,6 @@ Layer:
       minzoom: 4
       maxzoom: 4
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-0-labels-z4.shp
 
@@ -675,7 +678,6 @@ Layer:
       minzoom: 5
       maxzoom: 5
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-0-labels-z5.shp
 
@@ -686,7 +688,6 @@ Layer:
       minzoom: 6
       maxzoom: 6
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/labels_admin/admin-0-labels-z6.shp
 
@@ -697,7 +698,6 @@ Layer:
       minzoom: 2
       maxzoom: 3
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/natural_earth/ne_110m_geography_marine_polys-merc.zip
 
@@ -708,7 +708,6 @@ Layer:
       minzoom: 4
       maxzoom: 5
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/natural_earth/ne_50m_geography_marine_polys-merc.zip
 
@@ -719,7 +718,16 @@ Layer:
       minzoom: 6
       maxzoom: 8
     Datasource:
-      cache-features: on
       <<: *shapefile
       file: shp/natural_earth/ne_10m_geography_marine_polys-merc.zip
+
+  - <<: *layer
+    name: city_labels_z4
+    id:   city_labels_z4
+    properties:
+      minzoom: 4
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: merged_labels_z4.shp
 
