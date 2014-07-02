@@ -5,6 +5,7 @@
 @text_font_water: 'Arial Unicode MS Italic';
 @text_font_water_bold: 'Arial Unicode MS Bold Italic';
 @text_font_city: 'Arial Unicode MS Regular';
+@text_font_city_bold: 'Arial Unicode MS Bold';
 
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
@@ -407,19 +408,94 @@
     text-halo-fill: @label_color_physical;
 }
 
-#city_labels_z4 {
+#city_labels_z4,
+#city_labels_z5,
+#city_labels_z6 {
   	text-name: "[name]";
     text-face-name: @text_font_city;
     text-fill: @label_color_city;
     text-halo-radius: @text_font_halo_radius_large;
     text-halo-fill: @label_color_city_halo;
-  	text-size: @text_font_size_xxsm;
-  	[font_size=14] {
-  		text-size: @text_font_size_medium;  
-  	}
+  	text-min-distance: 5;
+  
+  	#city_labels_z4 {
+      text-size: @text_font_size_xxsm;
+      [font_size=14] {
+          text-size: @text_font_size_medium;  
+      }
+    }
+  
+   	#city_labels_z5 {
+      text-size: @text_font_size_xsm;
+      [font_size=16] {
+          text-size: @text_font_size_medium_plus;  
+      }
+    }
+  
+    #city_labels_z6 {
+      text-size: @text_font_size_xsm;
+      [font_size=18] {
+          text-size: @text_font_size_large;  
+      }
+   }
+  
+    [justified='left'] {
+    	text-horizontal-alignment: middle;
+    	text-dx: -5;
+    }
+    [justified='right'] {
+    	text-horizontal-alignment: middle;
+    	text-dx: 5;
+    }
 }
 
-#city_points_z4 {
+#city_labels_z7,
+#city_labels_z8, {
+	text-name: "[name]";
+    text-face-name: @text_font_city_bold;
+    text-fill: @label_color_city;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_city_halo;  
+	text-size: @text_font_size_sm;
+    [font_size=20] { text-size: @text_font_size_large; }  
+  
+  	#city_labels_z7 {
+   	  text-size: @text_font_size_xsm;
+      [font_size=18] {
+          text-size: @text_font_size_large;  
+      }
+    }
+  
+  	[justified='left'] {
+    	text-horizontal-alignment: middle;
+    	text-dx: -5;
+    }
+    [justified='right'] {
+    	text-horizontal-alignment: middle;
+    	text-dx: 5;
+    }
+}
+
+#city_labels_z9,
+#city_labels_z10,
+#city_labels_z11,
+#city_labels_z12, {
+  	text-name: "[name]";
+    text-face-name: @text_font_city_bold;
+    text-fill: @label_color_city;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_city_halo;  
+	text-size: @text_font_size_sm;
+    [font_size=20] { text-size: @text_font_size_large; }  
+}
+
+
+#city_points_z4,
+#city_points_z5, 
+#city_points_z6,
+#city_points_z7,
+#city_points_z8 {
+  	marker-ignore-placement: true;
   	marker-width: 7;
   	marker-fill: black;
   	marker-line-color: white;

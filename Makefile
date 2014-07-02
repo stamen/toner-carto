@@ -49,4 +49,3 @@ merged_points_z4.shp:
 	ogr2ogr -t_srs "EPSG:3857" -s_srs "EPSG:4326" merged_points_z4.shp -append shp/city_labels/north-america-points-z4.shp
 	ogr2ogr -t_srs "EPSG:3857" -s_srs "EPSG:4326" merged_points_z4.shp -append shp/city_labels/south-america-points-z4.shp
 	shapeindex merged_points_z4.shp
-
