@@ -170,6 +170,17 @@ Map {
   polygon-fill: @color_water;
 }
 
+/**
+ * Water bodies that are parts of rivers
+ * should never be filtered
+ */
+#water-bodies-low[type='riverbank'],
+#water-bodies-med[type='riverbank'],
+#water-bodies-high[type='riverbank']
+{ 
+  polygon-fill: @color_water;
+}
+
 #land {
   // TODO polygon seams
   polygon-fill: @color_physical_bright;
