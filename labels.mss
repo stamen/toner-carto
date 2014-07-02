@@ -1,10 +1,10 @@
-@text_font_transport_bold: 'Arial Bold';
-@text_font_physical_bold: 'Arial Bold';
-@text_font_administrative: 'Arial Regular';
-@text_font_administrative_bold: 'Arial Bold';
-@text_font_water: 'Arial Italic';
-@text_font_water_bold: 'Arial Bold Italic';
-@text_font_city: 'Arial Regular';
+@text_font_transport_bold: 'Arial Unicode MS Bold';
+@text_font_physical_bold: 'Arial Unicode MS Bold';
+@text_font_administrative: 'Arial Unicode MS Regular';
+@text_font_administrative_bold: 'Arial Unicode MS Bold';
+@text_font_water: 'Arial Unicode MS Italic';
+@text_font_water_bold: 'Arial Unicode MS Bold Italic';
+@text_font_city: 'Arial Unicode MS Regular';
 
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
@@ -198,8 +198,9 @@
     text-halo-radius: @text_font_halo_radius_large;
     text-fill: @label_color_physical_halo;
     text-halo-fill: @label_color_physical;
+    text-size: @text_font_size_xsm;
+    
     [zoom>9][zoom<12] {
-      text-size: @text_font_size_xsm;
       text-spacing: 200;
       text-wrap-width: 50;
     }
@@ -248,11 +249,15 @@
     text-fill: @label_color_physical;
     text-halo-fill: @label_color_physical_halo;
     
+    text-line-spacing: -1;
+    text-min-distance: 10;
+    text-size: @text_font_size_xsm;
+    
     [zoom>9][zoom<12] {
-      text-size: @text_font_size_xsm;
       text-spacing: 200;
       text-wrap-width: 50;
     }
+    
     [zoom=12] {
       text-size: @text_font_size_xsm;
       text-spacing: 200;
@@ -335,6 +340,7 @@
     text-fill: @label_color_administrative;
     text-halo-radius: @text_font_halo_radius_large;
     text-halo-fill: @label_color_administrative_halo;
+  	text-min-distance: 1;
 }
 
 #admin0-labels-z3[longfrom<=3] {

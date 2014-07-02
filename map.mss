@@ -20,6 +20,7 @@
 
 Map {
   background-color: @color_physical;
+  font-directory: url("fonts/");
 }
 
 /**

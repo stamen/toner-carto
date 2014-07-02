@@ -3,8 +3,7 @@
 name:             toner-background
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-bounds:           [-123.640, 36.791, -121.025, 38.719]
-center:           [-122.5369, 37.8704, 13]
+center:           [0, 0, 2]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -700,6 +699,7 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_110m_geography_marine_polys-merc.zip
+      encoding: "ISO-8859-1"
 
   - <<: *layer
     name: ne_50m_geography_marine_polys
@@ -710,6 +710,7 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_50m_geography_marine_polys-merc.zip
+      encoding: "ISO-8859-1"
 
   - <<: *layer
     name: ne_10m_geography_marine_polys
@@ -720,6 +721,7 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_geography_marine_polys-merc.zip
+      encoding: "ISO-8859-1"
 
   - <<: *layer
     name: city_labels_z4
