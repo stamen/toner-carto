@@ -8,3 +8,4 @@ stylesheet.xml
 *.swp
 node_modules
 .thumb.png
+cache
