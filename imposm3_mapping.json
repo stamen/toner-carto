@@ -27,30 +27,37 @@
         },
         "green_areas_z13": {
           "source": "green_areas",
+          "sql_filter": "area > 75000",
           "tolerance": 9
         },
         "green_areas_z10": {
           "source": "green_areas",
+          "sql_filter": "area > 5000000",
           "tolerance": 76
         },
         "brown_areas_z13": {
           "source": "brown_areas",
+          "sql_filter": "area > 75000",
           "tolerance": 9
         },
         "brown_areas_z10": {
           "source": "brown_areas",
+          "sql_filter": "area > 5000000",
           "tolerance": 76
         },
         "water_areas_z13": {
           "source": "water_areas",
+          "sql_filter": "area > 25000 OR type = 'riverbank'",
           "tolerance": 9
         },
         "water_areas_z10": {
           "source": "water_areas",
+          "sql_filter": "area > 2500000 OR type = 'riverbank'",
           "tolerance": 76
         },
         "buildings_z13": {
           "source": "buildings",
+          "sql_filter": "area > 40000",
           "tolerance": 9
         }
     },
