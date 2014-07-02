@@ -14,13 +14,14 @@ clean:
 project.mml: project.yml
 	cat project.yml | (source .env && node jsonify.js $$DATABASE_URL)
 
-data/land-polygons-split-3857.zip:
+#TODO : determine if this is significantly slower than using split land polygons.
+data/land-polygons-complete-3857.zip:
 	mkdir -p data
-	curl -sL http://data.openstreetmapdata.com/land-polygons-split-3857.zip -o data/land-polygons-split-3857.zip
+	curl -sL http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o data/land-polygons-complete-3857.zip
 
-land: data/land-polygons-split-3857.zip
-	cd shp/ && unzip -o ../data/land-polygons-split-3857.zip
-	cd shp/ && shapeindex land-polygons-split-3857/land_polygons.shp
+land: data/land-polygons-complete-3857.zip 
+	cd shp/ && unzip -o ../data/land-polygons-complete-3857.zip
+	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
 
 sql:
 	psql -f highroad.sql
@@ -48,3 +49,4 @@ merged_points_z4.shp:
 	ogr2ogr -t_srs "EPSG:3857" -s_srs "EPSG:4326" merged_points_z4.shp -append shp/city_labels/north-america-points-z4.shp
 	ogr2ogr -t_srs "EPSG:3857" -s_srs "EPSG:4326" merged_points_z4.shp -append shp/city_labels/south-america-points-z4.shp
 	shapeindex merged_points_z4.shp
+

@@ -107,7 +107,7 @@ Layer:
       minzoom: 8
     Datasource:
       <<: *shapefile
-      file: shp/land-polygons-split-3857/land_polygons.shp
+      file: shp/land-polygons-complete-3857/land_polygons.shp
 
   - <<: *layer
     name: admin1-lines-50m
