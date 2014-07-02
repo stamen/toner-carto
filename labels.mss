@@ -6,6 +6,7 @@
 @text_font_water_bold: 'Arial Unicode MS Bold Italic';
 @text_font_city: 'Arial Unicode MS Regular';
 @text_font_city_bold: 'Arial Unicode MS Bold';
+@text_font_poi_bold: 'Arial Unicode MS Bold Italic';
 
 @label_color_transport: #000;
 @text_font_halo_radius_sm: 1;
@@ -16,6 +17,8 @@
 @label_color_administrative_halo: #fff;
 @label_color_city: #000;
 @label_color_city_halo: #fff;
+@label_color_poi: #000;
+@label_color_poi_halo: #fff;
 
 @text_font_size_xxsm: 10;
 @text_font_size_xsm: 12;
@@ -500,4 +503,28 @@
   	marker-fill: black;
   	marker-line-color: white;
   	marker-line-width: 2;
+}
+
+#airports[zoom>=10][zoom<=13] {
+ 	//marker-width: 5;
+  	//marker-fill: red;
+  	//marker-file: url("images/airplane-19-reverse.png");
+	point-file: url('images/airplane-19-reverse.png');
+}
+
+#airports[zoom>=13][scalerank<=12]
+{
+  	text-name: "[name]";
+    text-face-name: @text_font_poi_bold;
+    text-fill: @label_color_poi;
+    text-size: @text_font_size_medium;
+    text-halo-fill: @label_color_poi_halo;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-wrap-width: 128;
+    text-dy: 14;
+    text-allow-overlap: true;
+  
+  	[zoom>=14] {
+    	text-dy: 0;
+    }
 }

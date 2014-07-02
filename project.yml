@@ -444,6 +444,15 @@ Layer:
       <<: *shapefile
       file: merged_labels/merged_points_z8.shp
 
+  - <<: *layer
+    name: airports
+    id:   airports
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_airports-merc.zip
+
 # Start Labels
   - <<: *layer
     name: admin0-labels-z3
@@ -850,5 +859,5 @@ Layer:
       maxzoom: 2
     Datasource:
       <<: *shapefile
-      file: shp/dymo/continents_900913.shp
+      file: shp/continents_900913.shp
 

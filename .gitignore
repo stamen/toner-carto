@@ -1,6 +1,5 @@
 data/
 stuff*/
-shp/
 project.mml
 .env
 stylesheet.xml
@@ -9,3 +8,4 @@ stylesheet.xml
 node_modules
 .thumb.png
 cache
+info.txt
