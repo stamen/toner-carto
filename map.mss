@@ -182,7 +182,6 @@ Map {
 }
 
 #land {
-  // TODO polygon seams
   polygon-fill: @color_physical_bright;
 }
 
@@ -275,7 +274,7 @@ Map {
     line-color: @color_airport_runways_detail;
   }
 
-  [aeroway='runway'] {
+  [type='runway'] {
     [zoom=12] {
       line-width: 2;
     }
@@ -305,7 +304,7 @@ Map {
     }
   }
 
-  [aeroway='taxiway'] {
+  [type='taxiway'] {
     [zoom=13] {
       line-width: 1;
     }

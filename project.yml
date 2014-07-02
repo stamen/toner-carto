@@ -377,6 +377,24 @@ Layer:
         ) AS _
 
   - <<: *layer
+    name: aeroways
+    id:   aeroways
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: city_points_z4
     id:   city_points_z4
     properties:

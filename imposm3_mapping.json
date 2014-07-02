@@ -97,6 +97,36 @@
                 ]
             }
         },
+        "aeroways": {
+          "fields":[
+                {
+                    "type": "id",
+                    "name": "osm_id",
+                    "key": null
+                },
+                {
+                    "type": "geometry",
+                    "name": "geometry",
+                    "key": null
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "key": "name"
+                },
+                {
+                  "type": "string",
+                  "name": "type",
+                  "key": "aeroway"
+                }
+          ],
+          "type":"linestring",
+          "mapping": {
+            "aeroway": [
+              "__any__"
+            ]
+          }
+        },
         "stations": {
           "fields":[
             {
