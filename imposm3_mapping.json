@@ -1,22 +1,22 @@
 {
     "generalized_tables": {
         "planet_osm_line_z10": {
-            "source": "roads",
+            "source": "planet_osm_line_z11",
             "sql_filter": "highway in ('motorway', 'trunk', 'primary', 'secondary')",
             "tolerance": 76
         },
         "planet_osm_line_z11": {
-            "source": "roads",
+            "source": "planet_osm_line_z12",
             "sql_filter": "highway in ('motorway', 'trunk', 'primary', 'secondary', 'tertiary')",
             "tolerance": 38
         },
         "planet_osm_line_z12": {
-            "source": "roads",
+            "source": "planet_osm_line_z13",
             "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'secondary','tertiary','residential','unclassified','road')",
             "tolerance": 19
         },
         "planet_osm_line_z13": {
-            "source": "roads",
+            "source": "planet_osm_line_z14",
             "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','residential','unclassified','road')",
             "tolerance": 9
         },
@@ -31,7 +31,7 @@
           "tolerance": 9
         },
         "green_areas_z10": {
-          "source": "green_areas",
+          "source": "green_areas_z13",
           "sql_filter": "area > 5000000",
           "tolerance": 76
         },
@@ -41,7 +41,7 @@
           "tolerance": 9
         },
         "brown_areas_z10": {
-          "source": "brown_areas",
+          "source": "brown_areas_z13",
           "sql_filter": "area > 5000000",
           "tolerance": 76
         },
@@ -51,7 +51,7 @@
           "tolerance": 9
         },
         "water_areas_z10": {
-          "source": "water_areas",
+          "source": "water_areas_z13",
           "sql_filter": "area > 2500000 OR type = 'riverbank'",
           "tolerance": 76
         },
