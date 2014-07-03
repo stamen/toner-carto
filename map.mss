@@ -227,7 +227,7 @@ Map {
 
   // Stamen HQ fancy candycane striping
   [zoom>=18] {
-    [osm_id=45074542],
+    [osm_id=260351411],
     [osm_id=224030635], // Seth's house
     {
       polygon-pattern-file: url("images/stripe_color.png");
