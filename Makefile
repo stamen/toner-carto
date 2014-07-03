@@ -25,9 +25,9 @@ land: data/land-polygons-complete-3857.zip
 sql:
 	psql -f highroad.sql
 
-sfo:
-	dropdb sfo2
-	createdb sfo2
-	psql sfo2 -c "create extension postgis"
-	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/sf-bay-area.osm.pbf -connection="postgis://localhost/sfo2" -write -deployproduction -overwritecache -optimize
+ca:
+	dropdb ca
+	createdb ca
+	psql ca -c "create extension postgis"
+	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
 
