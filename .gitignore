@@ -1,6 +1,7 @@
 data/
 stuff*/
-project.mml
+*.mml
+project.xml
 .env
 stylesheet.xml
 .DS_Store
@@ -9,3 +10,4 @@ node_modules
 .thumb.png
 cache
 info.txt
+.vagrant
