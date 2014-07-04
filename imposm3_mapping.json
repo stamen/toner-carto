@@ -1,0 +1,485 @@
+{
+    "generalized_tables": {
+        "planet_osm_line_z10": {
+            "source": "planet_osm_line_z11",
+            "sql_filter": "highway in ('motorway', 'trunk', 'primary', 'secondary')",
+            "tolerance": 76
+        },
+        "planet_osm_line_z11": {
+            "source": "planet_osm_line_z12",
+            "sql_filter": "highway in ('motorway', 'trunk', 'primary', 'secondary', 'tertiary')",
+            "tolerance": 38
+        },
+        "planet_osm_line_z12": {
+            "source": "planet_osm_line_z13",
+            "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'secondary','tertiary','residential','unclassified','road')",
+            "tolerance": 19
+        },
+        "planet_osm_line_z13": {
+            "source": "planet_osm_line_z14",
+            "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','residential','unclassified','road')",
+            "tolerance": 9
+        },
+        "planet_osm_line_z14": {
+            "source": "roads",
+            "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','tertiary_link','residential','unclassified','road','minor') OR railway = 'rail'",
+            "tolerance": 4
+        },
+        "green_areas_z13": {
+          "source": "green_areas",
+          "sql_filter": "area > 75000",
+          "tolerance": 9
+        },
+        "green_areas_z10": {
+          "source": "green_areas_z13",
+          "sql_filter": "area > 5000000",
+          "tolerance": 76
+        },
+        "brown_areas_z13": {
+          "source": "brown_areas",
+          "sql_filter": "area > 75000",
+          "tolerance": 9
+        },
+        "brown_areas_z10": {
+          "source": "brown_areas_z13",
+          "sql_filter": "area > 5000000",
+          "tolerance": 76
+        },
+        "water_areas_z13": {
+          "source": "water_areas",
+          "sql_filter": "area > 25000 OR type = 'riverbank'",
+          "tolerance": 9
+        },
+        "water_areas_z10": {
+          "source": "water_areas_z13",
+          "sql_filter": "area > 2500000 OR type = 'riverbank'",
+          "tolerance": 76
+        },
+        "buildings_z13": {
+          "source": "buildings",
+          "sql_filter": "area > 40000",
+          "tolerance": 9
+        }
+    },
+    "tables": {
+       "admin": {
+            "fields": [
+                {
+                    "type": "id",
+                    "name": "osm_id",
+                    "key": null
+                },
+                {
+                    "type": "geometry",
+                    "name": "geometry",
+                    "key": null
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "key": "name"
+                },
+                {
+                    "type": "mapping_value",
+                    "name": "type",
+                    "key": null
+                },
+                {
+                    "type": "integer",
+                    "name": "admin_level",
+                    "key": "admin_level"
+                }
+            ],
+            "type": "polygon",
+            "mapping": {
+                "boundary": [
+                    "administrative"
+                ]
+            }
+        },
+        "aeroways": {
+          "fields":[
+                {
+                    "type": "id",
+                    "name": "osm_id",
+                    "key": null
+                },
+                {
+                    "type": "geometry",
+                    "name": "geometry",
+                    "key": null
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "key": "name"
+                },
+                {
+                  "type": "string",
+                  "name": "type",
+                  "key": "aeroway"
+                }
+          ],
+          "type":"linestring",
+          "mapping": {
+            "aeroway": [
+              "__any__"
+            ]
+          }
+        },
+        "stations": {
+          "fields":[
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "string",
+              "name": "railway",
+              "key": "railway"
+            },
+            {
+              "type": "string",
+              "name": "highway",
+              "key": "highway"
+            }
+          ],
+          "type":"point",
+          "mappings":{
+            "stations":{
+              "mapping":{
+                "railway":[
+                  "station"
+                ],
+                "highway":[
+                  "bus_stop"
+                ]
+              }
+            }
+          }
+        },
+        "buildings": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "pseudoarea",
+              "name": "area",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "string",
+              "name": "type",
+              "key": "building"
+            }
+          ],
+          "type":"polygon",
+          "mappings": {
+            "building": {
+              "mapping": {
+                "building": [
+                  "__any__"
+                ]
+              }
+            }
+          }
+        },
+        "water_areas": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "pseudoarea",
+              "name": "area",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"polygon",
+          "mappings": {
+            "water_areas": {
+              "mapping": {
+                "natural": [
+                  "water",
+                  "bay"
+                ],
+                "waterway":[
+                  "riverbank"
+                ],
+                "landuse":[
+                  "reservoir"
+                ]
+              }
+            }
+          }
+        },
+        "brown_areas": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "pseudoarea",
+              "name": "area",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"polygon",
+          "mappings": {
+            "brown_areas": {
+              "mapping": {
+                "landuse": [
+                  "brownfield"
+                ],
+                "natural":[
+                  "mud",
+                  "wetland"
+                ]
+              }
+            }
+          }
+        },
+        "green_areas": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "pseudoarea",
+              "name": "area",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"polygon",
+          "mappings": {
+            "green_areas": {
+              "mapping": {
+                "leisure": [
+                  "park",
+                  "water_park",
+                  "marina",
+                  "nature_reserve",
+                  "playground",
+                  "garden",
+                  "common",
+                  "sports_centre",
+                  "golf_course",
+                  "stadium",
+                  "track",
+                  "pitch"
+                ],
+                "amenity":[
+                  "graveyard"
+                ],
+                "landuse":[
+                  "cemetery",
+                  "recreation_ground",
+                  "forest",
+                  "wood"
+                ]
+              }
+            }
+          }
+        },
+        "roads": {
+            "fields": [
+                {
+                    "type": "id",
+                    "name": "osm_id",
+                    "key": null
+                },
+                {
+                    "type": "geometry",
+                    "name": "geometry",
+                    "key": null
+                },
+                {
+                    "type": "string",
+                    "name": "highway",
+                    "key": "highway"
+                },
+                {
+                    "type": "string",
+                    "name": "railway",
+                    "key": "railway"
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "key": "name"
+                },
+                {
+                    "type": "boolint",
+                    "name": "tunnel",
+                    "key": "tunnel"
+                },
+                {
+                    "type": "boolint",
+                    "name": "bridge",
+                    "key": "bridge"
+                },
+                {
+                    "type": "direction",
+                    "name": "oneway",
+                    "key": "oneway"
+                },
+                {
+                    "type": "string",
+                    "name": "ref",
+                    "key": "ref"
+                },
+                {
+                    "type": "wayzorder",
+                    "name": "z_order",
+                    "key": "layer"
+                },
+                {
+                    "type": "string",
+                    "name": "access",
+                    "key": "access"
+                },
+                {
+                    "type": "string",
+                    "name": "service",
+                    "key": "service"
+                },
+                {
+                    "type": "mapping_key",
+                    "name": "class",
+                    "key": null
+                }
+            ],
+            "type": "linestring",
+            "filters": {
+                "exclude_tags": [
+                    ["area", "yes"]
+                ]
+            },
+            "mappings": {
+                "railway": {
+                    "mapping": {
+                        "railway": [
+                            "rail",
+                            "tram",
+                            "light_rail",
+                            "subway",
+                            "narrow_gauge",
+                            "preserved",
+                            "funicular",
+                            "monorail",
+                            "disused"
+                        ]
+                    }
+                },
+                "roads": {
+                    "mapping": {
+                        "man_made": [
+                            "pier",
+                            "groyne"
+                        ],
+                        "highway": [
+                            "motorway",
+                            "motorway_link",
+                            "trunk",
+                            "trunk_link",
+                            "primary",
+                            "primary_link",
+                            "secondary",
+                            "secondary_link",
+                            "tertiary",
+                            "tertiary_link",
+                            "road",
+                            "path",
+                            "track",
+                            "service",
+                            "footway",
+                            "bridleway",
+                            "cycleway",
+                            "steps",
+                            "pedestrian",
+                            "living_street",
+                            "unclassified",
+                            "residential",
+                            "raceway"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

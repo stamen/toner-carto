@@ -14,18 +14,20 @@ clean:
 project.mml: project.yml
 	cat project.yml | (source .env && node jsonify.js $$DATABASE_URL)
 
-sql:
-	psql -f sql/generalize.sql
-	psql -f sql/green_areas.sql
-	psql -f sql/brown_areas.sql
-	psql -f sql/water_areas.sql
-	psql -f sql/roads.sql
-	psql -f sql/buildings.sql
-
-data/land-polygons-split-3857.zip:
+data/land-polygons-complete-3857.zip:
 	mkdir -p data
-	curl -sL http://data.openstreetmapdata.com/land-polygons-split-3857.zip -o data/land-polygons-split-3857.zip
+	curl -sL http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o data/land-polygons-complete-3857.zip
 
-land: data/land-polygons-split-3857.zip
-	cd shp/ && unzip -o ../data/land-polygons-split-3857.zip
-	cd shp/ && shapeindex land-polygons-split-3857/land_polygons.shp
+land: data/land-polygons-complete-3857.zip 
+	cd shp/ && unzip -o ../data/land-polygons-complete-3857.zip
+	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
+
+sql:
+	psql -f highroad.sql
+
+ca:
+	dropdb ca
+	createdb ca
+	psql ca -c "create extension postgis"
+	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
+

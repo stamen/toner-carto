@@ -30,6 +30,7 @@ curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_lakes.zip -o $DIR/ne_10m_lakes.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_rivers_lake_centerlines_scale_rank.zip -o $DIR/ne_10m_rivers_lake_centerlines_scale_rank.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_geography_marine_polys.zip -o $DIR/ne_10m_geography_marine_polys.zip
+curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip -o $DIR/ne_10m_airports.zip
 
 # 50m Natuarl Earth themes
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries_lakes.zip -o $DIR/ne_50m_admin_0_countries_lakes.zip

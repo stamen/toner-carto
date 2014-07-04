@@ -20,6 +20,7 @@
 
 Map {
   background-color: @color_physical;
+  font-directory: url("fonts/");
 }
 
 /**
@@ -169,8 +170,18 @@ Map {
   polygon-fill: @color_water;
 }
 
+/**
+ * Water bodies that are parts of rivers
+ * should never be filtered
+ */
+#water-bodies-low[type='riverbank'],
+#water-bodies-med[type='riverbank'],
+#water-bodies-high[type='riverbank']
+{ 
+  polygon-fill: @color_water;
+}
+
 #land {
-  // TODO polygon seams
   polygon-fill: @color_physical_bright;
 }
 
@@ -209,13 +220,14 @@ Map {
   [zoom>=18],
   {
     polygon-pattern-file: url("images/stripe.png");
+    polygon-pattern-alignment: global;
     line-width: 0.5;
     line-color: @color_building_outline;
   }
 
   // Stamen HQ fancy candycane striping
   [zoom>=18] {
-    [osm_id=45074542],
+    [osm_id=260351411],
     [osm_id=224030635], // Seth's house
     {
       polygon-pattern-file: url("images/stripe_color.png");
@@ -262,7 +274,7 @@ Map {
     line-color: @color_airport_runways_detail;
   }
 
-  [aeroway='runway'] {
+  [type='runway'] {
     [zoom=12] {
       line-width: 2;
     }
@@ -292,7 +304,7 @@ Map {
     }
   }
 
-  [aeroway='taxiway'] {
+  [type='taxiway'] {
     [zoom=13] {
       line-width: 1;
     }
@@ -1045,3 +1057,5 @@ Map {
     line-width: 4;
   }
 }
+
+

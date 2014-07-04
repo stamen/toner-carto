@@ -1,6 +1,13 @@
 data/
 stuff*/
-shp/
-project.mml
+*.mml
+project.xml
 .env
 stylesheet.xml
+.DS_Store
+*.swp
+node_modules
+.thumb.png
+cache
+info.txt
+.vagrant
