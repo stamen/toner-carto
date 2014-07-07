@@ -5,11 +5,12 @@ set -e
 
 echo "DATABASE_URL: $DATABASE_URL"
 sudo rm -f /etc/nginx/sites-enabled/default
-sudo service nginx restart
 sudo cp tessera.nginx /etc/nginx/sites-available/
+sudo ln -s /etc/nginx/sites-available/tessera.nginx /etc/nginx/sites-enabled/tessera.conf
 sudo cp tessera.conf /etc/init/
 pushd ..
 cat project.yml | node jsonify.js $DATABASE_URL
 millstone project.mml > project_milled.mml
 carto project_milled.mml > project.xml
-sudo service tessera status
+sudo service tessera restart
+sudo service nginx restart
