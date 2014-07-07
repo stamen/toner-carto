@@ -57,11 +57,11 @@ Map {
 
   [zoom>=6] {
     line-color: @color_administrative_dark;
-    line-width: 1.2;
+    line-width: 1.6;
   }
 
   [zoom>=7] {
-    line-width: 1.2;
+    line-width: 1.6;
     line-dasharray: 3,7;
     line-cap: round;
   }
@@ -73,25 +73,28 @@ Map {
 }
 
 #admin1-lines-10m {
-  [zoom>=6] {
+  [zoom>=6][scalerank<10] {
     line-width: 0.6;
     line-color: @color_administrative_dark;
   }
 
-  [zoom>=7] {
+  [zoom>=7][scalerank<10] {
     line-width: 1.5;
     line-color: @color_administrative_medium_low;
     line-dasharray: 1,5;
     line-cap: round;
   }
 
-  [zoom>=8] {
+  [zoom>=8][scalerank<10] {
     line-width: 2.0;
     line-color: @color_administrative_medium_high;
   }
 
   [zoom>=9] {
+    line-width: 2.0;
     line-color: @color_administrative_medium_high2;
+    line-dasharray: 1,5;
+    line-cap: round;
   }
 }
 

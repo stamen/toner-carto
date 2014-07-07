@@ -25,6 +25,10 @@ land: data/land-polygons-complete-3857.zip
 sql:
 	psql -f highroad.sql
 
+xml: project.mml
+	millstone project.mml > project_milled.mml
+	carto project_milled.mml > project.xml
+
 ca:
 	dropdb ca
 	createdb ca
