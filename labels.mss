@@ -387,9 +387,13 @@
     text-halo-fill: @label_color_administrative_halo;
 }
 
-#ne_110m_geography_marine_polys[zoom=2][scalerank=0],
-#ne_110m_geography_marine_polys[zoom=3],
-#ne_50m_geography_marine_polys[zoom=4][scalerank<4] {
+// HACK! All the problematic water bodies with accents
+// e.g. "Bahia de Campeche" with an accented i,
+// have an empty "changed" string. So abuse this for now.
+
+#ne_110m_geography_marine_polys[zoom=2][scalerank=0][changed!=''],
+#ne_110m_geography_marine_polys[zoom=3][changed!=''],
+#ne_50m_geography_marine_polys[zoom=4][scalerank<4][changed!=''] {
     text-name: "[name]";
 	text-face-name: @text_font_water_bold;
     text-wrap-width: 80;
@@ -399,8 +403,8 @@
     text-halo-fill: @label_color_physical;
 }
 
-#ne_50m_geography_marine_polys[zoom=5],
-#ne_10m_geography_marine_polys[zoom>=6][zoom<=8]
+#ne_50m_geography_marine_polys[zoom=5][changed!=''],
+#ne_10m_geography_marine_polys[zoom>=6][zoom<=8][changed!='']
 {
   	text-name: "[name]";
     text-face-name: @text_font_water;
