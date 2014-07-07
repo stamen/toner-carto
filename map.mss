@@ -229,6 +229,7 @@ Map {
   [zoom>=18] {
     [osm_id=260351411],
     [osm_id=224030635], // Seth's house
+    [osm_id=248153467], // Sean's house
     {
       polygon-pattern-file: url("images/stripe_color.png");
       line-width: 1.5;
