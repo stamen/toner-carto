@@ -1,6 +1,6 @@
 # == Global project settings ===========================================
 
-name:             toner-background
+name:             toner
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
 center:           [0, 0, 2]

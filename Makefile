@@ -4,7 +4,7 @@ mml: project.mml
 
 install:
 	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner-background
+	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner
 	npm install && npm rebuild
 	echo DATABASE_URL=postgres:///osm > .env
 
