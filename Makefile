@@ -22,9 +22,6 @@ land: data/land-polygons-complete-3857.zip
 	cd shp/ && unzip -o ../data/land-polygons-complete-3857.zip
 	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
 
-sql:
-	psql -f highroad.sql
-
 xml: project.mml
 	millstone project.mml > project_milled.mml
 	carto project_milled.mml > project.xml
@@ -34,4 +31,4 @@ ca:
 	createdb ca
 	psql ca -c "create extension postgis"
 	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
-
+	psql ca -f highroad.sql
