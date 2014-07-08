@@ -8,7 +8,7 @@ Developing
 * run `make land` to get OSM-derived land polygons 
 * run `sh download_natural_earth_data.sh` to get Natural Earth data
 * Download an OSM pbf extract and do an import. You should use the make task `ca` as an example.
-* Start TileMill with `node index.js` from the tilemill repo
+* Start TileMill with `npm start` from the tilemill repo
 
 Useful SQL snippets
 --
