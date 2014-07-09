@@ -838,7 +838,7 @@ Layer:
     name: poi_station_labels 
     id:   poi_station_labels
     properties:
-      minzoom: 12
+      minzoom: 16
     Datasource:
       <<: *postgis
       geometry_field: geometry
@@ -846,7 +846,8 @@ Layer:
         (SELECT geometry,
                 name,
                 railway,
-                highway
+                highway,
+                'M' as label
          FROM osm_stations
          WHERE railway IN ('station') OR highway IN ('bus_stop'))
          AS _

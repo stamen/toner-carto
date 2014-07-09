@@ -173,12 +173,12 @@
 }
 
 #poi_station_labels {
-  [zoom=17][railway='station'] { 
-	point-file: url('images/subway_sm.png'); 
-  }
-  
-  [zoom>=18][railway='station'] { 
-	point-file: url('images/subway.png'); 
+  [zoom>=16][railway='station'] {
+    shield-name: "[label]";
+    shield-face-name: @text_font_transport_bold;
+    shield-fill: white;
+    shield-size: 12;
+    shield-file: url('images/subway_shield_small.svg');
   }
 }
 
