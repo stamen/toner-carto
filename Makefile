@@ -32,3 +32,10 @@ ca:
 	psql ca -c "create extension postgis"
 	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
 	psql ca -f highroad.sql
+
+seattle:
+	dropdb --if-exists imposm_seattle
+	createdb imposm_seattle
+	psql -d imposm_seattle -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read seattle.osm.pbf -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_seattle -f highroad.sql
