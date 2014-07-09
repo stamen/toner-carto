@@ -510,10 +510,8 @@
 }
 
 #airports[zoom>=10][zoom<=13] {
- 	//marker-width: 5;
-  	//marker-fill: red;
-  	//marker-file: url("images/airplane-19-reverse.png");
-	point-file: url('images/airplane-19-reverse.png');
+    marker-width: 18;
+	marker-file: url('images/airplane.svg');
 }
 
 #airports[zoom>=13][scalerank<=12]
