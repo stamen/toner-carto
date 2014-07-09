@@ -315,8 +315,8 @@ Layer:
     properties:
       minzoom: 6
       maxzoom: 8
-    Datasource:
       cache-features: on
+    Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_roads-merc.zip
 
