@@ -23,7 +23,7 @@ CREATE VIEW highroad_z10 AS
                ELSE 99 END) AS priority,
           0 as explicit_layer
       FROM osm_planet_osm_line_z10
-      ORDER BY priority DESC);
+      ORDER BY z_order ASC, priority DESC);
 
 CREATE VIEW highroad_z11 AS
 (SELECT geometry,
@@ -43,7 +43,7 @@ CREATE VIEW highroad_z11 AS
                ELSE 99 END) AS priority,
           0 as explicit_layer
       FROM osm_planet_osm_line_z11
-      ORDER BY priority DESC);
+      ORDER BY z_order ASC, priority DESC);
 
 CREATE VIEW highroad_z12 AS
 (SELECT geometry,
@@ -65,7 +65,7 @@ CREATE VIEW highroad_z12 AS
                ELSE 99 END) AS priority,
           0 as explicit_layer
       FROM osm_planet_osm_line_z12
-      ORDER BY priority DESC);
+      ORDER BY z_order ASC, priority DESC);
 
 CREATE VIEW highroad_z13 AS
 (SELECT geometry,
@@ -88,7 +88,7 @@ CREATE VIEW highroad_z13 AS
                ELSE 99 END) AS priority,
           0 as explicit_layer
       FROM osm_planet_osm_line_z13
-      ORDER BY priority DESC);
+      ORDER BY z_order ASC, priority DESC);
 
 CREATE VIEW highroad_z14 AS
 (SELECT geometry,
@@ -106,12 +106,8 @@ CREATE VIEW highroad_z14 AS
          (CASE WHEN bridge = 1 THEN 'yes'
                ELSE 'no' END) AS is_bridge,
 
-         -- highways still need to be layered on top of everything else at z14
-         (CASE WHEN highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link') THEN 0
-               ELSE 99 END) AS grouping,
-
          -- explicit layer is the physical layering of under- and overpasses
-               z_order AS explicit_layer,
+         z_order AS explicit_layer,
 
          (CASE WHEN highway IN ('motorway') THEN 0
                WHEN highway IN ('trunk') THEN 1
@@ -123,7 +119,7 @@ CREATE VIEW highroad_z14 AS
                WHEN railway IN ('rail') THEN 7
                ELSE 99 END) AS priority
       FROM osm_planet_osm_line_z14
-      ORDER BY grouping DESC, explicit_layer ASC, priority DESC);
+      ORDER BY z_order ASC, priority DESC);
 
 CREATE VIEW highroad_z15plus AS
 (SELECT geometry,

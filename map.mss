@@ -443,7 +443,7 @@ Map {
 
   [zoom>=14] {
     ::outline {
-      line-width: 8;
+      line-width: 0;
     }
 
     line-width: 4;
@@ -455,17 +455,15 @@ Map {
     }
 
     [is_link='yes'] {
-      ::outline {
-        line-width: 6;
+      ::casing {
+        line-width: 4;
       }
 
       line-width: 2.5;
+    }
 
-      [is_bridge='yes'] {
-        ::casing {
-          line-width: 6;
-        }
-      }
+    [is_tunnel='yes'] {
+      line-opacity: 0.5;
     }
   }
 
@@ -492,7 +490,6 @@ Map {
       }
 
       line-width: 3;
-      line-opacity: 0.5;
     }
   }
 
@@ -688,27 +685,27 @@ Map {
 
   [zoom>=14] {
     ::outline {
-      line-width: 6;
+      line-width: 5;
     }
 
     line-width: 1.9;
 
     [is_bridge='yes'] {
       ::casing {
-        line-width: 6;
+        line-width: 5;
       }
     }
 
     [is_link='yes'] {
       ::outline {
-        line-width: 6;
+        line-width: 5;
       }
 
       line-width: 1.9;
 
       [is_bridge='yes'] {
         ::casing {
-          line-width: 6;
+          line-width: 5;
         }
       }
     }
@@ -1061,5 +1058,3 @@ Map {
     line-width: 4;
   }
 }
-
-
