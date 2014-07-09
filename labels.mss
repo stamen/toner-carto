@@ -9,7 +9,6 @@
 @text_font_poi_bold: 'Arial Unicode MS Bold Italic';
 
 @label_color_transport: #000;
-@text_font_halo_radius_sm: 1;
 @label_color_transport_halo: #fff;
 @label_color_physical: #000;
 @label_color_physical_halo: #fff;
@@ -26,6 +25,7 @@
 @text_font_size_medium: 14;
 @text_font_size_medium_plus: 16;
 @text_font_size_large: 18;
+@text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
 
 #minor_road_labels {
@@ -99,6 +99,7 @@
     [highway='secondary'] {
 		text-dy: 7;
       	text-size: @text_font_size_xsm;
+        text-halo-radius: 1.5;
     }
   }
 
