@@ -20,11 +20,11 @@ _layer_default:   &layer
 
 _pg_default:      &postgis
   type:           postgis
-  dbname:         '{{dbname}}'
-  host:           '{{dbhost}}'
-  user:           '{{dbuser}}'
-  password:       '{{dbpassword}}'
-  port:           '{{dbport}}'
+  dbname:         '{{PGDATABASE}}'
+  host:           '{{PGHOST}}'
+  user:           '{{PGUSER}}'
+  password:       '{{PGPASSWORD}}'
+  port:           '{{PGPORT}}'
   geometry_field: way
   srid:           3857
   extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'

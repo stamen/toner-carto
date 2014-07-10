@@ -1,8 +1,8 @@
 {
-  "name": "parks-conservancy-basemap",
+  "name": "toner",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "js-yaml": "~2.1.0"
+    "interp": "^0.0.2"
   }
 }

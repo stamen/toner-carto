@@ -12,7 +12,7 @@ clean:
 	rm project.mml
 
 project.mml: project.yml
-	cat project.yml | (source .env && node jsonify.js $$DATABASE_URL)
+	cat project.yml | (set -a && source .env && node_modules/.bin/interp) > project.mml
 
 data/land-polygons-complete-3857.zip:
 	mkdir -p data
