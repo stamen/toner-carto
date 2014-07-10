@@ -164,50 +164,45 @@ CREATE VIEW highroad_z15plus AS
       ORDER BY explicit_layer ASC, implied_layer ASC, priority DESC);
 
 CREATE OR REPLACE FUNCTION high_road(scaleDenominator numeric, bbox box3d)
-  RETURNS TABLE(geometry geometry, highway text, railway text, kind text, is_link text, is_tunnel text, is_bridge text, explicit_layer int) AS
+  RETURNS TABLE(geometry geometry, highway character varying, railway character varying, kind text, is_link text, is_tunnel text, is_bridge text, explicit_layer integer) AS
 $$
+DECLARE
+  tablename TEXT;
 BEGIN
-  -- TODO use concatenation for this
   CASE
     -- z10-
     WHEN scaleDenominator > 400000 THEN
-      RETURN QUERY SELECT tbl.geometry, tbl.highway::text, tbl.railway::text, tbl.kind::text, tbl.is_link::text, tbl.is_tunnel::text, tbl.is_bridge::text, tbl.explicit_layer::int
-      FROM highroad_z10 as tbl
-      WHERE tbl.geometry && bbox;
+      tablename := 'highroad_z10';
 
     -- z11
     WHEN scaleDenominator <= 400000 AND scaleDenominator > 200000 THEN
-      RETURN QUERY SELECT tbl.geometry, tbl.highway::text, tbl.railway::text, tbl.kind::text, tbl.is_link::text, tbl.is_tunnel::text, tbl.is_bridge::text, tbl.explicit_layer::int
-      FROM highroad_z11 as tbl
-      WHERE tbl.geometry && bbox;
+      tablename := 'highroad_z11';
 
     -- z12
     WHEN scaleDenominator <= 200000 AND scaleDenominator > 100000 THEN
-      RETURN QUERY SELECT tbl.geometry, tbl.highway::text, tbl.railway::text, tbl.kind::text, tbl.is_link::text, tbl.is_tunnel::text, tbl.is_bridge::text, tbl.explicit_layer::int
-      FROM highroad_z12 as tbl
-      WHERE tbl.geometry && bbox;
+      tablename := 'highroad_z12';
 
     -- z13
     WHEN scaleDenominator <= 100000 AND scaleDenominator > 50000 THEN
-      RETURN QUERY SELECT tbl.geometry, tbl.highway::text, tbl.railway::text, tbl.kind::text, tbl.is_link::text, tbl.is_tunnel::text, tbl.is_bridge::text, tbl.explicit_layer::int
-      FROM highroad_z13 as tbl
-      WHERE tbl.geometry && bbox;
+      tablename := 'highroad_z13';
 
     -- z14
     WHEN scaleDenominator <= 50000 AND scaleDenominator > 25000 THEN
-      RETURN QUERY SELECT tbl.geometry, tbl.highway::text, tbl.railway::text, tbl.kind::text, tbl.is_link::text, tbl.is_tunnel::text, tbl.is_bridge::text, tbl.explicit_layer::int
-      FROM highroad_z14 as tbl
-      WHERE tbl.geometry && bbox;
+      tablename := 'highroad_z14';
 
     -- z15+
     WHEN scaleDenominator <= 25000 THEN
-      RETURN QUERY SELECT tbl.geometry, tbl.highway::text, tbl.railway::text, tbl.kind::text, tbl.is_link::text, tbl.is_tunnel::text, tbl.is_bridge::text, tbl.explicit_layer::int
-      FROM highroad_z15plus as tbl
-      WHERE tbl.geometry && bbox;
+      tablename := 'highroad_z15plus';
 
     ELSE
-      NULL;
+      RAISE EXCEPTION 'Unsupported zoom level: %', scaleDenominator;
    END CASE;
+
+  RETURN QUERY EXECUTE format(
+    'SELECT geometry, highway, railway, kind, is_link, is_tunnel, is_bridge, explicit_layer
+     FROM %I
+     WHERE geometry && $1', tablename
+  ) USING bbox;
 END
 $$
 LANGUAGE 'plpgsql';
