@@ -273,12 +273,12 @@
       text-spacing: 100;
       text-wrap-width: 70;
     }
-    [zoom=14] {
+    [zoom>=14] {
       text-size: @text_font_size_xsm;
       text-spacing: 100;
       text-wrap-width: 70;
     }
-    [zoom>=15] {
+    [zoom>=16] {
       text-size: @text_font_size_sm;
       text-spacing: 100;
       text-wrap-width: 40; 
