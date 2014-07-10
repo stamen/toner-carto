@@ -1,9 +1,8 @@
 data/
 stuff*/
 *.mml
-project.xml
+*.xml
 .env
-stylesheet.xml
 .DS_Store
 *.swp
 node_modules

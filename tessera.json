@@ -1,0 +1,32 @@
+{
+  "/toner": {
+    "source": "mapnik://./toner.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-background": {
+    "source": "mapnik://./toner-background.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-background z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-lines": {
+    "source": "mapnik://./toner-lines.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-lines z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-labels": {
+    "source": "mapnik://./toner-labels.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-hybrid": {
+    "source": "mapnik://./toner-hybrid.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-hybrid z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  }
+}

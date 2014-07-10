@@ -26,20 +26,7 @@ toner-labels: toner-labels.mml
 toner-hybrid: toner-hybrid.mml
 	cp $@.mml project.mml
 
-toner.mml: project.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
-
-toner-background.mml: toner-background.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
-
-toner-lines.mml: toner-lines.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
-
-toner-labels.mml: toner-labels.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
-
-toner-hybrid.mml: toner-hybrid.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+xml: toner.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
 
 data/land-polygons-complete-3857.zip:
 	mkdir -p data
@@ -48,10 +35,6 @@ data/land-polygons-complete-3857.zip:
 land: data/land-polygons-complete-3857.zip 
 	cd shp/ && unzip -o ../data/land-polygons-complete-3857.zip
 	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
-
-xml: project.mml
-	millstone project.mml > project_milled.mml
-	carto project_milled.mml > project.xml
 
 ca:
 	dropdb ca
@@ -66,3 +49,33 @@ seattle:
 	psql -d imposm_seattle -c "create extension postgis"
 	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read seattle.osm.pbf -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_seattle -f highroad.sql
+
+toner.mml: toner.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-background.mml: toner-background.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-lines.mml: toner-lines.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-labels.mml: toner-labels.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-hybrid.mml: toner-hybrid.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner.xml: toner.mml
+	carto -l $< > $@
+
+toner-background.xml: toner-background.mml
+	carto -l $< > $@
+
+toner-lines.xml: toner-lines.mml
+	carto -l $< > $@
+
+toner-labels.xml: toner-labels.mml
+	carto -l $< > $@
+
+toner-hybrid.xml: toner-hybrid.mml
+	carto -l $< > $@
