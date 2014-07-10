@@ -9,8 +9,7 @@ sudo cp tessera.nginx /etc/nginx/sites-available/
 sudo ln -f -s /etc/nginx/sites-available/tessera.nginx /etc/nginx/sites-enabled/tessera.conf
 sudo cp tessera.conf /etc/init/
 pushd ..
-cat project.yml | (set -a && source .env && ~/node_modules/.bin/interp) > project.mml
-~/node_modules/.bin/millstone project.mml > project_milled.mml
-~/node_modules/.bin/carto project_milled.mml > project.xml
+PATH=~/node_modules/.bin:$PATH
+make xml
 sudo service tessera restart
 sudo service nginx restart

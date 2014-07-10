@@ -1,4 +1,5 @@
 # use PGDATABASE PGHOST etc.
+SHELL := /bin/bash
 
 mml: toner
 
@@ -51,19 +52,19 @@ seattle:
 	psql -d imposm_seattle -f highroad.sql
 
 toner.mml: toner.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+	cat $< | (set -a && source .env && interp) > $@
 
 toner-background.mml: toner-background.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+	cat $< | (set -a && source .env && interp) > $@
 
 toner-lines.mml: toner-lines.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+	cat $< | (set -a && source .env && interp) > $@
 
 toner-labels.mml: toner-labels.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+	cat $< | (set -a && source .env && interp) > $@
 
 toner-hybrid.mml: toner-hybrid.yml
-	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+	cat $< | (set -a && source .env && interp) > $@
 
 toner.xml: toner.mml
 	carto -l $< > $@
