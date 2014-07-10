@@ -349,7 +349,7 @@ Layer:
       table: >
         (
           SELECT *
-          FROM high_road(!scale_denominator!, !bbox!, 'is_tunnel=''no'' AND is_bridge=''no''')
+          FROM high_road(!scale_denominator!, !bbox!)
         ) AS _
 
   - <<: *layer

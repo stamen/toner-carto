@@ -166,8 +166,24 @@ CREATE VIEW highroad_z15plus AS
 CREATE OR REPLACE FUNCTION high_road(scaleDenominator numeric, bbox box3d)
   RETURNS TABLE(geometry geometry, highway character varying, railway character varying, kind text, is_link text, is_tunnel text, is_bridge text, explicit_layer integer) AS
 $$
+DECLARE
+  conditions TEXT;
 BEGIN
-  RETURN QUERY SELECT * FROM high_road(scaleDenominator, bbox, 'true');
+  -- TODO use zoom()
+  CASE
+    -- z13
+    WHEN scaleDenominator <= 100000 AND scaleDenominator > 50000 THEN
+      conditions := 'is_bridge=''no''';
+
+    -- z14+
+    WHEN scaleDenominator <= 50000 THEN
+      conditions := 'is_bridge=''no'' AND is_tunnel=''no''';
+
+    ELSE
+      conditions := 'true';
+  END CASE;
+
+  RETURN QUERY SELECT * FROM high_road(scaleDenominator, bbox, conditions);
 END
 $$
 LANGUAGE 'plpgsql';
@@ -178,6 +194,7 @@ $$
 DECLARE
   tablename TEXT;
 BEGIN
+  -- TODO use zoom()
   CASE
     -- z10-
     WHEN scaleDenominator > 400000 THEN
@@ -205,7 +222,7 @@ BEGIN
 
     ELSE
       RAISE EXCEPTION 'Unsupported zoom level: %', scaleDenominator;
-   END CASE;
+  END CASE;
 
   RETURN QUERY EXECUTE format(
     'SELECT geometry, highway, railway, kind, is_link, is_tunnel, is_bridge, explicit_layer

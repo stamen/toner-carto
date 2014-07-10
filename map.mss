@@ -354,14 +354,10 @@ Map {
 
 #tunnels {
   [zoom>=14] {
-    ::casing,
-    ::outline,
+    ::outline
     {
-      line-opacity: 0.5;
-    }
-
-    ::outline {
-      line-width: 0;
+      line-opacity: 0.7;
+      line-color: @color_transport_tunnel;
     }
 
     line-opacity: 0.5;
@@ -369,11 +365,31 @@ Map {
   }
 
   [zoom>=15] {
-    line-width: 0;
+    ::outline {
+      line-width: 5.5;
+    }
+
+    line-width: 4;
   }
 }
 
 #bridges {
+  [zoom>=13] {
+    ::outline {
+      line-width: 8;
+    }
+
+    line-width: 4;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 3;
+      }
+
+      line-width: 1;
+    }
+  }
+
   [zoom>=14] {
     ::outline {
       line-width: 8;
@@ -384,6 +400,22 @@ Map {
     [is_link='yes'] {
       ::outline {
         line-width: 4;
+      }
+
+      line-width: 2.5;
+    }
+  }
+
+  [zoom>=15] {
+    ::casing {
+      line-width: 11;
+    }
+
+    line-width: 6;
+
+    [is_link='yes'] {
+      ::casing {
+        line-width: 5.5;
       }
 
       line-width: 2.5;
@@ -405,25 +437,6 @@ Map {
   line-width: 0;
   line-color: @color_transport;
 
-  [is_tunnel='yes']
-  {
-    [zoom>=14]
-    {
-      ::casing {
-        line-opacity: 0.5;
-      }
-
-      ::outline {
-        line-opacity: 0.5;
-      }
-    }
-
-    [zoom>=15]
-    {
-      line-opacity: 0; // vs. line-width: 0 to override subsequent styling
-    }
-  }
-
   [is_link='yes']
   {
     [zoom>=16]
@@ -440,7 +453,7 @@ Map {
 #roads[kind='highway']
 {
   [zoom>=9] {
-    ::casing {
+    ::outline {
       line-width: 4.25;
     }
 
@@ -449,19 +462,23 @@ Map {
 
   [zoom>=10] {
     ::outline {
-      line-width: 6;
+      line-width: 5;
     }
 
     line-width: 2;
   }
 
   [zoom>=11] {
+    ::outline {
+      line-width: 5.5;
+    }
+
     line-width: 2.5;
   }
 
   [zoom>=12] {
     ::outline {
-      line-width: 8;
+      line-width: 6;
     }
 
     line-width: 3;
@@ -477,10 +494,8 @@ Map {
 
   [zoom>=13] {
     ::outline {
-      line-width: 8;
+      line-width: 7;
     }
-
-    line-width: 3;
 
     [is_link='yes'] {
       ::outline {
@@ -504,22 +519,12 @@ Map {
 
     line-width: 4;
 
-    [is_bridge='yes'] {
-      ::casing {
-        line-width: 8;
-      }
-    }
-
     [is_link='yes'] {
-      ::casing {
+      ::outline {
         line-width: 4;
       }
 
       line-width: 2.5;
-    }
-
-    [is_tunnel='yes'] {
-      line-opacity: 0.5;
     }
   }
 
@@ -536,16 +541,6 @@ Map {
       }
 
       line-width: 2.25;
-    }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 5;
-        line-opacity: 0.7;
-        line-color: @color_transport_tunnel;
-      }
-
-      line-width: 3;
     }
   }
 
