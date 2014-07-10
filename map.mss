@@ -371,6 +371,11 @@ Map {
 
     line-width: 4;
   }
+
+  [zoom>=16],
+  [kind!='highway'] {
+    line-color: red;
+  }
 }
 
 #bridges {
@@ -407,19 +412,24 @@ Map {
   }
 
   [zoom>=15] {
-    ::casing {
+    ::outline {
       line-width: 11;
     }
 
     line-width: 6;
 
     [is_link='yes'] {
-      ::casing {
+      ::outline {
         line-width: 5.5;
       }
 
       line-width: 2.5;
     }
+  }
+
+  [zoom>=16],
+  [kind!='highway'] {
+    line-color: red;
   }
 }
 
