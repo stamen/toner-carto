@@ -1,6 +1,6 @@
 # == Global project settings ===========================================
 
-name:             Toner
+name:             'Toner Labels'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
 center:           [0, 0, 2]
@@ -42,6 +42,7 @@ _shp_default:     &shapefile
 Stylesheet:
   - map.mss
   - labels.mss
+  - toner-labels.mss
 
 
 # == Layers ============================================================
@@ -52,6 +53,7 @@ Layer:
     name: land-shapes-110m
     id:   land-shapes-110m
     class: shore
+    status: off
     properties:
       maxzoom: 1
     Datasource:
@@ -62,6 +64,7 @@ Layer:
     name: country-shapes-110m
     id:   country-shapes-110m
     class: shore
+    status: off
     properties:
       minzoom: 2
       maxzoom: 2
@@ -73,6 +76,7 @@ Layer:
     name: country-shapes-50m
     id:   country-shapes-50m
     class: shore
+    status: off
     properties:
       minzoom: 3
       maxzoom: 5
@@ -84,6 +88,7 @@ Layer:
     name: country-shapes-10m
     id:   country-shapes-10m
     class: shore
+    status: off
     properties:
       minzoom: 6
       maxzoom: 7
@@ -95,6 +100,7 @@ Layer:
     name: coastline-10m
     id:   coastline-10m
     class: shore
+    status: off
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_coastline-merc.zip
@@ -102,6 +108,7 @@ Layer:
   - <<: *layer
     name: land
     id:   land
+    status: off
     properties:
       minzoom: 8
     Datasource:
@@ -111,6 +118,7 @@ Layer:
   - <<: *layer
     name: admin1-lines-50m
     id:   admin1-lines-50m
+    status: off
     properties:
       minzoom: 3
       maxzoom: 5
@@ -121,6 +129,7 @@ Layer:
   - <<: *layer
     name: admin1-lines-10m
     id:   admin1-lines-10m
+    status: off
     properties:
       minzoom: 6
       maxzoom: 9
@@ -132,6 +141,7 @@ Layer:
     name: ne_10m_admin_0_boundary_lines_land
     id:   ne_10m_admin_0_boundary_lines_land
     class: country-boundary-10m
+    status: off
     properties:
       minzoom: 6
       maxzoom: 9
@@ -143,6 +153,7 @@ Layer:
   - <<: *layer
     name: admin1-lines-osm
     id:   admin1-lines-osm
+    status: off
     properties:
       minzoom: 10
     Datasource:
@@ -162,6 +173,7 @@ Layer:
   - <<: *layer
     name: green-areas-high
     id:   green-areas-high
+    status: off
     properties:
       minzoom: 14
     Datasource:
@@ -181,6 +193,7 @@ Layer:
   - <<: *layer
     name: green-areas-med
     id:   green-areas-med
+    status: off
     properties:
       minzoom: 11
       maxzoom: 13
@@ -201,6 +214,7 @@ Layer:
   - <<: *layer
     name: green-areas-low
     id:   green-areas-low
+    status: off
     properties:
       minzoom: 10
       maxzoom: 10
@@ -221,6 +235,7 @@ Layer:
   - <<: *layer
     name: water-bodies-high
     id:   water-bodies-high
+    status: off
     properties:
       minzoom: 14
     Datasource:
@@ -240,6 +255,7 @@ Layer:
   - <<: *layer
     name: water-bodies-med
     id:   water-bodies-med
+    status: off
     properties:
       minzoom: 11
       maxzoom: 13
@@ -260,6 +276,7 @@ Layer:
   - <<: *layer
     name: water-bodies-low
     id:   water-bodies-low
+    status: off
     properties:
       minzoom: 8
       maxzoom: 10
@@ -281,6 +298,7 @@ Layer:
     name: lakes-110m
     id:   lakes-110m
     class: shore
+    status: off
     properties:
       maxzoom: 2
     Datasource:
@@ -291,6 +309,7 @@ Layer:
     name: lakes-50m
     id:   lakes-50m
     class: shore
+    status: off
     properties:
       minzoom: 3
       maxzoom: 6
@@ -302,6 +321,7 @@ Layer:
     name: lakes-10m
     id:   lakes-10m
     class: shore lakes
+    status: off
     properties:
       minzoom: 7
       maxzoom: 7
@@ -312,6 +332,7 @@ Layer:
   - <<: *layer
     name: ne-roads
     id:   ne-roads
+    status: off
     properties:
       minzoom: 6
       maxzoom: 8
@@ -324,6 +345,7 @@ Layer:
     name: tunnels
     id:   tunnels
     class: tunnels
+    status: off
     properties:
       minzoom: 14
       cache-features: on
@@ -340,6 +362,7 @@ Layer:
     name: roads
     id:   roads
     class: roads
+    status: off
     properties:
       minzoom: 9
       cache-features: on
@@ -356,6 +379,7 @@ Layer:
     name: bridges
     id:   bridges
     class: bridges
+    status: off
     properties:
       minzoom: 13
       cache-features: on
@@ -372,6 +396,7 @@ Layer:
   - <<: *layer
     name: buildings-high
     id:   buildings-high
+    status: off
     properties:
       minzoom: 14
     Datasource:
@@ -392,6 +417,7 @@ Layer:
   - <<: *layer
     name: buildings-med
     id:   buildings-med
+    status: off
     properties:
       minzoom: 13
       maxzoom: 13
@@ -412,6 +438,7 @@ Layer:
   - <<: *layer
     name: aeroways
     id:   aeroways
+    status: off
     properties:
       minzoom: 12
     Datasource:

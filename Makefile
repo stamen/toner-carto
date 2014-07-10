@@ -1,6 +1,6 @@
 # use PGDATABASE PGHOST etc.
 
-mml: project.mml
+mml: toner
 
 install:
 	mkdir -p ${HOME}/Documents/MapBox/project
@@ -9,10 +9,31 @@ install:
 	echo DATABASE_URL=postgres:///osm > .env
 
 clean:
-	rm project.mml
+	rm *.mml
 
-project.mml: project.yml
-	cat project.yml | (set -a && source .env && node_modules/.bin/interp) > project.mml
+toner: toner.mml
+	cp $@.mml project.mml
+
+toner-background: toner-background.mml
+	cp $@.mml project.mml
+
+toner-lines: toner-lines.mml
+	cp $@.mml project.mml
+
+toner-labels: toner-labels.mml
+	cp $@.mml project.mml
+
+toner.mml: project.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-background.mml: toner-background.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-lines.mml: toner-lines.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-labels.mml: toner-labels.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
 
 data/land-polygons-complete-3857.zip:
 	mkdir -p data
