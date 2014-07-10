@@ -1,6 +1,5 @@
+## Developing
 
-Developing
---
 * Install TileMill 1 from HEAD (this has the latest Mapnik): [github.com/mapbox/tilemill](https://github.com/mapbox/tilemill)
 * Install Imposm 3: [github.com/omniscale/imposm3](https://github.com/omniscale/imposm3)
 * Clone this repo
@@ -10,8 +9,16 @@ Developing
 * Download an OSM pbf extract and do an import. You should use the make task `ca` as an example.
 * Start TileMill with `npm start` from the tilemill repo
 
-Useful SQL snippets
---
+## Deploying
+
+(in-progress)
+
+```bash
+make xml
+tessera -c tessera.json
+```
+
+## Useful SQL snippets
 
     CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
     AS $$
