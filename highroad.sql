@@ -166,6 +166,15 @@ CREATE VIEW highroad_z15plus AS
 CREATE OR REPLACE FUNCTION high_road(scaleDenominator numeric, bbox box3d)
   RETURNS TABLE(geometry geometry, highway character varying, railway character varying, kind text, is_link text, is_tunnel text, is_bridge text, explicit_layer integer) AS
 $$
+BEGIN
+  RETURN QUERY SELECT * FROM high_road(scaleDenominator, bbox, 'true');
+END
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION high_road(scaleDenominator numeric, bbox box3d, conditions text)
+  RETURNS TABLE(geometry geometry, highway character varying, railway character varying, kind text, is_link text, is_tunnel text, is_bridge text, explicit_layer integer) AS
+$$
 DECLARE
   tablename TEXT;
 BEGIN
@@ -201,7 +210,8 @@ BEGIN
   RETURN QUERY EXECUTE format(
     'SELECT geometry, highway, railway, kind, is_link, is_tunnel, is_bridge, explicit_layer
      FROM %I
-     WHERE geometry && $1', tablename
+     WHERE geometry && $1
+      AND %s', tablename, conditions
   ) USING bbox;
 END
 $$
