@@ -23,6 +23,9 @@ toner-lines: toner-lines.mml
 toner-labels: toner-labels.mml
 	cp $@.mml project.mml
 
+toner-hybrid: toner-hybrid.mml
+	cp $@.mml project.mml
+
 toner.mml: project.yml
 	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
 
@@ -33,6 +36,9 @@ toner-lines.mml: toner-lines.yml
 	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
 
 toner-labels.mml: toner-labels.yml
+	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
+
+toner-hybrid.mml: toner-hybrid.yml
 	cat $< | (set -a && source .env && node_modules/.bin/interp) > $@
 
 data/land-polygons-complete-3857.zip:
