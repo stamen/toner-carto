@@ -363,7 +363,9 @@ Map {
     line-opacity: 0.5;
     line-width: 4;
   }
+}
 
+#tunnels[kind='highway'] {
   [zoom>=15] {
     ::outline {
       line-width: 5.5;
@@ -372,13 +374,175 @@ Map {
     line-width: 4;
   }
 
-  [zoom>=16],
-  [kind!='highway'] {
-    line-color: red;
+  [zoom>=16] {
+    ::outline {
+      line-width: 7;
+      line-opacity: 0.4;
+    }
+
+    line-opacity: 0.7;
+    line-color: @color_transport_tunnel;
+
+    [is_link='yes'] {
+      ::outline {
+        line-color: @color_transport_casing;
+      }
+    }
+  }
+
+  [zoom>=17] {
+    ::outline {
+      line-width: 18;
+    }
+
+    line-width: 12;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 9;
+      }
+    }
+  }
+
+  [zoom>=18] {
+    ::outline {
+      line-width: 22;
+      line-color: @color_transport;
+    }
+
+    line-width: 18;
+    line-color: @color_transport_inline;
+  }
+
+  [zoom>=19] {
+    ::outline {
+      line-width: 30;
+    }
+
+    line-width: 26;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 13;
+      }
+    }
   }
 }
 
-#bridges {
+#tunnels[kind='major_road'] {
+  [zoom>=15] {
+    ::outline {
+      line-width: 5;
+      line-opacity: 0.7;
+      line-color: @color_transport_tunnel;
+    }
+
+    line-width: 3;
+    line-opacity: 0.5;
+  }
+
+  [zoom>=16] {
+    ::outline {
+      line-width: 7;
+      line-opacity: 0.4;
+    }
+
+    line-opacity: 0.7;
+    line-color: @color_transport_tunnel;
+
+    [is_link='yes'] {
+      ::outline {
+        line-color: @color_transport_casing;
+      }
+    }
+  }
+
+  [zoom>=17] {
+    ::outline {
+      line-width: 18;
+    }
+
+    line-width: 12;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 9;
+      }
+    }
+  }
+
+  [zoom>=18] {
+    ::outline {
+      line-width: 22;
+    }
+
+    line-width: 18;
+  }
+
+  [zoom>=19] {
+    ::outline {
+      line-width: 30;
+    }
+
+    line-width: 26;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 13;
+      }
+    }
+  }
+}
+
+#tunnels[kind='minor_road'] {
+  [zoom>=15] {
+    ::outline {
+      line-opacity: 0.7;
+      line-color: @color_transport_tunnel;
+    }
+
+    line-color: @color_transport_minor;
+    line-width: 1.5;
+    line-opacity: 0.5;
+  }
+
+  [zoom>=16] {
+    ::outline {
+      line-width: 7;
+    }
+
+    line-width: 4;
+    line-color: @color_transport;
+  }
+
+  [zoom>=17] {
+    ::outline {
+      line-width: 9;
+    }
+
+    line-width: 7;
+  }
+
+  [zoom>=18] {
+    ::outline {
+      line-width: 17;
+      line-color: @color_transport;
+    }
+
+    line-width: 13;
+    line-color: @color_transport_casing;
+  }
+
+  [zoom>=19] {
+    ::outline {
+      line-width: 20;
+    }
+
+    line-width: 16;
+  }
+}
+
+#bridges[kind='highway'] {
   [zoom>=13] {
     ::outline {
       line-width: 8;
@@ -427,9 +591,164 @@ Map {
     }
   }
 
-  [zoom>=16],
-  [kind!='highway'] {
-    line-color: red;
+  [zoom>=16] {
+    ::outline {
+      line-width: 14;
+    }
+
+    line-width: 9;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 7;
+      }
+
+      line-width: 2.5;
+    }
+  }
+
+  [zoom>=17] {
+    ::outline {
+      line-width: 20;
+    }
+
+    line-width: 15;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 9;
+      }
+
+      line-width: 5;
+    }
+  }
+
+  [zoom>=18] {
+    ::outline {
+      line-width: 44;
+      line-color: @color_transport;
+    }
+
+    line-width: 28;
+    line-color: @color_transport_inline;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 22;
+      }
+
+      line-width: 18;
+    }
+  }
+
+  [zoom>=19] {
+    ::outline {
+      line-width: 51;
+    }
+
+    line-width: 35;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 21;
+      }
+
+      line-width: 16;
+    }
+  }
+}
+
+#bridges[kind='major_road'] {
+  line-color: @color_transport;
+
+  [zoom>=14] {
+    ::outline {
+      line-width: 5;
+    }
+
+    line-width: 1.9;
+  }
+
+  [zoom>=15] {
+    ::outline {
+      line-width: 8.5;
+    }
+
+    line-width: 5.5;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 5.5;
+      }
+
+      line-width: 2.5;
+    }
+  }
+
+  [zoom>=16] {
+    ::outline {
+      line-width: 11;
+    }
+
+    line-width: 7;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 7;
+      }
+
+      line-width: 2.5;
+    }
+  }
+
+  [zoom>=17] {
+    ::outline {
+      line-width: 18;
+    }
+
+    line-width: 12;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 8;
+      }
+
+      line-width: 4;
+    }
+  }
+
+  [zoom>=18] {
+    ::outline {
+      line-width: 24;
+      line-color: @color_transport;
+    }
+
+    line-width: 18;
+    line-color: @color_transport_inline;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 14;
+      }
+
+      line-width: 9;
+    }
+  }
+
+  [zoom>=19] {
+    ::outline {
+      line-width: 32;
+    }
+
+    line-width: 26;
+
+    [is_link='yes'] {
+      ::outline {
+        line-width: 18;
+      }
+
+      line-width: 13;
+    }
   }
 }
 
@@ -513,12 +832,6 @@ Map {
       }
 
       line-width: 1;
-
-      [is_bridge='yes'] {
-        ::outline {
-          line-width: 3;
-        }
-      }
     }
   }
 
@@ -568,22 +881,6 @@ Map {
 
       line-width: 2.5;
     }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 7;
-        line-opacity: 0.4;
-      }
-
-      line-opacity: 0.7;
-      line-color: @color_transport_tunnel;
-
-      [is_link='yes'] {
-        ::casing {
-          line-color: @color_transport_casing;
-        }
-      }
-    }
   }
 
   [zoom>=17] {
@@ -600,20 +897,6 @@ Map {
 
       line-width: 5;
     }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 18;
-      }
-
-      line-width: 12;
-
-      [is_link='yes'] {
-        ::casing {
-          line-width: 9;
-        }
-      }
-    }
   }
 
   [zoom>=18] {
@@ -625,51 +908,21 @@ Map {
     line-width: 28;
     line-color: @color_transport_inline;
 
-    [is_bridge='yes'] {
-      ::casing {
-        line-width: 44;
-      }
-    }
-
     [is_link='yes'] {
       ::casing {
         line-width: 14;
-        line-color: @color_transport;
       }
 
       line-width: 10;
-      line-color: @color_transport_inline;
-
-      [is_bridge='yes'] {
-        ::casing {
-          line-width: 15;
-        }
-      }
-    }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 22;
-      }
-
-      line-width: 18;
     }
   }
 
   [zoom>=19] {
     ::casing {
       line-width: 49;
-      line-color: @color_transport;
     }
 
     line-width: 35;
-    line-color: @color_transport_casing;
-
-    [is_bridge='yes'] {
-      ::casing {
-        line-width: 51;
-      }
-    }
 
     [is_link='yes'] {
       ::casing {
@@ -677,27 +930,6 @@ Map {
       }
 
       line-width: 16;
-      line-color: @color_transport_casing;
-
-      [is_bridge='yes'] {
-        ::casing {
-          line-width: 21;
-        }
-      }
-    }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 30;
-      }
-
-      line-width: 26;
-
-      [is_link='yes'] {
-        ::casing {
-          line-width: 13;
-        }
-      }
     }
   }
 }
@@ -705,7 +937,7 @@ Map {
 #roads[kind='major_road']
 {
   [zoom<=12] {
-    line-color: #000;
+    line-color: @color_transport;
   }
 
   [zoom>=9] {
@@ -751,24 +983,12 @@ Map {
 
     line-width: 1.9;
 
-    [is_bridge='yes'] {
-      ::casing {
-        line-width: 5;
-      }
-    }
-
     [is_link='yes'] {
       ::outline {
         line-width: 5;
       }
 
       line-width: 1.9;
-
-      [is_bridge='yes'] {
-        ::casing {
-          line-width: 5;
-        }
-      }
     }
   }
 
@@ -786,17 +1006,6 @@ Map {
 
       line-width: 2.25;
     }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 5;
-        line-opacity: 0.7;
-        line-color: @color_transport_tunnel;
-      }
-
-      line-width: 3;
-      line-opacity: 0.5;
-    }
   }
 
   [zoom>=16] {
@@ -812,22 +1021,6 @@ Map {
       }
 
       line-width: 2.5;
-    }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 7;
-        line-opacity: 0.4;
-      }
-
-      line-opacity: 0.7;
-      line-color: @color_transport_tunnel;
-
-      [is_link='yes'] {
-        ::casing {
-          line-color: @color_transport_casing;
-        }
-      }
     }
   }
 
@@ -845,20 +1038,6 @@ Map {
 
       line-width: 4;
     }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 18;
-      }
-
-      line-width: 12;
-
-      [is_link='yes'] {
-        ::casing {
-          line-width: 9;
-        }
-      }
-    }
   }
 
   [zoom>=18] {
@@ -870,34 +1049,12 @@ Map {
     line-width: 18;
     line-color: @color_transport_inline;
 
-    [is_bridge='yes'] {
-      ::casing {
-        line-width: 24;
-      }
-    }
-
     [is_link='yes'] {
       ::casing {
         line-width: 13;
-        line-color: @color_transport;
       }
 
       line-width: 9;
-      line-color: @color_transport_inline;
-
-      [is_bridge='yes'] {
-        ::casing {
-          line-width: 14;
-        }
-      }
-    }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 22;
-      }
-
-      line-width: 18;
     }
   }
 
@@ -907,13 +1064,6 @@ Map {
     }
 
     line-width: 26;
-    line-color: @color_transport_casing;
-
-    [is_bridge='yes'] {
-      ::casing {
-        line-width: 32;
-      }
-    }
 
     [is_link='yes'] {
       ::casing {
@@ -921,27 +1071,6 @@ Map {
       }
 
       line-width: 13;
-      line-color: @color_transport_casing;
-
-      [is_bridge='yes'] {
-        ::casing {
-          line-width: 18;
-        }
-      }
-    }
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-width: 30;
-      }
-
-      line-width: 26;
-
-      [is_link='yes'] {
-        ::casing {
-          line-width: 13;
-        }
-      }
     }
   }
 }
@@ -970,15 +1099,6 @@ Map {
 
   [zoom>=15] {
     line-width: 1.5;
-
-    [is_tunnel='yes'] {
-      ::casing {
-        line-opacity: 0.7;
-        line-color: @color_transport_tunnel;
-      }
-
-      line-opacity: 0.5;
-    }
   }
 
   [zoom>=16] {
@@ -1017,7 +1137,9 @@ Map {
   }
 }
 
-#roads[kind='rail']
+#tunnels[kind='rail'],
+#roads[kind='rail'],
+#bridges[kind='rail']
 {
   ::casing,
   ::outline,
@@ -1062,7 +1184,9 @@ Map {
   }
 }
 
-#roads[highway='service']
+#tunnels[highway='service'],
+#roads[highway='service'],
+#bridges[highway='service'],
 {
   [zoom>=15]
   {
@@ -1086,7 +1210,9 @@ Map {
   }
 }
 
-#roads[kind='path']
+#tunnels[kind='path'],
+#roads[kind='path'],
+#bridges[kind='path'],
 {
   ::casing {
     line-color: @color_transport_path;
