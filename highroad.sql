@@ -12,7 +12,7 @@ CREATE VIEW highroad_z10 AS
          (CASE WHEN highway IN ('motorway') THEN 'highway'
                WHEN highway IN ('trunk', 'primary') THEN 'major_road'
                ELSE 'minor_road' END) AS kind,
-         'no'::VARCHAR AS is_link,
+         'no'::text AS is_link,
          (CASE WHEN tunnel = 1 THEN 'yes'
                ELSE 'no' END) AS is_tunnel,
          (CASE WHEN bridge = 1 THEN 'yes'
@@ -32,7 +32,7 @@ CREATE VIEW highroad_z11 AS
          (CASE WHEN highway IN ('motorway') THEN 'highway'
                WHEN highway IN ('trunk', 'primary') THEN 'major_road'
                ELSE 'minor_road' END) AS kind,
-         'no'::VARCHAR AS is_link,
+         'no'::text AS is_link,
          (CASE WHEN tunnel = 1 THEN 'yes'
                ELSE 'no' END) AS is_tunnel,
          (CASE WHEN bridge = 1 THEN 'yes'
