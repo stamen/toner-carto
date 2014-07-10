@@ -10,7 +10,7 @@ install:
 	echo DATABASE_URL=postgres:///osm > .env
 
 clean:
-	rm *.mml
+	rm *.mml *.xml
 
 toner: toner.mml
 	cp $@.mml project.mml
