@@ -321,6 +321,22 @@ Layer:
       file: shp/natural_earth/ne_10m_roads-merc.zip
 
   - <<: *layer
+    name: tunnels
+    id:   tunnels
+    class: tunnels
+    properties:
+      minzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_tunnel=''yes''')
+        ) AS _
+
+  - <<: *layer
     name: roads
     id:   roads
     class: roads
@@ -333,7 +349,24 @@ Layer:
       table: >
         (
           SELECT *
-          FROM high_road(!scale_denominator!, !bbox!)
+          FROM high_road(!scale_denominator!, !bbox!, 'is_tunnel=''no'' AND is_bridge=''no''')
+        ) AS _
+
+  - <<: *layer
+    name: bridges
+    id:   bridges
+    class: bridges
+    properties:
+      minzoom: 13
+      cache-features: on
+      group-by: explicit_layer
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_bridge=''yes''')
         ) AS _
 
   - <<: *layer
