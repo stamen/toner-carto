@@ -224,7 +224,6 @@ $$
 DECLARE
   tablename TEXT;
 BEGIN
-  -- TODO use zoom()
   CASE
     WHEN zoom(scaleDenominator) <= 10 THEN
       tablename := 'highroad_z10';
