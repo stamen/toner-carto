@@ -1,5 +1,6 @@
 # use PGDATABASE PGHOST etc.
 SHELL := /bin/bash
+PATH := $(PATH):node_modules/.bin
 
 mml: toner
 
@@ -13,18 +14,24 @@ clean:
 	rm -f *.mml *.xml
 
 toner: toner.mml
+	# delete project.mml to signal TM1 that it's changed
+	rm -f project.mml
 	ln -s $@.mml project.mml
 
 toner-background: toner-background.mml
+	rm -f project.mml
 	ln -s $@.mml project.mml
 
 toner-lines: toner-lines.mml
+	rm -f project.mml
 	ln -s $@.mml project.mml
 
 toner-labels: toner-labels.mml
+	rm -f project.mml
 	ln -s $@.mml project.mml
 
 toner-hybrid: toner-hybrid.mml
+	rm -f project.mml
 	ln -s $@.mml project.mml
 
 xml: toner.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
@@ -44,26 +51,55 @@ ca:
 	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
 	psql ca -f highroad.sql
 
-seattle:
+sf: data/san-francisco.osm.pbf
+	dropdb --if-exists imposm_sf
+	createdb imposm_sf
+	psql -d imposm_sf -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/san-francisco.osm.pbf -connection="postgis://localhost/imposm_sf" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_sf -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_sf > .env
+
+seattle: data/seattle.osm.pbf
 	dropdb --if-exists imposm_seattle
 	createdb imposm_seattle
 	psql -d imposm_seattle -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read seattle.osm.pbf -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/seattle.osm.pbf -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_seattle -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_seattle > .env
 
-toner.mml: toner.yml
+sf-bay-area: data/sf-bay-area.osm.pbf
+	dropdb --if-exists imposm_sf_bay_area
+	createdb imposm_sf_bay_area
+	psql -d imposm_sf_bay_area -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/sf-bay-area.osm.pbf -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_sf_bay_area -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_sf_bay_area > .env
+
+data/san-francisco.osm.pbf:
+	mkdir -p data
+	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/san-francisco.osm.pbf -o $@
+
+data/seattle.osm.pbf:
+	mkdir -p data
+	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/seattle.osm.pbf -o $@
+
+data/sf-bay-area.osm.pbf:
+	mkdir -p data
+	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/sf-bay-area.osm.pbf -o $@
+
+toner.mml: toner.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
-toner-background.mml: toner-background.yml
+toner-background.mml: toner-background.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
-toner-lines.mml: toner-lines.yml
+toner-lines.mml: toner-lines.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
-toner-labels.mml: toner-labels.yml
+toner-labels.mml: toner-labels.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
-toner-hybrid.mml: toner-hybrid.yml
+toner-hybrid.mml: toner-hybrid.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
 toner.xml: toner.mml
