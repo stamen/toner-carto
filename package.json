@@ -2,7 +2,12 @@
   "name": "toner",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "start": "make xml && tessera -c tessera.json"
+  },
   "dependencies": {
-    "interp": "^0.0.2"
+    "interp": "^0.0.2",
+    "tessera": "^0.4.1",
+    "tilelive-mapnik": "^0.6.9"
   }
 }
