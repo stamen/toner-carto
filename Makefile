@@ -10,22 +10,22 @@ install:
 	echo DATABASE_URL=postgres:///osm > .env
 
 clean:
-	rm *.mml *.xml
+	rm -f *.mml *.xml
 
 toner: toner.mml
-	cp $@.mml project.mml
+	ln -s $@.mml project.mml
 
 toner-background: toner-background.mml
-	cp $@.mml project.mml
+	ln -s $@.mml project.mml
 
 toner-lines: toner-lines.mml
-	cp $@.mml project.mml
+	ln -s $@.mml project.mml
 
 toner-labels: toner-labels.mml
-	cp $@.mml project.mml
+	ln -s $@.mml project.mml
 
 toner-hybrid: toner-hybrid.mml
-	cp $@.mml project.mml
+	ln -s $@.mml project.mml
 
 xml: toner.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
 
