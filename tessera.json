@@ -28,5 +28,22 @@
     "headers": {
       "Surrogate-Keys": "{{#tile}}toner-hybrid z{{zoom}} x{{x}} y{{y}}{{/tile}}"
     }
+  },
+  "/toner-lite": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "tilejson+http://staging.tile.stamen.com/toner/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-lines/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json"
+        ],
+        "opacities": [
+          0.15,
+          0.35
+        ]
+      }
+    }
   }
 }
