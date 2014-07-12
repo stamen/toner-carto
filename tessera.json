@@ -46,6 +46,23 @@
       }
     }
   },
+  "/toner-lite-local": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "mapnik://./toner.xml",
+          "mapnik://./toner-lines.xml",
+          "mapnik://./toner-labels.xml"
+        ],
+        "opacities": [
+          0.15,
+          0.35
+        ]
+      }
+    }
+  },
   "/blended": {
     "source": {
       "protocol": "blend:",
