@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "make xml && tessera -c tessera.json"
+    "start": "make xml && MAPNIK_FONT_PATH=fonts/ tessera -c tessera.json"
   },
   "dependencies": {
     "interp": "^0.0.2",
