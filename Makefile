@@ -18,6 +18,10 @@ toner: toner.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
+toner-base: toner-base.mml
+	rm -f project.mml
+	ln -s $@.mml project.mml
+
 toner-background: toner-background.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
@@ -34,15 +38,21 @@ toner-hybrid: toner-hybrid.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
-xml: toner.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
+xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
 
 data/land-polygons-complete-3857.zip:
 	mkdir -p data
-	curl -sL http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o data/land-polygons-complete-3857.zip
+	curl -sL http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
 
-land: data/land-polygons-complete-3857.zip 
+data/simplified-land-polygons-complete-3857.zip:
+	mkdir -p data
+	curl -sL http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip -o $@
+
+land: data/land-polygons-complete-3857.zip data/simplified-land-polygons-complete-3857.zip
 	cd shp/ && unzip -o ../data/land-polygons-complete-3857.zip
 	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
+	cd shp/ && unzip -o ../data/simplified-land-polygons-complete-3857.zip
+	cd shp/ && shapeindex simplified-land-polygons-complete-3857/simplified_land_polygons.shp
 
 ca:
 	dropdb ca
@@ -90,6 +100,9 @@ data/sf-bay-area.osm.pbf:
 toner.mml: toner.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
+toner-base.mml: toner-base.yml .env
+	cat $< | (set -a && source .env && interp) > $@
+
 toner-background.mml: toner-background.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
@@ -103,6 +116,9 @@ toner-hybrid.mml: toner-hybrid.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
 toner.xml: toner.mml
+	carto -l $< > $@
+
+toner-base.xml: toner-base.mml
 	carto -l $< > $@
 
 toner-background.xml: toner-background.mml

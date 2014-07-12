@@ -47,6 +47,11 @@ Map {
   polygon-fill: @color_physical_bright;
 }
 
+.country-boundary {
+  line-color: @color_administrative_dark;
+  line-width: 0.25;
+}
+
 .country-boundary-10m {
   ::whiteout {
     [zoom>=7] {
@@ -184,7 +189,8 @@ Map {
   polygon-fill: @color_water;
 }
 
-#land {
+#land,
+.land {
   polygon-fill: @color_physical_bright;
 }
 

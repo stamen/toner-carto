@@ -5,6 +5,12 @@
       "Surrogate-Keys": "{{#tile}}toner z{{zoom}} x{{x}} y{{y}}{{/tile}}"
     }
   },
+  "/toner-base": {
+    "source": "mapnik://./toner-base.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-base z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
   "/toner-background": {
     "source": "mapnik://./toner-background.xml",
     "headers": {
@@ -27,6 +33,19 @@
     "source": "mapnik://./toner-hybrid.xml",
     "headers": {
       "Surrogate-Keys": "{{#tile}}toner-hybrid z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-composited": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "mapnik://./toner-base.xml",
+          "mapnik://./toner-lines.xml",
+          "mapnik://./toner-labels.xml"
+        ]
+      }
     }
   },
   "/toner-lite": {
