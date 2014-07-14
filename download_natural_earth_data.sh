@@ -46,7 +46,7 @@ curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_geography_marine_polys.zip -o $DIR/ne_50m_geography_marine_polys.zip
 
 # 110m Natuarl Earth themes
-curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_boundary_lines_land-merc.zip -o $DIR/ne_110m_admin_0_boundary_lines_land.zip
+curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_boundary_lines_land.zip -o $DIR/ne_110m_admin_0_boundary_lines_land.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries_lakes.zip -o $DIR/ne_110m_admin_0_countries_lakes.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip -o $DIR/ne_50m_admin_0_boundary_lines_land.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_1_states_provinces_lines.zip -o $DIR/ne_110m_admin_1_states_provinces_lines.zip
