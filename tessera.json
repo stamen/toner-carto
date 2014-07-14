@@ -55,6 +55,30 @@
       }
     }
   },
+  "/toner-hybrid-composited": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "mapnik://./toner-lines.xml",
+          "mapnik://./toner-labels.xml"
+        ]
+      }
+    }
+  },
+  "/toner-background-composited": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "mapnik://./toner-base.xml",
+          "mapnik://./toner-lines.xml",
+          "mapnik://./toner-buildings.xml"
+        ]
+      }
+    }
+  },
   "/toner-lite": {
     "source": {
       "protocol": "blend:",
