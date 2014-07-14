@@ -1,6 +1,6 @@
 # == Global project settings ===========================================
 
-name:             toner
+name:             'Toner Base'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
 center:           [0, 0, 2]
@@ -52,6 +52,7 @@ Layer:
     name: land-shapes-110m
     id:   land-shapes-110m
     class: shore
+    status: off
     properties:
       maxzoom: 1
     Datasource:
@@ -62,6 +63,7 @@ Layer:
     name: country-shapes-110m
     id:   country-shapes-110m
     class: shore
+    status: off
     properties:
       minzoom: 2
       maxzoom: 2
@@ -73,6 +75,7 @@ Layer:
     name: country-shapes-50m
     id:   country-shapes-50m
     class: shore
+    status: off
     properties:
       minzoom: 3
       maxzoom: 5
@@ -84,6 +87,7 @@ Layer:
     name: country-shapes-10m
     id:   country-shapes-10m
     class: shore
+    status: off
     properties:
       minzoom: 6
       maxzoom: 7
@@ -100,10 +104,21 @@ Layer:
       file: shp/natural_earth/ne_10m_coastline-merc.zip
 
   - <<: *layer
+    name: simplified-land
+    id:   simplified-land
+    class: land
+    properties:
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: shp/simplified-land-polygons-complete-3857/simplified_land_polygons.shp
+
+  - <<: *layer
     name: land
     id:   land
+    class: land
     properties:
-      minzoom: 8
+      minzoom: 10 
     Datasource:
       <<: *shapefile
       file: shp/land-polygons-complete-3857/land_polygons.shp
@@ -111,6 +126,7 @@ Layer:
   - <<: *layer
     name: admin1-lines-50m
     id:   admin1-lines-50m
+    status: off
     properties:
       minzoom: 3
       maxzoom: 5
@@ -121,6 +137,7 @@ Layer:
   - <<: *layer
     name: admin1-lines-10m
     id:   admin1-lines-10m
+    status: off
     properties:
       minzoom: 6
       maxzoom: 9
@@ -132,6 +149,7 @@ Layer:
     name: ne_10m_admin_0_boundary_lines_land
     id:   ne_10m_admin_0_boundary_lines_land
     class: country-boundary-10m
+    status: off
     properties:
       minzoom: 6
       maxzoom: 9
@@ -143,6 +161,7 @@ Layer:
   - <<: *layer
     name: admin1-lines-osm
     id:   admin1-lines-osm
+    status: off
     properties:
       minzoom: 10
     Datasource:
@@ -312,6 +331,7 @@ Layer:
   - <<: *layer
     name: ne-roads
     id:   ne-roads
+    status: off
     properties:
       minzoom: 6
       maxzoom: 8
@@ -324,6 +344,7 @@ Layer:
     name: tunnels
     id:   tunnels
     class: tunnels
+    status: off
     properties:
       minzoom: 14
       cache-features: on
@@ -340,6 +361,7 @@ Layer:
     name: roads
     id:   roads
     class: roads
+    status: off
     properties:
       minzoom: 9
       cache-features: on
@@ -356,6 +378,7 @@ Layer:
     name: bridges
     id:   bridges
     class: bridges
+    status: off
     properties:
       minzoom: 13
       cache-features: on
@@ -372,6 +395,7 @@ Layer:
   - <<: *layer
     name: buildings-high
     id:   buildings-high
+    status: off
     properties:
       minzoom: 14
     Datasource:
@@ -392,6 +416,7 @@ Layer:
   - <<: *layer
     name: buildings-med
     id:   buildings-med
+    status: off
     properties:
       minzoom: 13
       maxzoom: 13
@@ -412,6 +437,7 @@ Layer:
   - <<: *layer
     name: aeroways
     id:   aeroways
+    status: off
     properties:
       minzoom: 12
     Datasource:
@@ -430,6 +456,7 @@ Layer:
   - <<: *layer
     name: city_points_z4
     id:   city_points_z4
+    status: off
     properties:
       minzoom: 4
       maxzoom: 4
@@ -440,6 +467,7 @@ Layer:
   - <<: *layer
     name: city_points_z5
     id:   city_points_z5
+    status: off
     properties:
       minzoom: 5
       maxzoom: 5
@@ -450,6 +478,7 @@ Layer:
   - <<: *layer
     name: city_points_z6
     id:   city_points_z6
+    status: off
     properties:
       minzoom: 6
       maxzoom: 6
@@ -460,6 +489,7 @@ Layer:
   - <<: *layer
     name: city_points_z7
     id:   city_points_z7
+    status: off
     properties:
       minzoom: 7
       maxzoom: 7
@@ -470,6 +500,7 @@ Layer:
   - <<: *layer
     name: city_points_z8
     id:   city_points_z8
+    status: off
     properties:
       minzoom: 8
       maxzoom: 8
@@ -480,6 +511,7 @@ Layer:
   - <<: *layer
     name: airports
     id:   airports
+    status: off
     properties:
       minzoom: 10
     Datasource:
@@ -490,6 +522,7 @@ Layer:
   - <<: *layer
     name: admin0-labels-z3
     id:   admin0-labels-z3
+    status: off
     properties:
       minzoom: 3
       maxzoom: 3
@@ -500,6 +533,7 @@ Layer:
   - <<: *layer
     name: admin0-labels-z4
     id:   admin0-labels-z4
+    status: off
     properties:
       minzoom: 4
       maxzoom: 4
@@ -510,6 +544,7 @@ Layer:
   - <<: *layer
     name: admin0-labels-z5
     id:   admin0-labels-z5
+    status: off
     properties:
       minzoom: 5
       maxzoom: 5
@@ -520,6 +555,7 @@ Layer:
   - <<: *layer
     name: admin0-labels-z6
     id:   admin0-labels-z6
+    status: off
     properties:
       minzoom: 6
       maxzoom: 6
@@ -530,6 +566,7 @@ Layer:
   - <<: *layer
     name: admin1-labels-50m-z4
     id:   admin1-labels-50m-z4
+    status: off
     properties:
       minzoom: 4
       maxzoom: 4
@@ -540,6 +577,7 @@ Layer:
   - <<: *layer
     name: admin1-labels-50m-z5
     id:   admin1-labels-50m-z5
+    status: off
     properties:
       minzoom: 5
       maxzoom: 5
@@ -550,6 +588,7 @@ Layer:
   - <<: *layer
     name: admin1-labels-50m-z6
     id:   admin1-labels-50m-z6
+    status: off
     properties:
       minzoom: 6
       maxzoom: 6
@@ -560,6 +599,7 @@ Layer:
   - <<: *layer
     name: admin1-labels-50m-z7
     id:   admin1-labels-50m-z7
+    status: off
     properties:
       minzoom: 7
       maxzoom: 7
@@ -570,6 +610,7 @@ Layer:
   - <<: *layer
     name: city_labels_z4
     id:   city_labels_z4
+    status: off
     properties:
       minzoom: 4
       maxzoom: 4
@@ -580,6 +621,7 @@ Layer:
   - <<: *layer
     name: city_labels_z5
     id:   city_labels_z5
+    status: off
     properties:
       minzoom: 5
       maxzoom: 5
@@ -590,6 +632,7 @@ Layer:
   - <<: *layer
     name: city_labels_z6
     id:   city_labels_z6
+    status: off
     properties:
       minzoom: 6
       maxzoom: 6
@@ -600,6 +643,7 @@ Layer:
   - <<: *layer
     name: city_labels_z7
     id:   city_labels_z7
+    status: off
     properties:
       minzoom: 7
       maxzoom: 7
@@ -610,6 +654,7 @@ Layer:
   - <<: *layer
     name: city_labels_z8
     id:   city_labels_z8
+    status: off
     properties:
       minzoom: 8
       maxzoom: 8
@@ -620,6 +665,7 @@ Layer:
   - <<: *layer
     name: city_labels_z9
     id:   city_labels_z9
+    status: off
     properties:
       minzoom: 9
       maxzoom: 9
@@ -630,6 +676,7 @@ Layer:
   - <<: *layer
     name: city_labels_z10
     id:   city_labels_z10
+    status: off
     properties:
       minzoom: 10
       maxzoom: 12
@@ -640,6 +687,7 @@ Layer:
   - <<: *layer
     name: water-bodies-labels-high
     id:   water-bodies-labels-high
+    status: off
     properties:
       minzoom: 14
     Datasource:
@@ -659,6 +707,7 @@ Layer:
   - <<: *layer
     name: water-bodies-labels-med
     id:   water-bodies-labels-med
+    status: off
     properties:
       minzoom: 11
       maxzoom: 13
@@ -679,6 +728,7 @@ Layer:
   - <<: *layer
     name: water-bodies-labels-low
     id:   water-bodies-labels-low
+    status: off
     properties:
       minzoom: 8
       maxzoom: 10
@@ -699,6 +749,7 @@ Layer:
   - <<: *layer
     name: ne_110m_geography_marine_polys
     id:   ne_110m_geography_marine_polys
+    status: off
     properties:
       minzoom: 2
       maxzoom: 3
@@ -710,6 +761,7 @@ Layer:
   - <<: *layer
     name: ne_50m_geography_marine_polys
     id:   ne_50m_geography_marine_polys
+    status: off
     properties:
       minzoom: 4
       maxzoom: 5
@@ -721,6 +773,7 @@ Layer:
   - <<: *layer
     name: ne_10m_geography_marine_polys
     id:   ne_10m_geography_marine_polys
+    status: off
     properties:
       minzoom: 6
       maxzoom: 8
@@ -732,6 +785,7 @@ Layer:
   - <<: *layer
     name: green-areas-labels-high
     id:   green-areas-labels-high
+    status: off
     properties:
       minzoom: 14
     Datasource:
@@ -751,6 +805,7 @@ Layer:
   - <<: *layer
     name: green-areas-labels-med
     id:   green-areas-labels-med
+    status: off
     properties:
       minzoom: 11
       maxzoom: 13
@@ -771,6 +826,7 @@ Layer:
   - <<: *layer
     name: green-areas-labels-low
     id:   green-areas-labels-low
+    status: off
     properties:
       minzoom: 8
       maxzoom: 10
@@ -791,6 +847,7 @@ Layer:
   - <<: *layer
     name: major_road_labels
     id:   major_road_labels
+    status: off
     properties:
       minzoom: 12
     Datasource:
@@ -836,6 +893,7 @@ Layer:
   - <<: *layer
     name: minor_road_labels
     id:   minor_road_labels
+    status: off
     properties:
       minzoom: 16
     Datasource:
@@ -870,6 +928,7 @@ Layer:
   - <<: *layer
     name: poi_station_labels 
     id:   poi_station_labels
+    status: off
     properties:
       minzoom: 16
     Datasource:
@@ -888,6 +947,7 @@ Layer:
   - <<: *layer
     name: continents
     id:   continents
+    status: off
     properties:
       minzoom: 1
       maxzoom: 2

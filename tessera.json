@@ -1,0 +1,116 @@
+{
+  "/toner": {
+    "source": "mapnik://./toner.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-base": {
+    "source": "mapnik://./toner-base.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-base z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-background": {
+    "source": "mapnik://./toner-background.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-background z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-lines": {
+    "source": "mapnik://./toner-lines.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-lines z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-labels": {
+    "source": "mapnik://./toner-labels.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-hybrid": {
+    "source": "mapnik://./toner-hybrid.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-hybrid z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
+  "/toner-composited": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "mapnik://./toner-base.xml",
+          "mapnik://./toner-lines.xml",
+          "mapnik://./toner-labels.xml"
+        ]
+      }
+    }
+  },
+  "/toner-lite": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "tilejson+http://staging.tile.stamen.com/toner/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-lines/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json"
+        ],
+        "opacities": [
+          0.15,
+          0.35
+        ]
+      }
+    }
+  },
+  "/toner-lite-local": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "solid:#fff",
+          "mapnik://./toner.xml",
+          "mapnik://./toner-lines.xml",
+          "mapnik://./toner-labels.xml"
+        ],
+        "opacities": [
+          0.15,
+          0.35
+        ]
+      }
+    }
+  },
+  "/blended": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          "tilejson+http://staging.tile.stamen.com/toner-background/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-lines/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json"
+        ],
+        "offsets": [
+          null,
+          [0.5, 0.5]
+        ],
+        "opacities": [
+          0.25,
+          1
+        ],
+        "operations": [
+          "",
+          "",
+          null
+        ],
+        "filters": [
+          "invert agg-stack-blur(2,2)",
+          "invert agg-stack-blur(2,2)"
+        ],
+        "format": "png32:z=1"
+      }
+    }
+  }
+}

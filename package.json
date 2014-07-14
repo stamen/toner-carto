@@ -2,7 +2,15 @@
   "name": "toner",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "start": "make xml && MAPNIK_FONT_PATH=fonts/ tessera -c tessera.json"
+  },
   "dependencies": {
-    "interp": "^0.0.2"
+    "interp": "^0.0.2",
+    "tessera": "^0.4.1",
+    "tilelive": "^5.0.2",
+    "tilelive-blend": "^0.1.0",
+    "tilelive-mapnik": "^0.6.9",
+    "tilelive-solid": "^0.1.0"
   }
 }
