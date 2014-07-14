@@ -61,11 +61,19 @@ ca:
 	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
 	psql ca -f highroad.sql
 
+ma:	data/massachusetts.osm.pbf
+	dropdb --if-exists imposm_ma
+	createdb imposm_ma
+	psql -d imposm_ma -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_ma" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_ma -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_ma > .env
+
 sf: data/san-francisco.osm.pbf
 	dropdb --if-exists imposm_sf
 	createdb imposm_sf
 	psql -d imposm_sf -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/san-francisco.osm.pbf -connection="postgis://localhost/imposm_sf" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_sf -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_sf > .env
 
@@ -73,7 +81,7 @@ seattle: data/seattle.osm.pbf
 	dropdb --if-exists imposm_seattle
 	createdb imposm_seattle
 	psql -d imposm_seattle -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/seattle.osm.pbf -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_seattle -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_seattle > .env
 
@@ -81,9 +89,13 @@ sf-bay-area: data/sf-bay-area.osm.pbf
 	dropdb --if-exists imposm_sf_bay_area
 	createdb imposm_sf_bay_area
 	psql -d imposm_sf_bay_area -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/sf-bay-area.osm.pbf -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_sf_bay_area -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_sf_bay_area > .env
+
+data/massachusetts.osm.pbf:
+	mkdir -p data
+	curl -sL http://download.geofabrik.de/north-america/us/massachusetts-latest.osm.pbf -o $@
 
 data/san-francisco.osm.pbf:
 	mkdir -p data
