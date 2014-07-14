@@ -30,6 +30,10 @@ toner-lines: toner-lines.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
+toner-buildings: toner-buildings.mml
+	rm -f project.mml
+	ln -s $@.mml project.mml
+
 toner-labels: toner-labels.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
@@ -38,7 +42,7 @@ toner-hybrid: toner-hybrid.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
-xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
+xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
 
 data/land-polygons-complete-3857.zip:
 	mkdir -p data
@@ -121,6 +125,9 @@ toner-background.mml: toner-background.yml .env
 toner-lines.mml: toner-lines.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
+toner-buildings.mml: toner-buildings.yml .env
+	cat $< | (set -a && source .env && interp) > $@
+
 toner-labels.mml: toner-labels.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
@@ -137,6 +144,9 @@ toner-background.xml: toner-background.mml
 	carto -l $< > $@
 
 toner-lines.xml: toner-lines.mml
+	carto -l $< > $@
+
+toner-buildings.xml: toner-buildings.mml
 	carto -l $< > $@
 
 toner-labels.xml: toner-labels.mml

@@ -23,6 +23,12 @@
       "Surrogate-Keys": "{{#tile}}toner-lines z{{zoom}} x{{x}} y{{y}}{{/tile}}"
     }
   },
+  "/toner-buildings": {
+    "source": "mapnik://./toner-buildings.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-buildings z{{zoom}} x{{x}} y{{y}}{{/tile}}"
+    }
+  },
   "/toner-labels": {
     "source": "mapnik://./toner-labels.xml",
     "headers": {
@@ -43,6 +49,7 @@
           "solid:#fff",
           "mapnik://./toner-base.xml",
           "mapnik://./toner-lines.xml",
+          "mapnik://./toner-buildings.xml",
           "mapnik://./toner-labels.xml"
         ]
       }
@@ -56,6 +63,7 @@
           "solid:#fff",
           "tilejson+http://staging.tile.stamen.com/toner/index.json",
           "tilejson+http://staging.tile.stamen.com/toner-lines/index.json",
+          "tilejson+http://staging.tile.stamen.com/toner-buildings/index.json",
           "tilejson+http://staging.tile.stamen.com/toner-labels/index.json"
         ],
         "opacities": [
@@ -73,6 +81,7 @@
           "solid:#fff",
           "mapnik://./toner.xml",
           "mapnik://./toner-lines.xml",
+          "mapnik://./toner-buildings.xml",
           "mapnik://./toner-labels.xml"
         ],
         "opacities": [
