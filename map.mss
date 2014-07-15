@@ -189,6 +189,32 @@ Map {
   polygon-fill: @color_water;
 }
 
+#water-lines-low,
+#water-lines-med,
+#water-lines-high,
+{
+  line-color: @color_water;
+  line-width: 0.5;
+  line-join: round;
+  line-cap: round;
+
+  [zoom>=13] {
+    line-width: 1;
+  }
+
+  [zoom>=15] {
+    line-width: 2;
+  }
+
+  [zoom>=16] {
+    line-width: 4;
+  }
+
+  [zoom>=17] {
+    line-width: 14;
+  }
+}
+
 #land,
 .land {
   polygon-fill: @color_physical_bright;

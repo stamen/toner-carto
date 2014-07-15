@@ -310,6 +310,27 @@ Layer:
       file: shp/natural_earth/ne_10m_lakes-merc.zip
 
   - <<: *layer
+    name: water-lines-high
+    id:   water-lines-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: osm_water_lines
+
+  - <<: *layer
+    name: water-lines-med
+    id:   water-lines-med
+    properties:
+      minzoom: 12
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: osm_water_lines_z13
+
+  - <<: *layer
     name: ne-roads
     id:   ne-roads
     properties:

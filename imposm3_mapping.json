@@ -55,6 +55,10 @@
           "sql_filter": "area > 2500000 OR type = 'riverbank'",
           "tolerance": 76
         },
+        "water_lines_z13": {
+          "source": "water_lines",
+          "tolerance": 9
+        },
         "buildings_z13": {
           "source": "buildings",
           "sql_filter": "area > 40000",
@@ -249,6 +253,41 @@
                 ],
                 "landuse":[
                   "reservoir"
+                ]
+              }
+            }
+          }
+        },
+        "water_lines": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"linestring",
+          "mappings": {
+            "water_lines": {
+              "mapping": {
+                "waterway":[
+                  "river",
+                  "canal"
                 ]
               }
             }
