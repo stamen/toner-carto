@@ -58,6 +58,14 @@ land: data/land-polygons-complete-3857.zip data/simplified-land-polygons-complet
 	cd shp/ && unzip -o ../data/simplified-land-polygons-complete-3857.zip
 	cd shp/ && shapeindex simplified-land-polygons-complete-3857/simplified_land_polygons.shp
 
+belize: data/belize.osm.pbf
+	dropdb --if-exists imposm_belize
+	createdb imposm_belize
+	psql -d imposm_belize -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_belize" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_belize -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_belize > .env
+
 ca:
 	dropdb ca
 	createdb ca
@@ -96,6 +104,10 @@ sf-bay-area: data/sf-bay-area.osm.pbf
 	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_sf_bay_area -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_sf_bay_area > .env
+
+data/belize.osm.pbf:
+	mkdir -p data
+	curl -sL http://download.geofabrik.de/central-america/belize-latest.osm.pbf -o $@
 
 data/massachusetts.osm.pbf:
 	mkdir -p data
