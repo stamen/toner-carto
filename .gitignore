@@ -10,3 +10,4 @@ node_modules
 cache
 info.txt
 .vagrant
+secrets.json

@@ -1,0 +1,27 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "database_url":"postgres:///osm"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "availability_zone":"us-east-1d",
+      "source_ami": "ami-a6926dce",
+      "instance_type": "m3.medium",
+      "ssh_username": "ubuntu",
+      "ami_name": "toner-rendering {{timestamp}}"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provisioning/install_dependencies.sh"
+    }
+  ]
+}

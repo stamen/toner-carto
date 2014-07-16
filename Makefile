@@ -10,6 +10,9 @@ install:
 	npm install && npm rebuild
 	echo DATABASE_URL=postgres:///osm > .env
 
+ami:
+	packer build -var-file=secrets.json packer.json
+
 clean:
 	rm -f *.mml *.xml
 
