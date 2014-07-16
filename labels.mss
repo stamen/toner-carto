@@ -395,7 +395,10 @@
 #ne_110m_geography_marine_polys[zoom=2][scalerank=0][changed!=''],
 #ne_110m_geography_marine_polys[zoom=3][changed!=''],
 #ne_50m_geography_marine_polys[zoom=4][scalerank<4][changed!=''] {
-    text-name: "[name]";
+    text-name: [name];
+  	[namealt!=''] {
+  		text-name: [name] + '\n(' + [namealt] + ')';
+    }
 	text-face-name: @text_font_water_bold;
     text-wrap-width: 80;
     text-size: @text_font_size_medium;
@@ -407,7 +410,10 @@
 #ne_50m_geography_marine_polys[zoom=5][changed!=''],
 #ne_10m_geography_marine_polys[zoom>=6][zoom<=8][changed!='']
 {
-  	text-name: "[name]";
+  	text-name: [name];
+  	[namealt!=''] {
+  		text-name: [name] + '\n(' + [namealt] + ')';
+    }
     text-face-name: @text_font_water;
     text-wrap-width: 80;
     text-size: @text_font_size_medium;
@@ -415,6 +421,7 @@
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_physical;
 }
+
 
 #city_labels_z4,
 #city_labels_z5,

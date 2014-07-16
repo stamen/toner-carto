@@ -33,6 +33,10 @@ toner-lines: toner-lines.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
+toner-buildings: toner-buildings.mml
+	rm -f project.mml
+	ln -s $@.mml project.mml
+
 toner-labels: toner-labels.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
@@ -41,7 +45,7 @@ toner-hybrid: toner-hybrid.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
-xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-labels.xml toner-hybrid.xml
+xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
 
 data/land-polygons-complete-3857.zip:
 	mkdir -p data
@@ -57,6 +61,14 @@ land: data/land-polygons-complete-3857.zip data/simplified-land-polygons-complet
 	cd shp/ && unzip -o ../data/simplified-land-polygons-complete-3857.zip
 	cd shp/ && shapeindex simplified-land-polygons-complete-3857/simplified_land_polygons.shp
 
+belize: data/belize.osm.pbf
+	dropdb --if-exists imposm_belize
+	createdb imposm_belize
+	psql -d imposm_belize -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_belize" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_belize -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_belize > .env
+
 ca:
 	dropdb ca
 	createdb ca
@@ -64,11 +76,19 @@ ca:
 	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
 	psql ca -f highroad.sql
 
+ma:	data/massachusetts.osm.pbf
+	dropdb --if-exists imposm_ma
+	createdb imposm_ma
+	psql -d imposm_ma -c "create extension postgis"
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_ma" -write -deployproduction -overwritecache -optimize
+	psql -d imposm_ma -f highroad.sql
+	echo DATABASE_URL=postgres:///imposm_ma > .env
+
 sf: data/san-francisco.osm.pbf
 	dropdb --if-exists imposm_sf
 	createdb imposm_sf
 	psql -d imposm_sf -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/san-francisco.osm.pbf -connection="postgis://localhost/imposm_sf" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_sf -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_sf > .env
 
@@ -76,7 +96,7 @@ seattle: data/seattle.osm.pbf
 	dropdb --if-exists imposm_seattle
 	createdb imposm_seattle
 	psql -d imposm_seattle -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/seattle.osm.pbf -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_seattle -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_seattle > .env
 
@@ -84,9 +104,17 @@ sf-bay-area: data/sf-bay-area.osm.pbf
 	dropdb --if-exists imposm_sf_bay_area
 	createdb imposm_sf_bay_area
 	psql -d imposm_sf_bay_area -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read data/sf-bay-area.osm.pbf -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
+	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
 	psql -d imposm_sf_bay_area -f highroad.sql
 	echo DATABASE_URL=postgres:///imposm_sf_bay_area > .env
+
+data/belize.osm.pbf:
+	mkdir -p data
+	curl -sL http://download.geofabrik.de/central-america/belize-latest.osm.pbf -o $@
+
+data/massachusetts.osm.pbf:
+	mkdir -p data
+	curl -sL http://download.geofabrik.de/north-america/us/massachusetts-latest.osm.pbf -o $@
 
 data/san-francisco.osm.pbf:
 	mkdir -p data
@@ -112,6 +140,9 @@ toner-background.mml: toner-background.yml .env
 toner-lines.mml: toner-lines.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
+toner-buildings.mml: toner-buildings.yml .env
+	cat $< | (set -a && source .env && interp) > $@
+
 toner-labels.mml: toner-labels.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
@@ -128,6 +159,9 @@ toner-background.xml: toner-background.mml
 	carto -l $< > $@
 
 toner-lines.xml: toner-lines.mml
+	carto -l $< > $@
+
+toner-buildings.xml: toner-buildings.mml
 	carto -l $< > $@
 
 toner-labels.xml: toner-labels.mml
