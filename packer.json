@@ -14,7 +14,8 @@
       "source_ami": "ami-26db174e",
       "instance_type": "m3.medium",
       "ssh_username": "ubuntu",
-      "ami_name": "toner-rendering {{timestamp}}"
+      "ami_name": "toner-rendering {{timestamp}}",
+      "iam_instance_profile": "Packer"
     }
   ],
   "provisioners": [
