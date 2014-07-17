@@ -2,6 +2,16 @@
 SHELL := /bin/bash
 PATH := $(PATH):node_modules/.bin
 
+# Import PBF ($2) as $1
+define import
+dropdb --if-exists imposm_$1
+createdb imposm_$1
+psql -d imposm_$1 -c "create extension postgis"
+imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $2 -connection="postgis://localhost/imposm_$1" -write -deployproduction -overwritecache -optimize
+psql -d imposm_$1 -f highroad.sql
+echo DATABASE_URL=postgres:///imposm_$1 > .env
+endef
+
 mml: toner
 
 install:
@@ -26,86 +36,42 @@ clean:
 
 xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
 
-data/land-polygons-complete-3857.zip:
-	mkdir -p data
-	curl -sL http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
-
-data/simplified-land-polygons-complete-3857.zip:
-	mkdir -p data
-	curl -sL http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip -o $@
-
-land: data/land-polygons-complete-3857.zip data/simplified-land-polygons-complete-3857.zip
-	cd shp/ && unzip -o ../data/land-polygons-complete-3857.zip
+land: data/osmdata/land-polygons-complete-3857.zip data/osmdata/simplified-land-polygons-complete-3857.zip
+	cd shp/ && unzip -o ../data/osmdata/land-polygons-complete-3857.zip
 	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
-	cd shp/ && unzip -o ../data/simplified-land-polygons-complete-3857.zip
+	cd shp/ && unzip -o ../data/osmdata/simplified-land-polygons-complete-3857.zip
 	cd shp/ && shapeindex simplified-land-polygons-complete-3857/simplified_land_polygons.shp
 
-belize: data/belize.osm.pbf
-	dropdb --if-exists imposm_belize
-	createdb imposm_belize
-	psql -d imposm_belize -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_belize" -write -deployproduction -overwritecache -optimize
-	psql -d imposm_belize -f highroad.sql
-	echo DATABASE_URL=postgres:///imposm_belize > .env
+belize: data/extract/central-america/belize-latest.osm.pbf
+	$(call import,$@,$<)
 
-ca:
-	dropdb ca
-	createdb ca
-	psql ca -c "create extension postgis"
-	~/workspace/imposm/bin/imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read /Volumes/Work/osm/california-latest.osm.pbf -connection="postgis://localhost/ca" -write -deployproduction -overwritecache -optimize
-	psql ca -f highroad.sql
+ca: data/extract/north-america/us/california-latest.osm.pbf
+	$(call import,$@,$<)
 
-ma:	data/massachusetts.osm.pbf
-	dropdb --if-exists imposm_ma
-	createdb imposm_ma
-	psql -d imposm_ma -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_ma" -write -deployproduction -overwritecache -optimize
-	psql -d imposm_ma -f highroad.sql
-	echo DATABASE_URL=postgres:///imposm_ma > .env
+ma:	data/extract/north-america/us/massachusetts-latest.osm.pbf
+	$(call import,$@,$<)
 
-sf: data/san-francisco.osm.pbf
-	dropdb --if-exists imposm_sf
-	createdb imposm_sf
-	psql -d imposm_sf -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf" -write -deployproduction -overwritecache -optimize
-	psql -d imposm_sf -f highroad.sql
-	echo DATABASE_URL=postgres:///imposm_sf > .env
+sf: data/metro/san-francisco.osm.pbf
+	$(call import,$@,$<)
 
-seattle: data/seattle.osm.pbf
-	dropdb --if-exists imposm_seattle
-	createdb imposm_seattle
-	psql -d imposm_seattle -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_seattle" -write -deployproduction -overwritecache -optimize
-	psql -d imposm_seattle -f highroad.sql
-	echo DATABASE_URL=postgres:///imposm_seattle > .env
+seattle: data/metro/seattle.osm.pbf
+	$(call import,$@,$<)
 
-sf-bay-area: data/sf-bay-area.osm.pbf
-	dropdb --if-exists imposm_sf_bay_area
-	createdb imposm_sf_bay_area
-	psql -d imposm_sf_bay_area -c "create extension postgis"
-	imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $< -connection="postgis://localhost/imposm_sf_bay_area" -write -deployproduction -overwritecache -optimize
-	psql -d imposm_sf_bay_area -f highroad.sql
-	echo DATABASE_URL=postgres:///imposm_sf_bay_area > .env
+sf_bay_area: data/metro/sf-bay-area.osm.pbf
+	$(call import,$@,$<)
 
-data/belize.osm.pbf:
-	mkdir -p data
-	curl -sL http://download.geofabrik.de/central-america/belize-latest.osm.pbf -o $@
+data/extract/%:
+	mkdir -p $$(dirname $@)
+	curl -sL http://download.geofabrik.de/$(@:data/extract/%=%) -o $@
+	echo done
 
-data/massachusetts.osm.pbf:
-	mkdir -p data
-	curl -sL http://download.geofabrik.de/north-america/us/massachusetts-latest.osm.pbf -o $@
+data/metro/%:
+	mkdir -p data/metro
+	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/$(@:data/metro/%=%) -o $@
 
-data/san-francisco.osm.pbf:
-	mkdir -p data
-	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/san-francisco.osm.pbf -o $@
-
-data/seattle.osm.pbf:
-	mkdir -p data
-	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/seattle.osm.pbf -o $@
-
-data/sf-bay-area.osm.pbf:
-	mkdir -p data
-	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/sf-bay-area.osm.pbf -o $@
+data/osmdata/%:
+	mkdir -p data/osmdata
+	curl -sL http://data.openstreetmapdata.com/$(@:data/osmdata/%=%) -o $@
 
 %.mml: %.yml .env
 	cat $< | (set -a && source .env && interp) > $@
