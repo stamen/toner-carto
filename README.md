@@ -11,11 +11,25 @@
 
 ## Deploying
 
-(in-progress)
+### Locally
 
 ```bash
-make xml
-tessera -c tessera.json
+npm install
+npm start
+```
+
+### EC2
+
+```bash
+export AWS_ACCESS_KEY_ID=...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_ACCESS_KEY=$AWS_ACCESS_KEY_ID
+export AWS_SECRET_KEY=$AWS_SECRET_ACCESS_KEY
+
+make baseami
+BASEAMI=... make ami
+
+ec2-run-instances <AMI> -t m1.small -z us-east-1d -k <keypair> -p EC2_Instance
 ```
 
 ## Useful SQL snippets
