@@ -11,3 +11,4 @@ cache
 info.txt
 .vagrant
 secrets.json
+*.pem

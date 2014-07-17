@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 # sudo mkdir /var/clone
@@ -5,11 +7,9 @@ set -e
 
 echo "DATABASE_URL: $DATABASE_URL"
 sudo rm -f /etc/nginx/sites-enabled/default
-sudo cp tessera.nginx /etc/nginx/sites-available/
+sudo cp /home/ubuntu/toner-carto/tessera.nginx /etc/nginx/sites-available/
 sudo ln -f -s /etc/nginx/sites-available/tessera.nginx /etc/nginx/sites-enabled/tessera.conf
-sudo cp tessera.conf /etc/init/
+sudo cp /home/ubuntu/toner-carto/tessera.conf /etc/init/
 pushd ..
 PATH=~/node_modules/.bin:$PATH
-make xml
-sudo service tessera restart
-sudo service nginx restart
+cd /home/ubuntu/toner-carto && make xml
