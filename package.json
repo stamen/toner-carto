@@ -11,6 +11,7 @@
     "tilelive": "^5.0.2",
     "tilelive-blend": "^0.1.0",
     "tilelive-mapnik": "^0.6.9",
-    "tilelive-solid": "^0.1.0"
+    "tilelive-solid": "^0.1.0",
+    "mapnik": "^1.4.10"
   }
 }
