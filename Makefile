@@ -19,32 +19,8 @@ ami:
 clean:
 	rm -f *.mml *.xml
 
-toner: toner.mml
+%: %.mml
 	# delete project.mml to signal TM1 that it's changed
-	rm -f project.mml
-	ln -s $@.mml project.mml
-
-toner-base: toner-base.mml
-	rm -f project.mml
-	ln -s $@.mml project.mml
-
-toner-background: toner-background.mml
-	rm -f project.mml
-	ln -s $@.mml project.mml
-
-toner-lines: toner-lines.mml
-	rm -f project.mml
-	ln -s $@.mml project.mml
-
-toner-buildings: toner-buildings.mml
-	rm -f project.mml
-	ln -s $@.mml project.mml
-
-toner-labels: toner-labels.mml
-	rm -f project.mml
-	ln -s $@.mml project.mml
-
-toner-hybrid: toner-hybrid.mml
 	rm -f project.mml
 	ln -s $@.mml project.mml
 
@@ -131,44 +107,8 @@ data/sf-bay-area.osm.pbf:
 	mkdir -p data
 	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/sf-bay-area.osm.pbf -o $@
 
-toner.mml: toner.yml .env
+%.mml: %.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
-toner-base.mml: toner-base.yml .env
-	cat $< | (set -a && source .env && interp) > $@
-
-toner-background.mml: toner-background.yml .env
-	cat $< | (set -a && source .env && interp) > $@
-
-toner-lines.mml: toner-lines.yml .env
-	cat $< | (set -a && source .env && interp) > $@
-
-toner-buildings.mml: toner-buildings.yml .env
-	cat $< | (set -a && source .env && interp) > $@
-
-toner-labels.mml: toner-labels.yml .env
-	cat $< | (set -a && source .env && interp) > $@
-
-toner-hybrid.mml: toner-hybrid.yml .env
-	cat $< | (set -a && source .env && interp) > $@
-
-toner.xml: toner.mml
-	carto -l $< > $@
-
-toner-base.xml: toner-base.mml
-	carto -l $< > $@
-
-toner-background.xml: toner-background.mml
-	carto -l $< > $@
-
-toner-lines.xml: toner-lines.mml
-	carto -l $< > $@
-
-toner-buildings.xml: toner-buildings.mml
-	carto -l $< > $@
-
-toner-labels.xml: toner-labels.mml
-	carto -l $< > $@
-
-toner-hybrid.xml: toner-hybrid.mml
+%.xml: %.mml
 	carto -l $< > $@
