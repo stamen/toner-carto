@@ -32,7 +32,7 @@ clean:
 %: %.mml
 	# delete project.mml to signal TM1 that it's changed
 	rm -f project.mml
-	ln -s $@.mml project.mml
+	ln -s $< project.mml
 
 xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
 
