@@ -426,69 +426,65 @@
 #city_labels_z4,
 #city_labels_z5,
 #city_labels_z6 {
-  	text-name: "[name]";
-    text-face-name: @text_font_city;
-    text-fill: @label_color_city;
-    text-halo-radius: @text_font_halo_radius_large;
-    text-halo-fill: @label_color_city_halo;
-  	text-min-distance: 5;
-  
-  	#city_labels_z4 {
-      text-size: @text_font_size_xxsm;
-      [font_size=14] {
-          text-size: @text_font_size_medium;  
-      }
-    }
-  
-   	#city_labels_z5 {
-      text-size: @text_font_size_xsm;
-      [font_size=16] {
-          text-size: @text_font_size_medium_plus;  
-      }
-    }
-  
-    #city_labels_z6 {
-      text-size: @text_font_size_xsm;
-      [font_size=18] {
-          text-size: @text_font_size_large;  
-      }
-   }
-  
-    [justified='left'] {
-    	text-horizontal-alignment: middle;
-    	text-dx: -5;
-    }
-    [justified='right'] {
-    	text-horizontal-alignment: middle;
-    	text-dx: 5;
-    }
+  text-name: [name];
+  text-face-name: @text_font_city;
+  text-fill: @label_color_city;
+  text-vertical-alignment: bottom;
+  text-halo-radius: @text_font_halo_radius_large;
+  text-halo-fill: @label_color_city_halo;
+  text-min-distance: 5;
+
+  [zoom>=4]  {
+    text-size: @text_font_size_xxsm;
+  }
+
+  [zoom>=5] {
+    text-size: @text_font_size_xsm;
+  }
+
+  [font_size=14] {
+    text-size: @text_font_size_medium;
+  }
+
+  [font_size=16] {
+    text-size: @text_font_size_medium_plus;
+  }
+
+  [font_size=18] {
+    text-size: @text_font_size_large;
+  }
 }
 
 #city_labels_z7,
 #city_labels_z8, {
-	text-name: "[name]";
-    text-face-name: @text_font_city_bold;
-    text-fill: @label_color_city;
-    text-halo-radius: @text_font_halo_radius_large;
-    text-halo-fill: @label_color_city_halo;  
-	text-size: @text_font_size_sm;
-    [font_size=20] { text-size: @text_font_size_large; }  
-  
-  	#city_labels_z7 {
-   	  text-size: @text_font_size_xsm;
-      [font_size=18] {
-          text-size: @text_font_size_large;  
-      }
-    }
-  
-  	[justified='left'] {
-    	text-horizontal-alignment: middle;
-    	text-dx: -5;
-    }
-    [justified='right'] {
-    	text-horizontal-alignment: middle;
-    	text-dx: 5;
-    }
+  text-name: "[name]";
+  text-face-name: @text_font_city_bold;
+  text-fill: @label_color_city;
+  text-halo-radius: @text_font_halo_radius_large;
+  text-halo-fill: @label_color_city_halo;
+  text-size: @text_font_size_sm;
+
+  [zoom=7] {
+    text-size: @text_font_size_xsm;
+  }
+
+  [font_size=18] {
+    text-size: @text_font_size_large;
+  }
+
+  [font_size=20] {
+    text-size: @text_font_size_large;
+  }
+
+  [justified='left'] {
+    text-horizontal-alignment: middle;
+    text-dx: -5;
+  }
+
+  [justified='right'] {
+    text-horizontal-alignment: middle;
+    text-dx: 5;
+  }
 }
 
 #city_labels_z9,
