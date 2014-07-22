@@ -12,11 +12,11 @@ psql -d imposm_$1 -f highroad.sql
 echo DATABASE_URL=postgres:///imposm_$1 > .env
 endef
 
-mml: terrain-labels
+mml: toner
 
 install:
 	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/terrain
+	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner
 	npm install && npm rebuild
 	echo DATABASE_URL=postgres:///osm > .env
 
