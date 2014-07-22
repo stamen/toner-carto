@@ -101,7 +101,7 @@ Layer:
     name: airports
     id:   airports
     properties:
-      minzoom: 10
+      minzoom: 8
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_airports-merc.zip
@@ -252,7 +252,7 @@ Layer:
     id:   city_labels_z10
     properties:
       minzoom: 10
-      maxzoom: 12
+      maxzoom: 16
     Datasource:
       <<: *shapefile
       file: merged_labels/merged_points_z10.shp
@@ -366,6 +366,7 @@ Layer:
             area
           FROM osm_green_areas
           WHERE geometry && !bbox!
+          ORDER BY area DESC
         ) AS _
 
   - <<: *layer
@@ -386,6 +387,7 @@ Layer:
             area
           FROM osm_green_areas_z13
           WHERE geometry && !bbox!
+          ORDER BY area DESC
         ) AS _
 
   - <<: *layer
@@ -406,6 +408,7 @@ Layer:
             area
           FROM osm_green_areas_z10
           WHERE geometry && !bbox!
+          ORDER BY area DESC
         ) AS _
 
   - <<: *layer
@@ -449,7 +452,8 @@ Layer:
             (CASE WHEN bridge = 1 THEN 'yes'
                   ELSE 'no' END) AS is_bridge
          FROM osm_roads
-         WHERE highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link')
+         WHERE geometry && !bbox!
+           AND highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link')
          ORDER BY priority ASC, length DESC)
          AS _
 
@@ -457,7 +461,7 @@ Layer:
     name: minor_road_labels
     id:   minor_road_labels
     properties:
-      minzoom: 15
+      minzoom: 14
     Datasource:
       <<: *postgis
       geometry_field: geometry
@@ -483,26 +487,10 @@ Layer:
                 (CASE WHEN bridge = 1 THEN 'yes'
                       ELSE 'no' END) AS is_bridge
          FROM osm_roads
-         WHERE highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary')
-         ORDER BY priority ASC, length DESC)
-         AS _
-
-  - <<: *layer
-    name: poi_station_labels 
-    id:   poi_station_labels
-    properties:
-      minzoom: 16
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (SELECT geometry,
-                name,
-                railway,
-                highway,
-                'M' as label
-         FROM osm_stations
-         WHERE railway IN ('station') OR highway IN ('bus_stop'))
+         WHERE geometry && !bbox!
+           AND highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary')
+         ORDER BY priority ASC, length DESC
+         LIMIT 25)
          AS _
 
   - <<: *layer
