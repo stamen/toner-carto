@@ -445,126 +445,26 @@ Map {
       shield-file: url('icons/intergalactic_l.png');
     }
   }
-}
 
-/*
-#airports[zoom=10][natlscale>.57],
-#airports[zoom=11][natlscale>.29],
-#airports[zoom=12][natlscale>.29],
-#airports[zoom=13][natlscale>.29],
-#airports[zoom=14][natlscale>.29],
-#airports[zoom=15][natlscale>.29],
-#airports[zoom>=16][natlscale>.29]
-{
-  shield-name: [name];
-  shield-face-name: 'PT Sans Narrow Regular';
-  shield-fill: #444;
-  shield-size: 18;
-  shield-halo-fill: #f7f7e6;
-  shield-halo-radius: 2;
-  shield-wrap-width: 128;
-  shield-text-dy: 12;
-  shield-unlock-image: true;
-  shield-file: url("icons/airport_big_l.png");
+  [zoom>=14] {
+    shield-name: [name];
+    shield-file: url("icons/airport_big_xl.png");
+    shield-text-dy: 20;
 
-  [zoom=10][natlscale>.57],
-  [zoom=11][natlscale>.29],
-  [zoom=12][natlscale>.29],
-  {
-    shield-name: [abbrev];
-  }
+    [type=~'.*military.*'] {
+      shield-file: url('icons/airport_military_xl.png');
+    }
 
+    [type='major'] {
+      shield-file: url('icons/airport_big_xl.png');
+    }
 
-  [zoom=14][natlscale>.04],
-  [zoom=15][natlscale>.02],
-  [zoom>=16][natlscale>.01]
-  {
-    shield-dy: 20;
+    [type='mid'] {
+      shield-file: url('icons/airport_little_xl.png');
+    }
+
+    [type='spaceport'] {
+      shield-file: url('icons/intergalactic_xl.png');
+    }
   }
 }
-
-#airports[zoom=8][natlscale>2.3][type='big'],
-#airports[zoom=9][natlscale>1.2][type='big'],
-#airports[zoom=10][natlscale>.57][type='big'],
-#airports[zoom=11][natlscale>.29][type='big'],
-#airports[zoom=12][natlscale>.29][type='big'],
-#airports[zoom=13][natlscale>.29][type='big']
-{
-  marker-file: url('icons/airport_big_l.png');
-}
-
-#airports[zoom=14][natlscale>.29][type='big'],
-#airports[zoom=15][natlscale>.29][type='big'],
-#airports[zoom>=16][natlscale>.29][type='big']
-{
-  marker-file: url('icons/airport_big_xl.png');
-}
-
-#airports[zoom=8][natlscale>2.3][type='little'],
-#airports[zoom=9][natlscale>1.2][type='little'],
-#airports[zoom=10][natlscale>.57][type='little'],
-#airports[zoom=11][natlscale>.29][type='little'],
-#airports[zoom=12][natlscale>.29][type='little'],
-#airports[zoom=13][natlscale>.29][type='little']
-{
-  marker-file: url('icons/airport_little_l.png');
-}
-
-#airports[zoom=14][natlscale>.29][type='little'],
-#airports[zoom=15][natlscale>.29][type='little'],
-#airports[zoom>=16][natlscale>.29][type='little']
-{
-  marker-file: url('icons/airport_little_xl.png');
-}
-
-#airports[zoom=8][natlscale>2.3][type='military'],
-#airports[zoom=9][natlscale>1.2][type='military'],
-#airports[zoom=10][natlscale>.57][type='military'],
-#airports[zoom=11][natlscale>.29][type='military'],
-#airports[zoom=12][natlscale>.29][type='military'],
-#airports[zoom=13][natlscale>.29][type='military']
-{
-  marker-file: url('icons/airport_military_l.png');
-}
-
-#airports[zoom=14][natlscale>.29][type='military'],
-#airports[zoom=15][natlscale>.29][type='military'],
-#airports[zoom>=16][natlscale>.29][type='military']
-{
-  marker-file: url('icons/airport_military_xl.png');
-}
-
-#airports[zoom=8][natlscale>2.3][type='space'],
-#airports[zoom=9][natlscale>1.2][type='space'],
-#airports[zoom=10][natlscale>.57][type='space'],
-#airports[zoom=11][natlscale>.29][type='space'],
-#airports[zoom=12][natlscale>.29][type='space'],
-#airports[zoom=13][natlscale>.29][type='space']
-{
-  marker-file: url('icons/intergalactic_l.png');
-}
-
-#airports[zoom=14][natlscale>.29][type='space'],
-#airports[zoom=15][natlscale>.29][type='space'],
-#airports[zoom>=16][natlscale>.29][type='space']
-{
-  marker-file: url('icons/intergalactic_xl.png');
-}
-
-#airports[zoom=8][natlscale>2.3],
-#airports[zoom=9][natlscale>1.2],
-#airports[zoom=10][natlscale>.57],
-#airports[zoom=11][natlscale>.29],
-#airports[zoom=12][natlscale>.29],
-#airports[zoom=13][natlscale>.29]
-{
-  marker-file: url('icons/airport_little_l.png');
-}
-
-#airports[zoom=14][natlscale>.29],
-#airports[zoom=15][natlscale>.29],
-#airports[zoom>=16][natlscale>.29]
-{
-  marker-file: url('icons/airport_little_xl.png');
-}
-*/
