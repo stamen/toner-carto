@@ -12,11 +12,11 @@ psql -d imposm_$1 -f highroad.sql
 echo DATABASE_URL=postgres:///imposm_$1 > .env
 endef
 
-mml: toner
+mml: terrain-labels
 
 install:
 	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner
+	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/terrain
 	npm install && npm rebuild
 	echo DATABASE_URL=postgres:///osm > .env
 
@@ -32,7 +32,7 @@ clean:
 %: %.mml
 	cp $< project.mml
 
-xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
+xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml terrain-labels.xml
 
 land: data/osmdata/land-polygons-complete-3857.zip data/osmdata/simplified-land-polygons-complete-3857.zip
 	cd shp/ && unzip -o ../data/osmdata/land-polygons-complete-3857.zip
@@ -40,22 +40,25 @@ land: data/osmdata/land-polygons-complete-3857.zip data/osmdata/simplified-land-
 	cd shp/ && unzip -o ../data/osmdata/simplified-land-polygons-complete-3857.zip
 	cd shp/ && shapeindex simplified-land-polygons-complete-3857/simplified_land_polygons.shp
 
-belize: data/extract/central-america/belize-latest.osm.pbf
+imposm_%:
+	@psql -l | grep -w $@ | wc -l | grep 1 > /dev/null
+
+belize: data/extract/central-america/belize-latest.osm.pbf imposm_belize
 	$(call import,$@,$<)
 
-ca: data/extract/north-america/us/california-latest.osm.pbf
+ca: data/extract/north-america/us/california-latest.osm.pbf imposm_ca
 	$(call import,$@,$<)
 
-ma:	data/extract/north-america/us/massachusetts-latest.osm.pbf
+ma:	data/extract/north-america/us/massachusetts-latest.osm.pbf imposm_ma
 	$(call import,$@,$<)
 
-sf: data/metro/san-francisco.osm.pbf
+sf: data/metro/san-francisco.osm.pbf imposm_sf
 	$(call import,$@,$<)
 
-seattle: data/metro/seattle.osm.pbf
+seattle: data/metro/seattle.osm.pbf imposm_seattle
 	$(call import,$@,$<)
 
-sf_bay_area: data/metro/sf-bay-area.osm.pbf
+sf_bay_area: data/metro/sf-bay-area.osm.pbf imposm_sf_bay_area
 	$(call import,$@,$<)
 
 data/extract/%:

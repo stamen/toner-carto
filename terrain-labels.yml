@@ -1,0 +1,505 @@
+# == Global project settings ===========================================
+
+name:             'Terrain Labels'
+description:      ''
+attribution:      'Map Data © OpenStreetMap'
+center:           [0, 0, 2]
+format:           png
+interactivity:    false
+minzoom:          0
+maxzoom:          20
+srs:              '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+metatile:         2
+
+
+# == Layer & Datasource defaults =======================================
+
+_layer_default:   &layer
+  'srs-name':     '3857'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_pg_default:      &postgis
+  type:           postgis
+  dbname:         '{{PGDATABASE}}'
+  host:           '{{PGHOST}}'
+  user:           '{{PGUSER}}'
+  password:       '{{PGPASSWORD}}'
+  port:           '{{PGPORT}}'
+  geometry_field: way
+  srid:           3857
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_shp_default:     &shapefile
+  type:           shape
+  estimate_extent: false
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+
+# == Stylesheets =======================================================
+
+Stylesheet:
+  - terrain-labels.mss
+
+
+# == Layers ============================================================
+
+Layer:
+
+  - <<: *layer
+    name: city_points_z4
+    id:   city_points_z4
+    properties:
+      minzoom: 4
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z4.shp
+
+  - <<: *layer
+    name: city_points_z5
+    id:   city_points_z5
+    properties:
+      minzoom: 5
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z5.shp
+
+  - <<: *layer
+    name: city_points_z6
+    id:   city_points_z6
+    properties:
+      minzoom: 6
+      maxzoom: 6
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z6.shp
+
+  - <<: *layer
+    name: city_points_z7
+    id:   city_points_z7
+    properties:
+      minzoom: 7
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z7.shp
+
+  - <<: *layer
+    name: city_points_z8
+    id:   city_points_z8
+    properties:
+      minzoom: 8
+      maxzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z8.shp
+
+  - <<: *layer
+    name: airports
+    id:   airports
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_airports-merc.zip
+
+# Start Labels
+  - <<: *layer
+    name: admin0-labels-z3
+    id:   admin0-labels-z3
+    properties:
+      minzoom: 3
+      maxzoom: 3
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin_0_countries_110m-points.shp
+
+  - <<: *layer
+    name: admin0-labels-z4
+    id:   admin0-labels-z4
+    properties:
+      minzoom: 4
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-0-labels-z4.shp
+
+  - <<: *layer
+    name: admin0-labels-z5
+    id:   admin0-labels-z5
+    properties:
+      minzoom: 5
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-0-labels-z5.shp
+
+  - <<: *layer
+    name: admin0-labels-z6
+    id:   admin0-labels-z6
+    properties:
+      minzoom: 6
+      maxzoom: 6
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-0-labels-z6.shp
+
+  - <<: *layer
+    name: admin1-labels-50m-z4
+    id:   admin1-labels-50m-z4
+    properties:
+      minzoom: 4
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-1-labels-z4.shp
+
+  - <<: *layer
+    name: admin1-labels-50m-z5
+    id:   admin1-labels-50m-z5
+    properties:
+      minzoom: 5
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-1-labels-z5.shp
+
+  - <<: *layer
+    name: admin1-labels-50m-z6
+    id:   admin1-labels-50m-z6
+    properties:
+      minzoom: 6
+      maxzoom: 6
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-1-labels-z6.shp
+
+  - <<: *layer
+    name: admin1-labels-50m-z7
+    id:   admin1-labels-50m-z7
+    properties:
+      minzoom: 7
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: shp/labels_admin/admin-1-labels-z7.shp
+
+  - <<: *layer
+    name: city_labels_z4
+    id:   city_labels_z4
+    properties:
+      minzoom: 4
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_labels_z4.shp
+
+  - <<: *layer
+    name: city_labels_z5
+    id:   city_labels_z5
+    properties:
+      minzoom: 5
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_labels_z5.shp
+
+  - <<: *layer
+    name: city_labels_z6
+    id:   city_labels_z6
+    properties:
+      minzoom: 6
+      maxzoom: 6
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_labels_z6.shp
+
+  - <<: *layer
+    name: city_labels_z7
+    id:   city_labels_z7
+    properties:
+      minzoom: 7
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_labels_z7.shp
+
+  - <<: *layer
+    name: city_labels_z8
+    id:   city_labels_z8
+    properties:
+      minzoom: 8
+      maxzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_labels_z8.shp
+
+  - <<: *layer
+    name: city_labels_z9
+    id:   city_labels_z9
+    properties:
+      minzoom: 9
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z9.shp
+
+  - <<: *layer
+    name: city_labels_z10
+    id:   city_labels_z10
+    properties:
+      minzoom: 10
+      maxzoom: 16
+    Datasource:
+      <<: *shapefile
+      file: merged_labels/merged_points_z10.shp
+
+  - <<: *layer
+    name: water-bodies-labels-high
+    id:   water-bodies-labels-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-labels-med
+    id:   water-bodies-labels-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-labels-low
+    id:   water-bodies-labels-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z10
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: ne_110m_geography_marine_polys
+    id:   ne_110m_geography_marine_polys
+    properties:
+      minzoom: 2
+      maxzoom: 3
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_110m_geography_marine_polys-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_50m_geography_marine_polys
+    id:   ne_50m_geography_marine_polys
+    properties:
+      minzoom: 4
+      maxzoom: 5
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_geography_marine_polys-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_geography_marine_polys
+    id:   ne_10m_geography_marine_polys
+    properties:
+      minzoom: 6
+      maxzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_geography_marine_polys-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: green-areas-labels-high
+    id:   green-areas-labels-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas
+          WHERE geometry && !bbox!
+          ORDER BY area DESC
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-labels-med
+    id:   green-areas-labels-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas_z13
+          WHERE geometry && !bbox!
+          ORDER BY area DESC
+        ) AS _
+
+  - <<: *layer
+    name: green-areas-labels-low
+    id:   green-areas-labels-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_green_areas_z10
+          WHERE geometry && !bbox!
+          ORDER BY area DESC
+        ) AS _
+
+  - <<: *layer
+    name: major_road_labels
+    id:   major_road_labels
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (SELECT geometry,
+            (CASE WHEN highway = 'motorway'
+                  THEN ''
+                  ELSE name
+                  END) AS name,
+            (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15
+                  THEN REGEXP_REPLACE(ref, E'\s*;\s*', E' / ', 'g')
+                  ELSE ''
+                  END) AS ref,
+            (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15
+                  THEN CHAR_LENGTH(ref)
+                  ELSE 0
+                  END) AS ref_length,
+            highway,
+            ST_Length(geometry) AS length,
+            (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0
+                  WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 1
+                  WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 2
+                  WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link') THEN 3
+                  WHEN highway = 'secondary' THEN 4
+                  WHEN highway = 'tertiary' THEN 5
+                  ELSE 9 END) AS priority,
+            (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'
+                  WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
+                  WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'
+                  WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
+                  ELSE '' END) AS kind,
+            (CASE WHEN tunnel = 1 THEN 'yes'
+                  ELSE 'no' END) AS is_tunnel,
+            (CASE WHEN bridge = 1 THEN 'yes'
+                  ELSE 'no' END) AS is_bridge
+         FROM osm_roads
+         WHERE geometry && !bbox!
+           AND highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link')
+         ORDER BY priority ASC, length DESC)
+         AS _
+
+  - <<: *layer
+    name: minor_road_labels
+    id:   minor_road_labels
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (SELECT geometry,
+                name,
+                highway,
+                ST_Length(geometry) AS length,
+                (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0
+                      WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 1
+                      WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 2
+                      WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link') THEN 3
+                      WHEN highway = 'secondary' THEN 4
+                      WHEN highway = 'tertiary' THEN 5
+                      ELSE 9 END) AS priority,
+                (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'
+                      WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
+                      WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'
+                      WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
+                      ELSE '' END) AS kind,
+                (CASE WHEN tunnel = 1 THEN 'yes'
+                      ELSE 'no' END) AS is_tunnel,
+                (CASE WHEN bridge = 1 THEN 'yes'
+                      ELSE 'no' END) AS is_bridge
+         FROM osm_roads
+         WHERE geometry && !bbox!
+           AND highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary')
+         ORDER BY priority ASC, length DESC
+         LIMIT 25)
+         AS _
+
+  - <<: *layer
+    name: continents
+    id:   continents
+    properties:
+      minzoom: 1
+      maxzoom: 2
+    Datasource:
+      <<: *shapefile
+      file: shp/continents_900913.shp
+
