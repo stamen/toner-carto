@@ -49,7 +49,13 @@ belize: data/extract/central-america/belize-latest.osm.pbf imposm_belize
 ca: data/extract/north-america/us/california-latest.osm.pbf imposm_ca
 	$(call import,$@,$<)
 
-ma:	data/extract/north-america/us/massachusetts-latest.osm.pbf imposm_ma
+ma: data/extract/north-america/us/massachusetts-latest.osm.pbf imposm_ma
+	$(call import,$@,$<)
+
+wa: data/extract/north-america/us/washington-latest.osm.pbf imposm_wa
+	$(call import,$@,$<)
+
+bc: data/extract/north-america/ca/british-columbia-latest.osm.pbf imposm_bc
 	$(call import,$@,$<)
 
 sf: data/metro/san-francisco.osm.pbf imposm_sf
