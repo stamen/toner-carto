@@ -55,6 +55,9 @@ ma: data/extract/north-america/us/massachusetts-latest.osm.pbf imposm_ma
 wa: data/extract/north-america/us/washington-latest.osm.pbf imposm_wa
 	$(call import,$@,$<)
 
+ny: data/extract/north-america/us/new-york-latest.osm.pbf imposm_ny
+	$(call import,$@,$<)
+
 bc: data/extract/north-america/ca/british-columbia-latest.osm.pbf imposm_bc
 	$(call import,$@,$<)
 
