@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 
 sudo apt-add-repository -y ppa:chris-lea/node.js
