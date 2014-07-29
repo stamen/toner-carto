@@ -112,6 +112,24 @@ data/osmdata/%:
 	mkdir -p data/osmdata
 	curl -sL http://data.openstreetmapdata.com/$(@:data/osmdata/%=%) -o $@
 
+toner.mml: toner.yml .env map.mss labels.mss
+	cat toner.yml | (set -a && source .env && interp) > $@
+
+toner-background.mml: toner-background.yml .env map.mss labels.mss
+	cat toner-background.yml | (set -a && source .env && interp) > $@
+
+toner-buildings.mml: toner-buildings.yml .env map.mss labels.mss toner-buildings.mss
+	cat toner-buildings.yml | (set -a && source .env && interp) > $@
+
+toner-hybrid.mml: toner-hybrid.yml .env map.mss labels.mss toner-lines.mss
+	cat toner-hybrid.yml | (set -a && source .env && interp) > $@
+
+toner-lines.mml: toner-lines.yml .env map.mss labels.mss toner-lines.mss
+	cat toner-lines.yml | (set -a && source .env && interp) > $@
+
+toner-labels.mml: toner-labels.yml .env map.mss labels.mss toner-labels.mss
+	cat toner-labels.yml | (set -a && source .env && interp) > $@
+
 %.mml: %.yml .env
 	cat $< | (set -a && source .env && interp) > $@
 
