@@ -202,7 +202,7 @@ Map {
   line-cap: round;
 }
 
-#buildings-med {
+#buildings-med[type!='no'] {
   [area>=40000] {
     polygon-pattern-file: url("images/stripe_sm.png");
     line-width: 0.5;
@@ -210,8 +210,8 @@ Map {
   }
 }
 
-#buildings-high {
-  [zoom>=14] {
+#buildings-high[type!='no'] {
+  [zoom=14] {
     [area>=20000] {
       polygon-pattern-file: url("images/stripe_med.png");
       line-width: 0.5;
@@ -220,7 +220,9 @@ Map {
   }
 
   [zoom>=16] {
+    polygon-fill: @color_physical_bright;
     line-width: 0.5;
+    line-color: @color_building_outline;
   }
 
   [zoom=15][area>=16000],
