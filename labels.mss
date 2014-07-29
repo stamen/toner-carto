@@ -6,7 +6,7 @@
 @text_font_water_bold: 'Arial Unicode MS Bold Italic';
 @text_font_city: 'Arial Unicode MS Regular';
 @text_font_city_bold: 'Arial Unicode MS Bold';
-@text_font_poi_bold: 'Arial Unicode MS Bold Italic';
+@text_font_poi_bold: 'Arial Unicode MS Italic'; // n-dash is broken in Bold Italic
 
 @label_color_transport: #000;
 @label_color_transport_halo: #fff;
@@ -521,6 +521,9 @@
 #airports[zoom>=13][scalerank<=12]
 {
   	text-name: "[name]";
+    [name="Tacoma Int'l"] {
+      text-name: "Seattle-" + [name];
+    }
     text-face-name: @text_font_poi_bold;
     text-fill: @label_color_poi;
     text-size: @text_font_size_medium;
@@ -534,3 +537,8 @@
     	text-dy: 0;
     }
 }
+#airports {
+      text-name: "[name]";
+      text-face-name: @text_font_poi_bold;
+      text-fill: red;
+  }
