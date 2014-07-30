@@ -235,7 +235,6 @@
 #green-areas-labels-low,
 #green-areas-labels-med,
 #green-areas-labels-high {
-  [zoom=9][area>100000000],
   [zoom=10][area>100000000],
   [zoom=11][area>25000000],
   [zoom=12][area>5000000],
