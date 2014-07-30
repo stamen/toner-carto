@@ -432,7 +432,17 @@
   text-vertical-alignment: bottom;
   text-halo-radius: @text_font_halo_radius_large;
   text-halo-fill: @label_color_city_halo;
-  text-min-distance: 5;
+  text-min-distance: 0;
+
+  [justified='left'] {
+    text-horizontal-alignment: middle;
+    text-dx: -5;
+  }
+
+  [justified='right'] {
+    text-horizontal-alignment: middle;
+    text-dx: 5;
+  }
 
   [zoom>=4]  {
     text-size: @text_font_size_xxsm;
