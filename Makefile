@@ -32,7 +32,7 @@ clean:
 %: %.mml
 	cp $< project.mml
 
-xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml terrain-labels.xml
+xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
 
 land: data/osmdata/land-polygons-complete-3857.zip data/osmdata/simplified-land-polygons-complete-3857.zip
 	cd shp/ && unzip -o ../data/osmdata/land-polygons-complete-3857.zip
