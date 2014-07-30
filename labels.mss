@@ -414,6 +414,12 @@
   	[namealt!=''] {
   		text-name: [name] + '\n(' + [namealt] + ')';
     }
+    [name = 'Hecate Straight'] {
+      text-name: 'Hecate Strait' + [namealt]; // Becase we know namealt is empty
+    }
+    [name = 'Queen Charlotte Straight'] {
+      text-name: 'Queen Charlotte Strait' + [namealt]; // Becase we know namealt is empty
+    }
     text-face-name: @text_font_water;
     text-wrap-width: 80;
     text-size: @text_font_size_medium;
