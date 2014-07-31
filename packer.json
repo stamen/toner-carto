@@ -2,7 +2,9 @@
   "variables": {
     "aws_access_key": "",
     "aws_secret_key": "",
-    "database_url":"postgres:///osm"
+    "database_url":"postgres:///osm",
+    "sentry_dsn":"",
+    "base_ami":"{{env `BASEAMI`}}"
   },
   "builders": [
     {
@@ -11,7 +13,7 @@
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
       "availability_zone":"us-east-1d",
-      "source_ami": "{{env `BASEAMI`}}",
+      "source_ami": "{{user `base_ami`}}",
       "instance_type": "m3.medium",
       "ssh_username": "ubuntu",
       "ami_name": "toner-rendering {{timestamp}}",
@@ -130,12 +132,22 @@
       "destination": "/home/ubuntu/toner-carto/tessera.conf"
     },
     {
+      "type": "file",
+      "source": "server.js",
+      "destination": "/home/ubuntu/toner-carto/server.js"
+    },
+    {
       "type": "shell",
       "inline": "echo DATABASE_URL={{user `database_url`}} > /home/ubuntu/toner-carto/.env"
     },
     {
+      "type": "file",
+      "source": "provisioning/install_services.sh",
+      "destination": "/home/ubuntu/toner-carto/install_services.sh"
+    },
+    {
       "type": "shell",
-      "script": "provisioning/install_services.sh"
+      "inline": "SENTRY_DSN={{user `sentry_dsn`}} bash /home/ubuntu/toner-carto/install_services.sh"
     }
   ]
 }

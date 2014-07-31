@@ -1,7 +1,9 @@
 {
   "variables": {
     "aws_access_key": "",
-    "aws_secret_key": ""
+    "aws_secret_key": "",
+    "database_url": "",
+    "sentry_dsn": ""
   },
   "builders": [
     {
