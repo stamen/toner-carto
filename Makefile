@@ -29,6 +29,9 @@ ami:
 clean:
 	rm -f *.mml *.xml
 
+.env:
+	touch $@
+
 %: %.mml
 	cp $< project.mml
 
