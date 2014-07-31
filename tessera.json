@@ -104,29 +104,6 @@
       "query": {
         "layers": [
           "solid:#fff",
-          "tilejson+http://staging.tile.stamen.com/toner/index.json",
-          "tilejson+http://staging.tile.stamen.com/toner-lines/index.json",
-          "tilejson+http://staging.tile.stamen.com/toner-buildings/index.json",
-          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json"
-        ],
-        "opacities": [
-          0.15,
-          0.35,
-          0.15
-        ]
-      }
-    },
-    "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-lite toner toner-lines toner-buildings toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}",
-      "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL."
-    }
-  },
-  "/toner-lite-local": {
-    "source": {
-      "protocol": "blend:",
-      "query": {
-        "layers": [
-          "solid:#fff",
           "mapnik://./toner.xml",
           "mapnik://./toner-lines.xml",
           "mapnik://./toner-buildings.xml",
@@ -142,37 +119,6 @@
     "headers": {
       "Surrogate-Keys": "{{#tile}}toner-lite toner toner-lines toner-buildings toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL."
-    }
-  },
-  "/blended": {
-    "source": {
-      "protocol": "blend:",
-      "query": {
-        "layers": [
-          "tilejson+http://staging.tile.stamen.com/toner-background/index.json",
-          "tilejson+http://staging.tile.stamen.com/toner-lines/index.json",
-          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json",
-          "tilejson+http://staging.tile.stamen.com/toner-labels/index.json"
-        ],
-        "offsets": [
-          null,
-          [0.5, 0.5]
-        ],
-        "opacities": [
-          0.25,
-          1
-        ],
-        "operations": [
-          "",
-          "",
-          null
-        ],
-        "filters": [
-          "invert agg-stack-blur(2,2)",
-          "invert agg-stack-blur(2,2)"
-        ],
-        "format": "png32:z=1"
-      }
     }
   }
 }
