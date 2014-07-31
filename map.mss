@@ -241,6 +241,7 @@ Map {
     [osm_id=260351411],
     [osm_id=224030635], // Seth's house
     [osm_id=248153467], // Sean's house
+    [osm_id=291796473], // Stamen South
     {
       polygon-pattern-file: url("images/stripe_color.png");
       line-width: 1.5;
