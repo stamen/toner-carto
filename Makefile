@@ -177,6 +177,7 @@ db/ne/$(1)/$(2)/%: data/ne/$(1)/$(2)/%.shp
 	ogr2ogr --config PG_USE_COPY YES \
 		    --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
 			--config SHAPE_ENCODING WINDOWS-1252 \
+			-nlt PROMOTE_TO_MULTI \
 			-t_srs EPSG:3857 \
 			-lco ENCODING=UTF-8 \
 			-lco GEOMETRY_NAME=geom \

@@ -20,6 +20,19 @@
   "provisioners": [
     {
       "type": "shell",
+      "inline": [
+        "#!/bin/bash",
+        "set -e",
+        "mkdir -p /home/ubuntu/toner-carto"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "package.json",
+      "destination": "/home/ubuntu/toner-carto/package.json"
+    },
+    {
+      "type": "shell",
       "script": "provisioning/install_dependencies.sh"
     },
     {
