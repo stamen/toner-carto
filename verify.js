@@ -11,7 +11,7 @@ var config = require("./tessera.json");
 
 var tests = [];
 Object.keys(config).forEach(function(prefix) {
-  for (var i=0; i <= 19; i++) { tests.push({"zoom":i, "prefix":prefix}); }
+  for (var i=0; i <= 20; i++) { tests.push({"zoom":i, "prefix":prefix}); }
 });
 
 console.log("Endpoint: " + endpoint);
