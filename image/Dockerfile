@@ -30,6 +30,8 @@ RUN ./download_natural_earth_data.sh
 
 RUN git pull
 
+RUN rm -f /app/.ssh/id_rsa
+
 RUN npm install
 
 RUN make xml
