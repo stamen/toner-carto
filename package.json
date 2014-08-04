@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "make xml && MAPNIK_FONT_PATH=fonts/ node server.js"
+    "start": "touch .env && make xml && MAPNIK_FONT_PATH=fonts/ node server.js"
   },
   "dependencies": {
     "carto": "^0.11.0",
