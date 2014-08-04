@@ -13,30 +13,10 @@ RUN \
   apt-get install -y nodejs make mapnik-utils git unzip gdal-bin zip curl
 
 RUN useradd -d /app -m ubuntu
-ADD deploy_key /app/.ssh/id_rsa
-RUN ssh-keyscan github.com >> /app/.ssh/known_hosts
-RUN chown -R ubuntu:ubuntu /app/.ssh/
 
 USER ubuntu
 ENV HOME /app
 WORKDIR /app
 
-RUN git clone git@github.com:stamen/toner-carto.git
+COPY . /app/shp
 
-WORKDIR /app/toner-carto
-
-RUN make land
-RUN ./download_natural_earth_data.sh
-
-RUN git pull
-
-RUN rm -f /app/.ssh/id_rsa
-
-RUN npm install
-
-RUN make xml
-
-ENV PORT 8080
-EXPOSE 8080
-
-CMD ["npm", "start"]
