@@ -17,8 +17,8 @@
     "tessera": "^0.4.1",
     "tilejson": "^0.8.0",
     "tilelive": "^5.2.1",
-    "tilelive-blend": "^0.1.0",
-    "tilelive-cache": "^0.3.0",
+    "tilelive-blend": "^0.1.1",
+    "tilelive-cache": "^0.4.1",
     "tilelive-http": "^0.4.0",
     "tilelive-mapnik": "^0.6.9",
     "tilelive-solid": "^0.1.0"
