@@ -7,12 +7,12 @@
 @color_administrative_medium_high: lighten(#000, 55%);
 @color_administrative_medium_high2: lighten(#000, 55%);
 @color_transport: lighten(#000, 55%);
-@color_transport_casing: lighten(#fff, 55%);
-@color_transport_inline: lighten(#fff, 55%);
-@color_transport_tunnel: lighten(#ccc, 55%);
-@color_transport_minor: lighten(#ccc, 55%);
-@color_transport_rail: lighten(#444, 55%);
-@color_transport_path: lighten(#ededed, 55%);
+@color_transport_casing: #fff;
+@color_transport_inline: #fff;
+@color_transport_tunnel: lighten(#ccc, 60%);
+@color_transport_minor: lighten(#ccc, 60%);
+@color_transport_rail: lighten(#444, 60%);
+@color_transport_path: lighten(#ededed, 60%);
 @color_building_outline: lighten(#000, 72%);
 @color_building_outline_special: lighten(#00aeef, 72%);
 @color_airport_runways: lighten(#eee, 55%);
