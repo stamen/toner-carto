@@ -9,13 +9,13 @@
 @color_transport: lighten(#000, 55%);
 @color_transport_casing: #fff;
 @color_transport_inline: #fff;
-@color_transport_tunnel: lighten(#ccc, 60%);
-@color_transport_minor: lighten(#ccc, 60%);
-@color_transport_rail: lighten(#444, 60%);
-@color_transport_path: lighten(#ededed, 60%);
-@color_building_outline: lighten(#000, 72%);
-@color_building_outline_special: lighten(#00aeef, 72%);
-@color_airport_runways: lighten(#eee, 55%);
-@color_airport_runways_detail: lighten(#f2f2f2, 55%);
-@halftone_opacity: 0.15;
+@color_transport_tunnel: lighten(#ccc, 55%);
+@color_transport_minor: #ccc;
+@color_transport_rail: #afafaf;
+@color_transport_path: #ededed;
+@color_building_outline: lighten(#000, 85%);
+@color_building_outline_special: lighten(#00aeef, 85%);
+@color_airport_runways: #eee;
+@color_airport_runways_detail: #f2f2f2;
+@pattern_opacity: 0.15;
 

@@ -17,7 +17,7 @@
 @color_building_outline_special: #00aeef;
 @color_airport_runways: #eee;
 @color_airport_runways_detail: #f2f2f2;
-@halftone_opacity: 1.0;
+@pattern_opacity: 1.0;
 
 Map {
   background-color: @color_physical;
@@ -206,6 +206,7 @@ Map {
 #buildings-med[type!='no'] {
   [area>=40000] {
     polygon-pattern-file: url("images/stripe_sm.png");
+    polygon-pattern-opacity: @pattern_opacity;
     line-width: 0.5;
     line-color: @color_building_outline;
   }
@@ -215,6 +216,7 @@ Map {
   [zoom=14] {
     [area>=20000] {
       polygon-pattern-file: url("images/stripe_med.png");
+      polygon-pattern-opacity: @pattern_opacity;
       line-width: 0.5;
       line-color: @color_building_outline;
     }
@@ -232,6 +234,7 @@ Map {
   [zoom>=18],
   {
     polygon-pattern-file: url("images/stripe.png");
+    polygon-pattern-opacity: @pattern_opacity;
     polygon-pattern-alignment: global;
     line-width: 0.5;
     line-color: @color_building_outline;
@@ -245,6 +248,7 @@ Map {
     [osm_id=291796473], // Stamen South
     {
       polygon-pattern-file: url("images/stripe_color.png");
+      polygon-pattern-opacity: @pattern_opacity;
       line-width: 1.5;
       line-color: @color_building_outline_special;
     }
@@ -259,7 +263,7 @@ Map {
 #green-areas-high[zoom=14][area> 10000],
 #green-areas-high[zoom>14],
 {
-  polygon-pattern-opacity: @halftone_opacity;
+  polygon-pattern-opacity: @pattern_opacity;
   polygon-pattern-alignment: global;
   polygon-pattern-file: url("images/halftone2.png");
   
@@ -277,7 +281,7 @@ Map {
 #brown-areas-high[zoom>14],
 {
   polygon-pattern-alignment: global;
-  polygon-pattern-opacity: @halftone-opacity;
+  polygon-pattern-opacity: @pattern_opacity;
   polygon-pattern-file: url("images/halftone2.png");
 }
 
@@ -1089,13 +1093,7 @@ Map {
 
 #roads[kind='minor_road']
 {
-  [zoom<=14] {
-    line-color: #999;
-  }
-
-  [zoom>=16] {
-    line-color: @color_transport_minor;
-  }
+  line-color: @color_transport_minor;
 
   [zoom>=10] {
     line-width: 0.2;
