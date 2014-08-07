@@ -18,6 +18,7 @@ COPY map.mss /app/
 COPY toner-buildings.mss /app/
 COPY toner-labels.mss /app/
 COPY toner-lines.mss /app/
+COPY toner-lite.mss /app/
 
 COPY toner-background.yml /app/
 COPY toner-base.yml /app/
@@ -25,6 +26,7 @@ COPY toner-buildings.yml /app/
 COPY toner-hybrid.yml /app/
 COPY toner-labels.yml /app/
 COPY toner-lines.yml /app/
+COPY toner-lite.yml /app/
 COPY toner.yml /app/
 COPY server.js /app/
 COPY tessera.json /app/
