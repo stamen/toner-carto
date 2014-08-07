@@ -17,6 +17,7 @@
 @color_building_outline_special: #00aeef;
 @color_airport_runways: #eee;
 @color_airport_runways_detail: #f2f2f2;
+@halftone_opacity: 1.0;
 
 Map {
   background-color: @color_physical;
@@ -258,6 +259,7 @@ Map {
 #green-areas-high[zoom=14][area> 10000],
 #green-areas-high[zoom>14],
 {
+  polygon-pattern-opacity: @halftone_opacity;
   polygon-pattern-alignment: global;
   polygon-pattern-file: url("images/halftone2.png");
   
@@ -275,6 +277,7 @@ Map {
 #brown-areas-high[zoom>14],
 {
   polygon-pattern-alignment: global;
+  polygon-pattern-opacity: @halftone-opacity;
   polygon-pattern-file: url("images/halftone2.png");
 }
 

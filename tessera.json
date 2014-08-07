@@ -48,6 +48,13 @@
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL."
     }
   },
+  "/toner-lite": {
+    "source": "mapnik://./toner-lite.xml",
+    "headers": {
+      "Surrogate-Keys": "{{#tile}}toner-lite z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL."
+    }
+  },
   "/toner-composited": {
     "source": {
       "protocol": "blend:",
@@ -95,29 +102,6 @@
     },
     "headers": {
       "Surrogate-Keys": "{{#tile}}toner-background toner-base toner-lines toner-buildings z{{zoom}} x{{x}} y{{y}}{{/tile}}",
-      "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL."
-    }
-  },
-  "/toner-lite": {
-    "source": {
-      "protocol": "blend:",
-      "query": {
-        "layers": [
-          "solid:#fff",
-          "mapnik://./toner.xml",
-          "mapnik://./toner-lines.xml",
-          "mapnik://./toner-buildings.xml",
-          "mapnik://./toner-labels.xml"
-        ],
-        "opacities": [
-          0.15,
-          0.35,
-          0.15
-        ]
-      }
-    },
-    "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-lite toner toner-lines toner-buildings toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL."
     }
   }

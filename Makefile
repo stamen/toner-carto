@@ -29,7 +29,7 @@ clean:
 %: %.mml
 	cp $< project.mml
 
-xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml
+xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml toner-lite.xml
 
 land: data/osmdata/land-polygons-complete-3857.zip data/osmdata/simplified-land-polygons-complete-3857.zip
 	cd shp/ && unzip -o ../data/osmdata/land-polygons-complete-3857.zip
@@ -126,6 +126,9 @@ toner-lines.mml: toner-lines.yml .env map.mss labels.mss toner-lines.mss
 
 toner-labels.mml: toner-labels.yml .env map.mss labels.mss toner-labels.mss
 	cat toner-labels.yml | (set -a && source .env && interp) > $@
+
+toner-lite.mml: toner-lite.yml .env map.mss labels.mss toner-lite.mss
+	cat toner-lite.yml | (set -a && source .env && interp) > $@
 
 %.mml: %.yml .env
 	cat $< | (set -a && source .env && interp) > $@

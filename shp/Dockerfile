@@ -19,4 +19,6 @@ ENV HOME /app
 WORKDIR /app
 
 COPY . /app/shp
+USER root
+RUN chown -R ubuntu:ubuntu /app/shp
 

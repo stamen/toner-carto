@@ -1,4 +1,4 @@
-FROM bdon/naturalearth:0.0.1
+FROM bdon/naturalearth:0.0.2
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -6,13 +6,13 @@ USER ubuntu
 ENV HOME /app
 WORKDIR /app
 
+COPY merged_labels /app/merged_labels
+COPY fonts /app/fonts
 COPY package.json /app/package.json
 RUN npm install
-COPY merged_labels /app/merged_labels
-COPY Makefile /app/Makefile
-COPY fonts /app/fonts
 COPY icons /app/icons
 COPY images /app/images
+
 COPY labels.mss /app/
 COPY map.mss /app/
 COPY toner-buildings.mss /app/
@@ -28,10 +28,8 @@ COPY toner-lines.yml /app/
 COPY toner.yml /app/
 COPY server.js /app/
 COPY tessera.json /app/
+COPY Makefile /app/Makefile
 
-USER root
-RUN chown -R ubuntu:ubuntu /app/shp
-USER ubuntu
 RUN make xml
 
 ENV PORT 8080
