@@ -15,7 +15,7 @@ var tessera = require("tessera"),
       sources: process.env.SOURCE_CACHE_SIZE
     });
 
-var app = express();
+var app = express().disable("x-powered-by");
 
 require("tessera/modules")(tilelive, {});
 
