@@ -96,14 +96,6 @@ Layer:
       file: shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip
 
   - <<: *layer
-    name: coastline-10m
-    id:   coastline-10m
-    class: shore
-    Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_coastline-merc.zip
-
-  - <<: *layer
     name: simplified-land
     id:   simplified-land
     class: land
