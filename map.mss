@@ -1,6 +1,7 @@
 @color_physical: #000;
 @color_physical_bright: #fff;
 @color_water: #000;
+@color_administrative_lowzoom: #000;
 @color_administrative_dark: #000;
 @color_administrative_bright: #fff;
 @color_administrative_medium_low: #000;
@@ -38,6 +39,7 @@ Map {
 #country-shapes-110m {
   line-width: 0.25;
   polygon-fill: @color_administrative_bright;
+  line-color: @color_administrative_lowzoom;
 }
 
 #land-shapes-110m,
@@ -46,6 +48,7 @@ Map {
 {
   line-width: 0.25;
   polygon-fill: @color_physical_bright;
+  line-color: @color_administrative_lowzoom;
 }
 
 .country-boundary {

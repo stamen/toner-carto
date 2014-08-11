@@ -1,6 +1,7 @@
 @color_physical: lighten(#000, 85%); 
 @color_physical_bright: #fff;
 @color_water: lighten(#000, 85%);
+@color_administrative_lowzoom: #000;
 @color_administrative_dark: lighten(#000, 55%);
 @color_administrative_bright: #fff;
 @color_administrative_medium_low: lighten(#000, 55%);
