@@ -6,10 +6,11 @@ process.env.UV_THREADPOOL_SIZE = process.env.UV_THREADPOOL_SIZE || Math.ceil(Mat
 var path = require("path");
 var raven = require("raven");
 
+var onHeaders = require('on-headers');
+
 var tessera = require("tessera"),
     express = require("express"),
     cors = require("cors"),
-    responseTime = require("response-time"),
     tilelive = require("tilelive-cache")(require("tilelive"), {
       size: process.env.CACHE_SIZE,
       sources: process.env.SOURCE_CACHE_SIZE
@@ -19,10 +20,31 @@ var app = express().disable("x-powered-by");
 
 require("tessera/modules")(tilelive, {});
 
+
+var loggingThreshold = +(process.env.LOG_MS || 5000);
+var slowLogger = function(req, res, next) {
+    var startAt = process.hrtime()
+
+    onHeaders(res, function () {
+      if (this.getHeader('X-Response-Time')) return;
+
+      var diff = process.hrtime(startAt)
+      var ms = diff[0] * 1e3 + diff[1] * 1e-6
+
+      if (ms > loggingThreshold) {
+        console.log("SLOW REQUEST ", req.url, " ", ms, " ms");
+      }
+      this.setHeader('X-Response-Time', ms.toFixed(3) + 'ms')
+    })
+
+    next()
+  }
+
+
 var config = require("./tessera.json");
 Object.keys(config).forEach(function(prefix) {
   if (config[prefix].timing !== false) {
-    app.use(prefix, responseTime());
+    app.use(prefix, slowLogger);
   }
 
   if (config[prefix].cors !== false) {
