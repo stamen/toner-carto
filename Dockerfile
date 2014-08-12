@@ -1,4 +1,4 @@
-FROM bdon/naturalearth:0.0.2
+FROM bdon/naturalearth:0.0.3
 
 ENV DEBIAN_FRONTEND noninteractive
 
