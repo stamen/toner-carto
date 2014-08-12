@@ -32,7 +32,7 @@ var slowLogger = function(req, res, next) {
       var ms = diff[0] * 1e3 + diff[1] * 1e-6
 
       if (ms > loggingThreshold) {
-        console.log("SLOW REQUEST ", req.url, " ", ms, " ms");
+        console.log("SLOW REQUEST ", req.originalUrl, " ", ms, " ms");
       }
       this.setHeader('X-Response-Time', ms.toFixed(3) + 'ms')
     })
