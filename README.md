@@ -30,6 +30,22 @@ BASEAMI=... make ami
 ec2-run-instances <AMI> -t m1.small -z us-east-1d -k <keypair> -p EC2_Instance
 ```
 
+### Docker
+
+```bash
+# (locally)
+docker build --rm
+docker run -e "DATABASE_URL=postgres://.../..." -p 80:8080 <image id>
+docker tag <image id> mojodna/toner:latest
+docker push mojodna/toner:latest
+
+# (on a new EC2 instance using Stamen's Docker AMI)
+sudo docker pull mojodna/toner:latest
+sudo docker ps
+sudo docker stop <container>
+sudo docker run --env-file=env -p 80:8080 -d mojodna/toner:latest
+```
+
 ## Useful SQL snippets
 
     CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
