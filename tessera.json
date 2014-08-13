@@ -4,7 +4,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner{{#tile}} toner/z{{zoom}} toner/x{{x}} toner/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -13,7 +13,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-base{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-base{{#tile}} toner-base/z{{zoom}} toner-base/x{{x}} toner-base/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -22,7 +22,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-background {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-background {{#tile}} toner-background/z{{zoom}} toner-background/x{{x}} toner-background/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -31,7 +31,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-lines {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-lines {{#tile}} toner-lines/z{{zoom}} toner-lines/x{{x}} toner-lines/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -40,7 +40,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-buildings {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-buildings {{#tile}} toner-buildings/z{{zoom}} toner-buildings/x{{x}} toner-buildings/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -49,7 +49,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-labels {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-labels {{#tile}} toner-labels/z{{zoom}} toner-labels/x{{x}} toner-labels/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -58,7 +58,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-hybrid {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-hybrid {{#tile}} toner-hybrid/z{{zoom}} toner-hybrid/x{{x}} toner-hybrid/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -67,7 +67,7 @@
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
-      "Surrogate-Keys": "toner-lite {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Surrogate-Keys": "toner-lite {{#tile}} toner-lite/z{{zoom}} toner-lite/x{{x}} toner-lite/y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
