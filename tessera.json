@@ -2,56 +2,72 @@
   "/toner": {
     "source": "mapnik://./toner.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-base": {
     "source": "mapnik://./toner-base.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-base z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-base{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-background": {
     "source": "mapnik://./toner-background.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-background z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-background {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-lines": {
     "source": "mapnik://./toner-lines.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-lines z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-lines {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-buildings": {
     "source": "mapnik://./toner-buildings.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-buildings z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-buildings {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-labels": {
     "source": "mapnik://./toner-labels.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-labels {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-hybrid": {
     "source": "mapnik://./toner-hybrid.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-hybrid z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-hybrid {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
   "/toner-lite": {
     "source": "mapnik://./toner-lite.xml",
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-lite z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-lite {{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -69,7 +85,9 @@
       }
     },
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner toner-base toner-lines toner-buildings toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner toner-base toner-lines toner-buildings toner-labels{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -84,7 +102,9 @@
       }
     },
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-hybrid toner-lines toner-labels z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-hybrid toner-lines toner-labels{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   },
@@ -101,7 +121,9 @@
       }
     },
     "headers": {
-      "Surrogate-Keys": "{{#tile}}toner-background toner-base toner-lines toner-buildings z{{zoom}} x{{x}} y{{y}}{{/tile}}",
+      "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
+      "Surrogate-Control": "max-age=2592000",
+      "Surrogate-Keys": "toner-background toner-base toner-lines toner-buildings{{#tile}} z{{zoom}} x{{x}} y{{y}}{{/tile}}",
       "X-Attribution": "Tiles by Stamen Design, under CC-BY 3.0. Data (c) OpenStreetMap contributors, under ODbL."
     }
   }
