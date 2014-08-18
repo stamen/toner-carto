@@ -206,18 +206,24 @@ Map {
   line-cap: round;
 }
 
+/**
+ * Zoom 13 buildings.
+ * Already filtered by size upon import.
+ */
 #buildings-med[type!='no'] {
-  [area>=40000] {
-    polygon-pattern-file: url("images/stripe_sm.png");
-    polygon-pattern-opacity: @pattern_opacity;
-    line-width: 0.5;
-    line-color: @color_building_outline;
-  }
+  polygon-pattern-file: url("images/stripe_sm.png");
+  polygon-pattern-opacity: @pattern_opacity;
+  line-width: 0.5;
+  line-color: @color_building_outline;
 }
 
+/**
+ * Zoom 14+ buildings.
+ * Includes all buildings.
+ */
 #buildings-high[type!='no'] {
   [zoom=14] {
-    [area>=20000] {
+    [area>=5000] {
       polygon-pattern-file: url("images/stripe_med.png");
       polygon-pattern-opacity: @pattern_opacity;
       line-width: 0.5;
@@ -225,15 +231,20 @@ Map {
     }
   }
 
+  /**
+   * This is for outlines and no stripe. Catches small buildings.
+   * Larger buildings will be overridden with stripes below.
+   */
+  [zoom>=15][area>=2000],
   [zoom>=16] {
     polygon-fill: @color_physical_bright;
     line-width: 0.5;
     line-color: @color_building_outline;
   }
 
-  [zoom=15][area>=16000],
-  [zoom=16][area>=8000],
-  [zoom=17][area>=4000],
+  [zoom=15][area>=3000],
+  [zoom=16][area>=2000],
+  [zoom=17][area>=1000],
   [zoom>=18],
   {
     polygon-pattern-file: url("images/stripe.png");
