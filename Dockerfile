@@ -2,6 +2,9 @@ FROM bdon/naturalearth:0.0.3
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update
+RUN apt-get install -y build-essential
+
 USER ubuntu
 ENV HOME /app
 WORKDIR /app
