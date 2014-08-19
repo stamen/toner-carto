@@ -25,23 +25,24 @@ require("tessera/modules")(tilelive, {});
 
 var loggingThreshold = +(process.env.LOG_MS || 5000);
 var slowLogger = function(req, res, next) {
-    var startAt = process.hrtime()
+  var startAt = process.hrtime();
 
-    onHeaders(res, function () {
-      if (this.getHeader('X-Response-Time')) return;
+  onHeaders(res, function () {
+    if (this.getHeader('X-Response-Time')) {
+      return;
+    }
 
-      var diff = process.hrtime(startAt)
-      var ms = diff[0] * 1e3 + diff[1] * 1e-6
+    var diff = process.hrtime(startAt);
+    var ms = diff[0] * 1e3 + diff[1] * 1e-6;
 
-      if (ms > loggingThreshold) {
-        console.log("SLOW REQUEST ", req.originalUrl, " ", ms, " ms");
-      }
-      this.setHeader('X-Response-Time', ms.toFixed(3) + 'ms')
-    })
+    if (ms > loggingThreshold) {
+      console.log("SLOW REQUEST ", req.originalUrl, " ", ms, " ms");
+    }
+    this.setHeader('X-Response-Time', ms.toFixed(3) + 'ms');
+  });
 
-    next()
-  }
-
+  next();
+};
 
 var config = require("./tessera.json");
 Object.keys(config).forEach(function(prefix) {
