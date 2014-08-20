@@ -49,33 +49,22 @@ Stylesheet:
 Layer:
 
   - <<: *layer
-    name: land-shapes-110m
-    id:   land-shapes-110m
+    name: land-shapes-50m
+    id:   land-shapes-50m
     class: shore
     properties:
       maxzoom: 1
     Datasource:
       <<: *shapefile
-      file: shp/natural_earth/ne_110m_land-merc.zip
-
-  - <<: *layer
-    name: country-shapes-110m
-    id:   country-shapes-110m
-    class: shore
-    properties:
-      minzoom: 2
-      maxzoom: 2
-    Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_110m_admin_0_countries_lakes-merc.zip
+      file: shp/natural_earth/ne_50m_land-merc.zip
 
   - <<: *layer
     name: country-shapes-50m
     id:   country-shapes-50m
     class: shore
     properties:
-      minzoom: 3
-      maxzoom: 5
+      minzoom: 2
+      maxzoom: 3
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip
@@ -85,7 +74,7 @@ Layer:
     id:   country-shapes-10m
     class: shore
     properties:
-      minzoom: 6
+      minzoom: 4
       maxzoom: 7
     Datasource:
       <<: *shapefile
@@ -105,7 +94,7 @@ Layer:
     id:   admin1-lines-50m
     properties:
       minzoom: 3
-      maxzoom: 5
+      maxzoom: 3
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_50m_admin_1_states_provinces_lines_shp-merc.zip
@@ -114,7 +103,7 @@ Layer:
     name: admin1-lines-10m
     id:   admin1-lines-10m
     properties:
-      minzoom: 6
+      minzoom: 4
       maxzoom: 9
     Datasource:
       <<: *shapefile
@@ -125,7 +114,7 @@ Layer:
     id:   ne_10m_admin_0_boundary_lines_land
     class: country-boundary-10m
     properties:
-      minzoom: 6
+      minzoom: 4
       maxzoom: 9
       cache-features: on
     Datasource:
@@ -268,16 +257,6 @@ Layer:
           FROM osm_water_areas_z10
           WHERE geometry && !bbox!
         ) AS _
-
-  - <<: *layer
-    name: lakes-110m
-    id:   lakes-110m
-    class: shore
-    properties:
-      maxzoom: 2
-    Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_110m_lakes-merc.zip
 
   - <<: *layer
     name: lakes-50m

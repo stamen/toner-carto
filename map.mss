@@ -36,13 +36,7 @@ Map {
   line-width: 0;
 }
 
-#country-shapes-110m {
-  line-width: 0.25;
-  polygon-fill: @color_administrative_bright;
-  line-color: @color_administrative_lowzoom;
-}
-
-#land-shapes-110m,
+#land-shapes-50m,
 #country-shapes-50m,
 #country-shapes-10m,
 {
@@ -82,7 +76,7 @@ Map {
 }
 
 #admin1-lines-10m {
-  [zoom>=6][scalerank<10] {
+  [zoom>=4][scalerank<10] {
     line-width: 0.6;
     line-color: @color_administrative_dark;
   }
@@ -107,7 +101,7 @@ Map {
   }
 }
 
-#lakes-110m[zoom<3][scalerank<1],
+#lakes-50m[zoom<3][scalerank<1],
 #lakes-50m[zoom=3][scalerank<2],
 #lakes-50m[zoom=4][scalerank<3],
 #lakes-50m[zoom=5][scalerank<5],

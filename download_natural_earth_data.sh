@@ -26,7 +26,7 @@ curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip -o $DIR/ne_10m_populated_places.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_urban_areas.zip -o $DIR/ne_10m_urban_areas.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_ocean.zip -o $DIR/ne_10m_ocean.zip
-curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_coastline.zip -o $DIR/ne_10m_coastline.zip
+#curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_coastline.zip -o $DIR/ne_10m_coastline.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_lakes.zip -o $DIR/ne_10m_lakes.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_rivers_lake_centerlines_scale_rank.zip -o $DIR/ne_10m_rivers_lake_centerlines_scale_rank.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_geography_marine_polys.zip -o $DIR/ne_10m_geography_marine_polys.zip
@@ -40,7 +40,8 @@ curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_1_states_provinces_lines.zip -o $DIR/ne_50m_admin_1_states_provinces_lines.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_urban_areas.zip -o $DIR/ne_50m_urban_areas.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_ocean.zip -o $DIR/ne_50m_ocean.zip
-curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_coastline.zip -o $DIR/ne_50m_coastline.zip
+#curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_coastline.zip -o $DIR/ne_50m_coastline.zip
+curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_land.zip -o $DIR/ne_50m_land.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_lakes.zip -o $DIR/ne_50m_lakes.zip
 #curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_rivers_lake_centerlines_scale_rank.zip -o $DIR/ne_50m_rivers_lake_centerlines_scale_rank.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_geography_marine_polys.zip -o $DIR/ne_50m_geography_marine_polys.zip
@@ -50,9 +51,9 @@ curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries_lakes.zip -o $DIR/ne_110m_admin_0_countries_lakes.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip -o $DIR/ne_50m_admin_0_boundary_lines_land.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_1_states_provinces_lines.zip -o $DIR/ne_110m_admin_1_states_provinces_lines.zip
-curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_coastline.zip -o $DIR/ne_110m_coastline.zip
-curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_land.zip -o $DIR/ne_110m_land.zip
-curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_lakes.zip -o $DIR/ne_110m_lakes.zip
+#curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_coastline.zip -o $DIR/ne_110m_coastline.zip
+#curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_land.zip -o $DIR/ne_110m_land.zip
+#curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_lakes.zip -o $DIR/ne_110m_lakes.zip
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_geography_marine_polys.zip -o $DIR/ne_110m_geography_marine_polys.zip
 
 
