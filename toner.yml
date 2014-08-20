@@ -333,7 +333,7 @@ Layer:
     id:   roads
     class: roads
     properties:
-      minzoom: 9
+      minzoom: 14
       cache-features: on
     Datasource:
       <<: *postgis
@@ -342,6 +342,38 @@ Layer:
         (
           SELECT *
           FROM high_road(!scale_denominator!, !bbox!)
+        ) AS _
+
+  - <<: *layer
+    name: roads_med
+    id:   roads_med
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind!=''highway''')
+        ) AS _
+
+  - <<: *layer
+    name: highways_med
+    id:   highways_med
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind=''highway''')
         ) AS _
 
   - <<: *layer

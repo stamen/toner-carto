@@ -367,6 +367,8 @@ Map {
 
 #tunnels,
 #roads,
+#roads_med,
+#highways_med,
 #bridges {
   ::casing,
   ::outline,
@@ -582,7 +584,7 @@ Map {
 
     [is_link='yes'] {
       ::outline {
-        line-width: 3;
+        line-width: 0;
       }
 
       line-width: 1;
@@ -782,7 +784,9 @@ Map {
   }
 }
 
-#roads {
+#roads,
+#roads_med,
+#highways_med {
   ::casing,
   ::outline,
   {
@@ -809,7 +813,8 @@ Map {
   }
 }
 
-#roads[kind='highway']
+#roads[kind='highway'],
+#highways_med[kind='highway']
 {
   [zoom>=9] {
     ::outline {
@@ -858,7 +863,7 @@ Map {
 
     [is_link='yes'] {
       ::outline {
-        line-width: 3;
+        line-width: 0;
       }
 
       line-width: 1;
@@ -867,7 +872,7 @@ Map {
 
   [zoom>=14] {
     ::outline {
-      line-width: 0;
+      line-width: 9;
     }
 
     line-width: 4;
@@ -964,7 +969,8 @@ Map {
   }
 }
 
-#roads[kind='major_road']
+#roads[kind='major_road'],
+#roads_med[kind='major_road']
 {
   [zoom<=12] {
     line-color: @color_transport;
@@ -1105,7 +1111,8 @@ Map {
   }
 }
 
-#roads[kind='minor_road']
+#roads[kind='minor_road'],
+#roads_med[kind='minor_road']
 {
   line-color: @color_transport_minor;
 
