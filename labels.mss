@@ -478,6 +478,7 @@
   text-halo-radius: @text_font_halo_radius_large;
   text-halo-fill: @label_color_city_halo;
   text-size: @text_font_size_sm;
+  text-min-distance: 1;
 
   [zoom=7] {
     text-size: @text_font_size_xsm;
@@ -506,13 +507,14 @@
 #city_labels_z10,
 #city_labels_z11,
 #city_labels_z12, {
-  	text-name: "[name]";
+    text-name: "[name]";
     text-face-name: @text_font_city_bold;
     text-fill: @label_color_city;
     text-halo-radius: @text_font_halo_radius_large;
     text-halo-fill: @label_color_city_halo;  
-	text-size: @text_font_size_sm;
+    text-size: @text_font_size_sm;
     [font_size=20] { text-size: @text_font_size_large; }  
+    text-min-distance: 1;
 }
 
 
