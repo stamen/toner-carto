@@ -51,12 +51,12 @@ Map {
   line-color: @color_administrative_lowzoom;
 }
 
-.country-boundary {
+.country-boundary[scalerank<6] {
   line-color: @color_administrative_dark;
   line-width: 0.25;
 }
 
-.country-boundary-10m {
+.country-boundary-10m[scalerank<6] {
   ::whiteout {
     [zoom>=7] {
       line-color: @color_administrative_bright;
