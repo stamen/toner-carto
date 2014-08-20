@@ -2,7 +2,7 @@
 
 name:             'Toner Labels'
 description:      ''
-attribution:      'Map Data © OpenStreetMap'
+attribution:      'Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL.'
 center:           [0, 0, 2]
 format:           png
 interactivity:    false
