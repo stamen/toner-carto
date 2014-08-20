@@ -834,7 +834,7 @@ Map {
 
   [zoom>=11] {
     ::outline {
-      line-width: 5.5;
+      line-width: 6;
     }
 
     line-width: 2.5;
@@ -842,7 +842,7 @@ Map {
 
   [zoom>=12] {
     ::outline {
-      line-width: 6;
+      line-width: 7;
     }
 
     line-width: 3;
@@ -858,7 +858,7 @@ Map {
 
   [zoom>=13] {
     ::outline {
-      line-width: 7;
+      line-width: 8;
     }
 
     [is_link='yes'] {
