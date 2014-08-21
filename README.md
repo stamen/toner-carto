@@ -34,7 +34,7 @@ ec2-run-instances <AMI> -t m1.small -z us-east-1d -k <keypair> -p EC2_Instance
 
 ```bash
 # (locally)
-docker build --rm .
+docker build --rm -t mojodna/toner:<version> .
 docker run -e "DATABASE_URL=postgres://.../..." -p 80:8080 <image id>
 docker tag <image id> mojodna/toner:latest
 docker push mojodna/toner:latest
