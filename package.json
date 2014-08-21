@@ -10,7 +10,7 @@
     "cors": "^2.4.1",
     "express": "^4.7.2",
     "interp": "^0.0.2",
-    "mapnik": "^1.4.10",
+    "mapnik": "1.4.10",
     "memwatch": "^0.2.2",
     "millstone": "^0.6.14",
     "on-headers": "^1.0.0",
