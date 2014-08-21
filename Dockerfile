@@ -35,8 +35,6 @@ COPY server.js /app/
 COPY tessera.json /app/
 COPY Makefile /app/Makefile
 
-RUN make xml
-
 ENV PORT 8080
 EXPOSE 8080
 
