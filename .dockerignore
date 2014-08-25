@@ -3,3 +3,10 @@ cache
 node_modules
 data
 shp
+Dockerrun.aws.json
+stuff*
+secrets.json
+npm-debug.log
+*.xml
+*.mml
+.env

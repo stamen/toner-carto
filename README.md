@@ -46,6 +46,20 @@ sudo docker stop <container>
 sudo docker run --env-file=env -p 80:8080 -d mojodna/toner:latest
 ```
 
+### Docker with a Data Volume
+
+The advantage of a data volume is that it allows Natural Earth shapefiles to
+live in a separate contain that doesn't update regularly, reducing the size of
+the application container (and the number of intermediate layers).
+
+```bash
+# start the data volume
+docker run --name data -v /app/shp bdon/naturalearth:0.0.4
+
+# start the Toner container
+docker run --volumes-from data --env-file=env -p 80:8080 -d mojodna/toner:latest
+```
+
 ## Useful SQL snippets
 
     CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
