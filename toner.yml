@@ -110,13 +110,23 @@ Layer:
       file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines_shp-merc.zip
 
   - <<: *layer
+    name: ne_50m_admin_0_boundary_lines_land
+    id:   ne_50m_admin_0_boundary_lines_land
+    class: country-boundary
+    properties:
+      minzoom: 2
+      maxzoom: 3
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip
+
+  - <<: *layer
     name: ne_10m_admin_0_boundary_lines_land
     id:   ne_10m_admin_0_boundary_lines_land
     class: country-boundary-10m
     properties:
       minzoom: 4
       maxzoom: 9
-      cache-features: on
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip

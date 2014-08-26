@@ -47,7 +47,7 @@ Map {
 
 .country-boundary[scalerank<6] {
   line-color: @color_administrative_dark;
-  line-width: 0.25;
+  line-width: 0.5;
 }
 
 .country-boundary-10m[scalerank<6] {
@@ -57,6 +57,9 @@ Map {
       line-width: 2;
     }
   }
+
+  line-color: @color_administrative_dark;
+  line-width: 1;
 
   [zoom>=6] {
     line-color: @color_administrative_dark;
@@ -76,25 +79,39 @@ Map {
 }
 
 #admin1-lines-10m {
-  [zoom>=4][scalerank<10] {
+  [zoom>=4][adm0_a3='CAN'],
+  [zoom>=4][adm0_a3='USA'],
+  [zoom>=4][adm0_a3='AUS'] {
     line-width: 0.6;
     line-color: @color_administrative_dark;
   }
 
-  [zoom>=7][scalerank<10] {
-    line-width: 1.5;
+  [zoom>=5][scalerank<=2] {
+    line-width: 0.6;
+    line-color: @color_administrative_dark;
+  }
+
+  [zoom>=6][scalerank<=4] {
+    line-width: 0.8;
+    line-color: @color_administrative_dark;
+  }
+
+  [zoom>=7][scalerank<=5] {
+    line-width: 1;
     line-color: @color_administrative_medium_low;
     line-dasharray: 1,5;
     line-cap: round;
   }
 
-  [zoom>=8][scalerank<10] {
-    line-width: 2.0;
+  [zoom>=8][scalerank<=6] {
+    line-width: 1.2;
     line-color: @color_administrative_medium_high;
+    line-dasharray: 1,5;
+    line-cap: round;
   }
 
-  [zoom>=9] {
-    line-width: 2.0;
+  [zoom>=9][scalerank<=8] {
+    line-width: 1.2;
     line-color: @color_administrative_medium_high2;
     line-dasharray: 1,5;
     line-cap: round;
