@@ -95,7 +95,7 @@ Layer:
     class: shore
     properties:
       minzoom: 4
-      maxzoom: 10
+      maxzoom: 9
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip
