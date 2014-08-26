@@ -13,9 +13,7 @@ DIR=`mktemp -d stuffXXXXXX`
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries_lakes.zip -o $DIR/ne_10m_admin_0_countries_lakes.zip
 #not yet used?
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_map_units.zip -o $DIR/ne_10m_admin_0_map_units.zip
-#not yet used?
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip -o $DIR/ne_10m_admin_0_boundary_lines_land.zip
-#not yet used?
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip -o $DIR/ne_10m_admin_0_boundary_lines_map_units.zip
 #not yet used?
 curl -L http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_boundary_lines_disputed_areas.zip -o $DIR/ne_10m_admin_0_boundary_lines_disputed_areas.zip

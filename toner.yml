@@ -90,6 +90,17 @@ Layer:
       file: shp/land-polygons-complete-3857/land_polygons.shp
 
   - <<: *layer
+    name: admin0-map-units-10m
+    id:   admin0-map-units-10m
+    class: shore
+    properties:
+      minzoom: 4
+      maxzoom: 10
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip
+
+  - <<: *layer
     name: admin1-lines-50m
     id:   admin1-lines-50m
     properties:

@@ -78,7 +78,8 @@ Map {
   line-color: @color_administrative_dark;
 }
 
-#admin1-lines-10m {
+#admin1-lines-10m,
+#admin0-map-units-10m {
   [zoom>=4][adm0_a3='CAN'],
   [zoom>=4][adm0_a3='USA'],
   [zoom>=4][adm0_a3='AUS'] {
@@ -86,12 +87,14 @@ Map {
     line-color: @color_administrative_dark;
   }
 
-  [zoom>=5][scalerank<=2] {
+  [zoom>=5][scalerank<=2],
+  [zoom>=5][featurecla='Map unit boundary'][adm0_a3='GBR'] {
     line-width: 0.6;
     line-color: @color_administrative_dark;
   }
 
-  [zoom>=6][scalerank<=4] {
+  [zoom>=6][scalerank<=4],
+  [zoom>=6][featurecla='Map unit boundary'][adm0_a3='GBR'] {
     line-width: 0.8;
     line-color: @color_administrative_dark;
   }
