@@ -8,20 +8,3 @@
 * run `sh download_natural_earth_data.sh` to get Natural Earth data
 * Download an OSM pbf extract and do an import. You should use the make task `ca` as an example.
 * Start TileMill with `npm start` from the tilemill repo
-
-## Useful SQL snippets
-
-    CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
-    AS $$
-    BEGIN
-      -- generalize to 1/4 pixel (assuming 256x256 tiles)
-      RETURN ST_Simplify(geom, 20037508.34 * 2 / 2^(9 + zoom));
-    END
-    $$ LANGUAGE plpgsql IMMUTABLE;
-    
------
-    
-    SELECT 'GRANT SELECT ON ' || quote_ident(schemaname) || '.' || quote_ident(viewname) || ' TO render;'
-    FROM pg_views
-    WHERE schemaname = 'public';
-    GRANT SELECT ON ALL TABLES IN SCHEMA public TO render;
