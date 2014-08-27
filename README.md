@@ -1,3 +1,9 @@
+# Toner
+
+"Toner" is the name of Stamen's black and white map tiles It was originally
+designed for the Dotspotting project by Geraldine Sarmiento, although many
+others have been involved since.
+
 ## Developing
 
 * Install TileMill 1 from HEAD (this has the latest Mapnik): [github.com/mapbox/tilemill](https://github.com/mapbox/tilemill)
