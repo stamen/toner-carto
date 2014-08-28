@@ -1,8 +1,12 @@
 # Toner
 
-"Toner" is the name of Stamen's black and white map tiles It was originally
+"Toner" is the name of Stamen's black and white map tiles. It was originally
 designed for the Dotspotting project by Geraldine Sarmiento, although many
 others have been involved since.
+
+The original Toner was developed as part of Stamen's [Citytracking](https://github.com/Citytracking) initiative, funded by the [Knight Foundation](http://www.knightfoundation.org/). The old repository can be found [here](https://github.com/citytracking/toner), for historical interest. 
+
+![Toner screenshot](https://github.com/stamen/toner-carto/raw/master/toner_world.png?raw=true)
 
 ## Developing
 
