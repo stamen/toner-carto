@@ -90,6 +90,16 @@ Layer:
       file: shp/land-polygons-complete-3857/land_polygons.shp
 
   - <<: *layer
+    name: nullisland
+    id:   nullisland
+    class: land
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *shapefile
+      file: shp/nullisland.shp
+
+  - <<: *layer
     name: admin0-map-units-10m
     id:   admin0-map-units-10m
     class: shore
