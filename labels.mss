@@ -357,7 +357,8 @@
     text-halo-fill: @label_color_administrative_halo;
 }
 
-#admin0-labels-z4 {
+#admin0-labels-z4,
+#nullisland[zoom>17] {
   	text-name: "[name]";
     text-face-name: @text_font_administrative_bold;
     text-wrap-width: 80;
