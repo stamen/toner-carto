@@ -102,7 +102,6 @@ Layer:
   - <<: *layer
     name: admin0-map-units-10m
     id:   admin0-map-units-10m
-    class: shore
     properties:
       minzoom: 4
       maxzoom: 9

@@ -50,27 +50,15 @@ Stylesheet:
 Layer:
 
   - <<: *layer
-    name: land-shapes-110m
-    id:   land-shapes-110m
+    name: land-shapes-50m
+    id:   land-shapes-50m
     class: shore
     status: off
     properties:
       maxzoom: 1
     Datasource:
       <<: *shapefile
-      file: shp/natural_earth/ne_110m_land-merc.zip
-
-  - <<: *layer
-    name: country-shapes-110m
-    id:   country-shapes-110m
-    class: shore
-    status: off
-    properties:
-      minzoom: 2
-      maxzoom: 2
-    Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_110m_admin_0_countries_lakes-merc.zip
+      file: shp/natural_earth/ne_50m_land-merc.zip
 
   - <<: *layer
     name: country-shapes-50m
@@ -78,8 +66,8 @@ Layer:
     class: shore
     status: off
     properties:
-      minzoom: 3
-      maxzoom: 5
+      minzoom: 2
+      maxzoom: 3
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip
@@ -90,7 +78,7 @@ Layer:
     class: shore
     status: off
     properties:
-      minzoom: 6
+      minzoom: 4
       maxzoom: 7
     Datasource:
       <<: *shapefile
@@ -107,12 +95,34 @@ Layer:
       file: shp/land-polygons-complete-3857/land_polygons.shp
 
   - <<: *layer
+    name: nullisland
+    id:   nullisland
+    class: land
+    status: off
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *shapefile
+      file: shp/nullisland.shp
+
+  - <<: *layer
+    name: admin0-map-units-10m
+    id:   admin0-map-units-10m
+    status: off
+    properties:
+      minzoom: 4
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip
+
+  - <<: *layer
     name: admin1-lines-50m
     id:   admin1-lines-50m
     status: off
     properties:
       minzoom: 3
-      maxzoom: 5
+      maxzoom: 3
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_50m_admin_1_states_provinces_lines_shp-merc.zip
@@ -122,11 +132,23 @@ Layer:
     id:   admin1-lines-10m
     status: off
     properties:
-      minzoom: 6
+      minzoom: 4
       maxzoom: 9
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines_shp-merc.zip
+
+  - <<: *layer
+    name: ne_50m_admin_0_boundary_lines_land
+    id:   ne_50m_admin_0_boundary_lines_land
+    class: country-boundary
+    status: off
+    properties:
+      minzoom: 2
+      maxzoom: 3
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip
 
   - <<: *layer
     name: ne_10m_admin_0_boundary_lines_land
@@ -134,9 +156,8 @@ Layer:
     class: country-boundary-10m
     status: off
     properties:
-      minzoom: 6
+      minzoom: 4
       maxzoom: 9
-      cache-features: on
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip
@@ -286,17 +307,6 @@ Layer:
         ) AS _
 
   - <<: *layer
-    name: lakes-110m
-    id:   lakes-110m
-    class: shore
-    status: off
-    properties:
-      maxzoom: 2
-    Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_110m_lakes-merc.zip
-
-  - <<: *layer
     name: lakes-50m
     id:   lakes-50m
     class: shore
@@ -355,7 +365,7 @@ Layer:
     class: roads
     status: off
     properties:
-      minzoom: 9
+      minzoom: 14
       cache-features: on
     Datasource:
       <<: *postgis
@@ -364,6 +374,40 @@ Layer:
         (
           SELECT *
           FROM high_road(!scale_denominator!, !bbox!)
+        ) AS _
+
+  - <<: *layer
+    name: roads_med
+    id:   roads_med
+    status: off
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind!=''highway''')
+        ) AS _
+
+  - <<: *layer
+    name: highways_med
+    id:   highways_med
+    status: off
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind=''highway''')
         ) AS _
 
   - <<: *layer
