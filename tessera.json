@@ -1,6 +1,6 @@
 {
   "/toner": {
-    "source": "mapnik://./toner.xml",
+    "source": "mapnik://./toner.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -9,7 +9,7 @@
     }
   },
   "/toner-base": {
-    "source": "mapnik://./toner-base.xml",
+    "source": "mapnik://./toner-base.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -18,7 +18,7 @@
     }
   },
   "/toner-background": {
-    "source": "mapnik://./toner-background.xml",
+    "source": "mapnik://./toner-background.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -27,7 +27,7 @@
     }
   },
   "/toner-lines": {
-    "source": "mapnik://./toner-lines.xml",
+    "source": "mapnik://./toner-lines.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -36,7 +36,7 @@
     }
   },
   "/toner-buildings": {
-    "source": "mapnik://./toner-buildings.xml",
+    "source": "mapnik://./toner-buildings.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -45,7 +45,7 @@
     }
   },
   "/toner-labels": {
-    "source": "mapnik://./toner-labels.xml",
+    "source": "mapnik://./toner-labels.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -54,7 +54,7 @@
     }
   },
   "/toner-hybrid": {
-    "source": "mapnik://./toner-hybrid.xml",
+    "source": "mapnik://./toner-hybrid.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
@@ -63,7 +63,7 @@
     }
   },
   "/toner-lite": {
-    "source": "mapnik://./toner-lite.xml",
+    "source": "mapnik://./toner-lite.xml?bufferSize=256",
     "headers": {
       "Cache-Control": "public,max-age={{#tileJSON}}86400{{/tileJSON}}{{#tile}}86400{{/tile}}",
       "Surrogate-Control": "max-age=2592000",
