@@ -1,6 +1,6 @@
 {
   "name": "toner",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "scripts": {
     "start": "touch .env && make xml && MAPNIK_FONT_PATH=fonts/ SOURCE_CACHE_SIZE=50 node server.js"
