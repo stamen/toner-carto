@@ -97,7 +97,7 @@ Layer:
       minzoom: 10
     Datasource:
       <<: *shapefile
-      file: shp/nullisland.shp
+      file: shp-local/nullisland.shp
 
   - <<: *layer
     name: admin0-map-units-10m
