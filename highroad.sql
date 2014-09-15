@@ -128,7 +128,7 @@ CREATE VIEW highroad_z15plus AS
          (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway'
                WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road'
                WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
-               WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail') THEN 'rail'
+               WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_gauge', 'monorail') THEN 'rail'
                ELSE 'minor_road' END) AS kind,
          (CASE WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 'yes'
                ELSE 'no' END) AS is_link,
@@ -146,7 +146,7 @@ CREATE VIEW highroad_z15plus AS
                END) AS implied_layer,
 
          (CASE WHEN highway IN ('motorway') THEN 0
-               WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail') THEN .5
+               WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_gauge', 'monorail') THEN .5
                WHEN highway IN ('trunk') THEN 1
                WHEN highway IN ('primary') THEN 2
                WHEN highway IN ('secondary') THEN 3
@@ -160,7 +160,7 @@ CREATE VIEW highroad_z15plus AS
          OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')
          OR highway IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor')
          OR highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway')
-         OR railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail')
+         OR railway IN ('rail', 'tram', 'light_rail', 'narrow_gauge', 'monorail')
       ORDER BY explicit_layer ASC, implied_layer ASC, priority DESC);
 
 CREATE OR REPLACE FUNCTION zoom(scaleDenominator numeric) RETURNS int AS $$
