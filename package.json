@@ -21,7 +21,7 @@
     "tilelive-blend": "^0.1.1",
     "tilelive-cache": "^0.4.1",
     "tilelive-http": "^0.4.0",
-    "tilelive-mapnik": "mojodna/tilelive-mapnik#08e9edd1f1156c3a72175071bfec51aca7297a5a",
+    "tilelive-mapnik": "^0.6.13",
     "tilelive-solid": "^0.1.0"
   },
   "devDependencies": {
