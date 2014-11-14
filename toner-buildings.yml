@@ -92,7 +92,7 @@ Layer:
       minzoom: 8
     Datasource:
       <<: *shapefile
-      file: shp/land-polygons-complete-3857/land_polygons.shp
+      file: shp/osmdata/land-polygons-complete-3857.zip
 
   - <<: *layer
     name: nullisland
@@ -125,7 +125,7 @@ Layer:
       maxzoom: 3
     Datasource:
       <<: *shapefile
-      file: shp/natural_earth/ne_50m_admin_1_states_provinces_lines_shp-merc.zip
+      file: shp/natural_earth/ne_50m_admin_1_states_provinces_lines-merc.zip
 
   - <<: *layer
     name: admin1-lines-10m
@@ -136,7 +136,7 @@ Layer:
       maxzoom: 9
     Datasource:
       <<: *shapefile
-      file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines_shp-merc.zip
+      file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
 
   - <<: *layer
     name: ne_50m_admin_0_boundary_lines_land

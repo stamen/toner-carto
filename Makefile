@@ -1,195 +1,231 @@
-# use PGDATABASE PGHOST etc.
 SHELL := /bin/bash
 PATH := $(PATH):node_modules/.bin
 
+define EXPAND_EXPORTS
+export $(word 1, $(subst =, , $(1))) := $(word 2, $(subst =, , $(1)))
+endef
+
+# load .env
+$(foreach a,$(shell cat .env 2> /dev/null),$(eval $(call EXPAND_EXPORTS,$(a))))
+# expand PG* environment vars
+$(foreach a,$(shell set -a && source .env 2> /dev/null; node_modules/.bin/pgexplode),$(eval $(call EXPAND_EXPORTS,$(a))))
+
+define create_relation
+@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	psql -1 -f sql/$(subst db/,,$@).sql
+endef
+
+define create_extension
+@psql -c "\dx $(subst db/,,$@)" | grep $(subst db/,,$@) > /dev/null 2>&1 || \
+	psql -c "CREATE EXTENSION $(subst db/,,$@)"
+endef
+
+define register_function_target
+.PHONY: db/functions/$(strip $(1))
+
+db/functions/$(strip $(1)): db
+	@psql -c "\df $(1)" | grep -i $(1) > /dev/null 2>&1 || \
+		psql -v ON_ERROR_STOP=1 -qX1f sql/functions/$(1).sql
+endef
+
 # Import PBF ($2) as $1
 define import
-dropdb --if-exists imposm_$1
-createdb imposm_$1
-psql -d imposm_$1 -c "create extension postgis"
-imposm3 import --cachedir cache -mapping=imposm3_mapping.json -read $2 -connection="postgis://localhost/imposm_$1" -write -deployproduction -overwritecache -optimize
-psql -d imposm_$1 -f highroad.sql
-echo DATABASE_URL=postgres:///imposm_$1 > .env
+.PHONY: db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/$(strip $(word 1, $(subst :, ,$(1))))
+
+db/$(strip $(word 1, $(subst :, ,$(1)))): db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/shared
+
+db/osm-$(strip $(word 1, $(subst :, ,$(1)))): db/postgis db/hstore $(strip $(word 2, $(subst :, ,$(1))))
+	@psql -c "\d osm_roads" > /dev/null 2>&1 || \
+	imposm3 import \
+		--cachedir cache \
+		-mapping=imposm3_mapping.json \
+		-read $(strip $(word 2, $(subst :, ,$(1)))) \
+		-connection="$${DATABASE_URL}" \
+		-write \
+		-deployproduction \
+		-overwritecache
 endef
 
 mml: toner
 
 install:
-	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner
-	npm install && npm rebuild
-	echo DATABASE_URL=postgres:///osm > .env
+	npm install
+	@test -e ${HOME}/Documents/MapBox/project || \
+		test -e ${HOME}/Documents/MapBox/project/toner || \
+		ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner
 
 clean:
-	rm -f *.mml *.xml
+	@rm -f *.mml *.xml
 
 .env:
-	touch $@
+	@echo DATABASE_URL=postgres:///toner > #@
 
 %: %.mml
-	cp $< project.mml
+	@cp $< project.mml
 
-xml: toner.xml toner-base.xml toner-background.xml toner-lines.xml toner-buildings.xml toner-labels.xml toner-hybrid.xml toner-lite.xml
+xml: $(subst yml,xml,$(wildcard *.yml))
 
-land: data/osmdata/land-polygons-complete-3857.zip data/osmdata/simplified-land-polygons-complete-3857.zip
-	cd shp/ && unzip -o ../data/osmdata/land-polygons-complete-3857.zip
-	cd shp/ && shapeindex land-polygons-complete-3857/land_polygons.shp
-	cd shp/ && unzip -o ../data/osmdata/simplified-land-polygons-complete-3857.zip
-	cd shp/ && shapeindex simplified-land-polygons-complete-3857/simplified_land_polygons.shp
+.PHONY: DATABASE_URL
 
-# Missing, due to unpredictable filenames in the zip:
-#   shp/ne/50m/cultural/ne_50m_admin_1_states_provinces_lines-merc.zip
-#   shp/ne/110m/cultural/ne_110m_admin_1_states_provinces_lines-merc.zip
-natural-earth: shp/ne/10m/cultural/ne_10m_admin_0_countries_lakes-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_admin_0_map_units-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_admin_0_boundary_lines_map_units-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_admin_0_boundary_lines_disputed_areas-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_admin_1_states_provinces_lakes-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_roads-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_populated_places-merc.zip \
-	           shp/ne/10m/physical/ne_10m_coastline-merc.zip \
-	           shp/ne/10m/physical/ne_10m_lakes-merc.zip \
-	           shp/ne/10m/physical/ne_10m_geography_marine_polys-merc.zip \
-	           shp/ne/10m/cultural/ne_10m_airports-merc.zip \
-	           shp/ne/50m/cultural/ne_50m_admin_0_countries_lakes-merc.zip \
-	           shp/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land-merc.zip \
-	           shp/ne/50m/cultural/ne_50m_admin_1_states_provinces_lakes-merc.zip \
-	           shp/ne/50m/physical/ne_50m_coastline-merc.zip \
-	           shp/ne/50m/physical/ne_50m_lakes-merc.zip \
-	           shp/ne/50m/physical/ne_50m_geography_marine_polys-merc.zip \
-	           shp/ne/110m/cultural/ne_110m_admin_0_boundary_lines_land-merc.zip \
-	           shp/ne/110m/cultural/ne_110m_admin_0_countries_lakes-merc.zip \
-	           shp/ne/110m/physical/ne_110m_coastline-merc.zip \
-	           shp/ne/110m/physical/ne_110m_land-merc.zip \
-	           shp/ne/110m/physical/ne_110m_lakes-merc.zip \
-	           shp/ne/110m/physical/ne_110m_geography_marine_polys-merc.zip
+DATABASE_URL:
+	@test "${$@}" || (echo "$@ is undefined" && false)
 
-imposm_%:
-	@psql -l | grep -w $@ | wc -l | grep 1 > /dev/null
+.PHONY: db
 
-belize: data/extract/central-america/belize-latest.osm.pbf imposm_belize
-	$(call import,$@,$<)
+db: DATABASE_URL
+	@psql -c "SELECT 1" > /dev/null 2>&1 || \
+	createdb
 
-ca: data/extract/north-america/us/california-latest.osm.pbf imposm_ca
-	$(call import,$@,$<)
+.PHONY: db/postgis
 
-ma: data/extract/north-america/us/massachusetts-latest.osm.pbf imposm_ma
-	$(call import,$@,$<)
+db/postgis: db
+	$(call create_extension)
 
-wa: data/extract/north-america/us/washington-latest.osm.pbf imposm_wa
-	$(call import,$@,$<)
+.PHONY: db/hstore
 
-ny: data/extract/north-america/us/new-york-latest.osm.pbf imposm_ny
-	$(call import,$@,$<)
+db/hstore: db
+	$(call create_extension)
 
-bc: data/extract/north-america/ca/british-columbia-latest.osm.pbf imposm_bc
-	$(call import,$@,$<)
+.PHONY: db/shared
 
-sf: data/metro/san-francisco.osm.pbf imposm_sf
-	$(call import,$@,$<)
+db/shared: db/functions/highroad \
+	       shp/osmdata/land-polygons-complete-3857.zip \
+		   shp/natural_earth/ne_50m_land-merc.zip \
+		   shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip \
+		   shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip \
+		   shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip \
+		   shp/natural_earth/ne_50m_admin_1_states_provinces_lines-merc.zip \
+		   shp/natural_earth/ne_10m_geography_marine_polys-merc.zip \
+		   shp/natural_earth/ne_50m_geography_marine_polys-merc.zip \
+		   shp/natural_earth/ne_110m_geography_marine_polys-merc.zip \
+		   shp/natural_earth/ne_10m_airports-merc.zip \
+		   shp/natural_earth/ne_10m_roads-merc.zip \
+		   shp/natural_earth/ne_10m_lakes-merc.zip \
+		   shp/natural_earth/ne_50m_lakes-merc.zip \
+		   shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip \
+		   shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip \
+		   shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
 
-seattle: data/metro/seattle.osm.pbf imposm_seattle
-	$(call import,$@,$<)
+PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
+	   CA:data/extract/north-america/us/california-latest.osm.pbf \
+	   belize:data/extract/central-america/belize-latest.osm.pbf \
+	   MA:data/extract/north-america/us/massachusetts-latest.osm.pbf \
+	   NY:data/extract/north-america/us/new-york-latest.osm.pbf \
+	   sf:data/metro/san-francisco.osm.pbf \
+	   sfbay:data/metro/sf-bay-area.osm.pbf \
+	   seattle:data/metro/seattle_washington.osm.pbf \
+	   WA:data/extract/north-america/us/washington-latest.osm.pbf
 
-sf_bay_area: data/metro/sf-bay-area.osm.pbf imposm_sf_bay_area
-	$(call import,$@,$<)
+$(foreach place,$(PLACES),$(eval $(call import,$(place))))
+
+$(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
+
+.SECONDARY: data/extract/%
 
 data/extract/%:
-	mkdir -p $$(dirname $@)
-	curl -sL http://download.geofabrik.de/$(@:data/extract/%=%) -o $@
-	echo done
+	@mkdir -p $$(dirname $@)
+	@curl -sLf http://download.geofabrik.de/$(@:data/extract/%=%) -o $@
+
+.SECONDARY: data/metro/%
 
 data/metro/%:
-	mkdir -p data/metro
-	curl -sL https://s3.amazonaws.com/metro-extracts.mapzen.com/$(@:data/metro/%=%) -o $@
+	@mkdir -p $$(dirname $@)
+	@curl -sLf https://s3.amazonaws.com/metro-extracts.mapzen.com/$(@:data/metro/%=%) -o $@
 
-data/osmdata/%:
-	mkdir -p data/osmdata
-	curl -sL http://data.openstreetmapdata.com/$(@:data/osmdata/%=%) -o $@
+.SECONDARY: data/osmdata/land_polygons.zip
 
-toner.mml: toner.yml .env map.mss labels.mss
-	cat toner.yml | (set -a && source .env && interp) > $@
+# so the zip matches the shapefile name
+data/osmdata/land_polygons.zip:
+	@mkdir -p $$(dirname $@)
+	@curl -sLf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
 
-toner-background.mml: toner-background.yml .env map.mss labels.mss
-	cat toner-background.yml | (set -a && source .env && interp) > $@
+.PRECIOUS: %.mml
 
-toner-buildings.mml: toner-buildings.yml .env map.mss labels.mss toner-buildings.mss
-	cat toner-buildings.yml | (set -a && source .env && interp) > $@
+%.mml: %.yml map.mss labels.mss %.mss
+	@cat $< | interp > $@
 
-toner-hybrid.mml: toner-hybrid.yml .env map.mss labels.mss toner-lines.mss
-	cat toner-hybrid.yml | (set -a && source .env && interp) > $@
-
-toner-lines.mml: toner-lines.yml .env map.mss labels.mss toner-lines.mss
-	cat toner-lines.yml | (set -a && source .env && interp) > $@
-
-toner-labels.mml: toner-labels.yml .env map.mss labels.mss toner-labels.mss
-	cat toner-labels.yml | (set -a && source .env && interp) > $@
-
-toner-lite.mml: toner-lite.yml .env map.mss labels.mss toner-lite.mss
-	cat toner-lite.yml | (set -a && source .env && interp) > $@
-
-%.mml: %.yml .env
-	cat $< | (set -a && source .env && interp) > $@
+.PRECIOUS: %.xml
 
 %.xml: %.mml
-	carto -l $< > $@
+	@echo
+	@echo Building $@
+	@echo
+	@carto -l $< > $@ || (rm -f $@; false)
 
-define NE_ZIP
-.PRECIOUS: data/ne/$(1)/$(2)/%.zip
+define natural_earth
+shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx: $(strip $(word 2, $(subst :, ,$(1))))
+	@mkdir -p $$$$(dirname $$@)
+	@ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
+			--config SHAPE_ENCODING WINDOWS-1252 \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-clipsrc -180 -85.05112878 180 85.05112878 \
+			-segmentize 1 \
+			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
+
+shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
+	@shapeindex $$<
+
+.SECONDARY: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip
+
+shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx \
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index
+	@zip -j $$@ $$^
+endef
+
+# <name>:<source file>:[shapefile]
+NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
+	ne_50m_admin_0_countries_lakes:data/ne/50m/cultural/ne_50m_admin_0_countries_lakes.zip \
+	ne_10m_admin_0_countries_lakes:data/ne/10m/cultural/ne_10m_admin_0_countries_lakes.zip \
+	ne_10m_admin_0_boundary_lines_map_units:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip \
+	ne_50m_admin_1_states_provinces_lines:data/ne/50m/cultural/ne_50m_admin_1_states_provinces_lines.zip \
+	ne_10m_geography_marine_polys:data/ne/10m/physical/ne_10m_geography_marine_polys.zip \
+	ne_50m_geography_marine_polys:data/ne/50m/physical/ne_50m_geography_marine_polys.zip \
+	ne_110m_geography_marine_polys:data/ne/110m/physical/ne_110m_geography_marine_polys.zip \
+	ne_10m_airports:data/ne/10m/cultural/ne_10m_airports.zip \
+	ne_10m_roads:data/ne/10m/cultural/ne_10m_roads.zip \
+	ne_10m_lakes:data/ne/10m/physical/ne_10m_lakes.zip \
+	ne_50m_lakes:data/ne/50m/physical/ne_50m_lakes.zip \
+	ne_10m_admin_0_boundary_lines_land:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
+	ne_50m_admin_0_boundary_lines_land:data/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
+	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp
+
+$(foreach shape,$(NATURAL_EARTH),$(eval $(call natural_earth,$(shape))))
+
+shp/osmdata/%.shp \
+shp/osmdata/%.dbf \
+shp/osmdata/%.prj \
+shp/osmdata/%.shx: data/osmdata/%.zip
+	@mkdir -p $$(dirname $@)
+	@unzip -j $< -d $$(dirname $@)
+
+shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
+	@shapeindex $<
+
+.SECONDARY: data/osmdata/land-polygons-complete-3857.zip
+
+shp/osmdata/land-polygons-complete-3857.zip: shp/osmdata/land_polygons.shp \
+	shp/osmdata/land_polygons.dbf \
+	shp/osmdata/land_polygons.prj \
+	shp/osmdata/land_polygons.shx \
+	shp/osmdata/land_polygons.index
+	@zip -j $@ $^
+
+define natural_earth_sources
+.SECONDARY: data/ne/$(1)/$(2)/%.zip
 
 data/ne/$(1)/$(2)/%.zip:
-	mkdir -p $$(dir $$@)
-	curl -sfL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
-	touch $$@
-
-.PRECIOUS: data/ne/$(1)/$(2)/%.shp
-
-data/ne/$(1)/$(2)/%.dbf data/ne/$(1)/$(2)/%.prj data/ne/$(1)/$(2)/%.shp data/ne/$(1)/$(2)/%.shx data/ne/$(1)/$(2)/%.README.html data/ne/$(1)/$(2)/%.VERSION.txt: data/ne/$(1)/$(2)/%.zip
-# data/ne/$(1)/$(2)/%.shp: data/ne/$(1)/$(2)/%.zip
-	unzip -o $$< -d $$(dir $$<)
-	touch $$@
-
-.PRECIOUS: shp/ne/$(1)/$(2)/%.shp
-
-shp/ne/$(1)/$(2)/%.dbf shp/ne/$(1)/$(2)/%.prj shp/ne/$(1)/$(2)/%.shp shp/ne/$(1)/$(2)/%.shx: data/ne/$(1)/$(2)/%.shp
-	mkdir -p $$(dir $$@)
-	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
-			--config SHAPE_ENCODING WINDOWS-1252 \
-			-t_srs EPSG:3857 \
-			-lco ENCODING=UTF-8 \
-			-clipsrc -180 -85.05112878 180 85.05112878 \
-			-segmentize 1 \
-			-skipfailures $$@ $$<
-
-.PRECIOUS: shp/ne/$(1)/$(2)/%.index
-
-shp/ne/$(1)/$(2)/%.index: shp/ne/$(1)/$(2)/%.shp
-	shapeindex $$<
-
-.PRECIOUS: shp/ne/$(1)/$(2)/%.zip
-
-shp/ne/$(1)/$(2)/%-merc.zip: shp/ne/$(1)/$(2)/%.index
-	zip -j $$@ $$(<:index=*)
-
-db/ne/$(1)/$(2)/%: data/ne/$(1)/$(2)/%.shp
-	ogr2ogr --config PG_USE_COPY YES \
-		    --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
-			--config SHAPE_ENCODING WINDOWS-1252 \
-			-nlt PROMOTE_TO_MULTI \
-			-t_srs EPSG:3857 \
-			-lco ENCODING=UTF-8 \
-			-lco GEOMETRY_NAME=geom \
-			-lco POSTGIS_VERSION=2.0 \
-			-clipsrc -180 -85.05112878 180 85.05112878 \
-			-segmentize 1 \
-			-skipfailures \
-			-f PGDump /vsistdout/ \
-			$$< | psql -q
+	@mkdir -p $$(dir $$@)
+	@curl -sfL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
 endef
 
 scales=10m 50m 110m
 themes=cultural physical raster
 
-$(foreach a,$(scales),$(foreach b,$(themes),$(eval $(call NE_ZIP,$(a),$(b)))))
+$(foreach a,$(scales),$(foreach b,$(themes),$(eval $(call natural_earth_sources,$(a),$(b)))))
