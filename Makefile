@@ -88,8 +88,15 @@ db/hstore: db
 
 .PHONY: db/shared
 
-db/shared: db/functions/highroad \
-	       shp/osmdata/land-polygons-complete-3857.zip \
+db/shared: db/postgres db/shapefiles
+
+.PHONY: db/postgres
+
+db/postgres: db/functions/highroad
+
+.PHONY: db/shapefiles
+
+db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/natural_earth/ne_50m_land-merc.zip \
 		   shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip \
 		   shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip \
