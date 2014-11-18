@@ -113,6 +113,7 @@ db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip \
 		   shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
 
+# TODO places target that lists registered places
 PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   CA:data/extract/north-america/us/california-latest.osm.pbf \
 	   belize:data/extract/central-america/belize-latest.osm.pbf \
