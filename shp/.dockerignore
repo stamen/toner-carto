@@ -1,0 +1,15 @@
+natural_earth/*.cpg
+natural_earth/*.dbf
+natural_earth/*.index
+natural_earth/*.prj
+natural_earth/*.shp
+natural_earth/*.shx
+natural_earth/README
+osmdata/*.cpg
+osmdata/*.dbf
+osmdata/*.index
+osmdata/*.prj
+osmdata/*.shp
+osmdata/*.shx
+osmdata/README
+.*.zip
