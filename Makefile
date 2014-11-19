@@ -161,6 +161,25 @@ data/osmdata/land_polygons.zip:
 	@carto -l $< > $@ || (rm -f $@; false)
 
 define natural_earth
+db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) db/postgis
+	psql -c "\d $$(subst db/,,$$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
+			--config SHAPE_ENCODING WINDOWS-1252 \
+			--config PG_USE_COPY YES \
+			-nln $$(subst db/,,$$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-clipsrc -180 -85.05112878 180 85.05112878 \
+			-segmentize 1 \
+			-skipfailures \
+			-f PGDump /vsistdout/ \
+			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
+
 shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
