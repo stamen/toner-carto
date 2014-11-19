@@ -12,12 +12,12 @@ $(foreach a,$(shell set -a && source .env 2> /dev/null; node_modules/.bin/pgexpl
 
 define create_relation
 @psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
-	psql -1 -f sql/$(subst db/,,$@).sql
+	psql -v ON_ERROR_STOP=1 -qX1f sql/$(subst db/,,$@).sql
 endef
 
 define create_extension
 @psql -c "\dx $(subst db/,,$@)" | grep $(subst db/,,$@) > /dev/null 2>&1 || \
-	psql -c "CREATE EXTENSION $(subst db/,,$@)"
+	psql -v ON_ERROR_STOP=1 -qX1c "CREATE EXTENSION $(subst db/,,$@)"
 endef
 
 define register_function_target
