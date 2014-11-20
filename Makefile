@@ -191,7 +191,7 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 			-lco ENCODING=UTF-8 \
 			-clipsrc -180 -85.05112878 180 85.05112878 \
 			-segmentize 1 \
-			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
+			-skipfailures -overwrite $$@ /vsizip/$$<
 
 shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
 	@shapeindex $$<
