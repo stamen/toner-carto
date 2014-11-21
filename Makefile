@@ -180,10 +180,11 @@ db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) 
 			-f PGDump /vsistdout/ \
 			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
 
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
+shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx: $(strip $(word 2, $(subst :, ,$(1))))
+	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
+
+shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp: $(strip $(word 2, $(subst :, ,$(1))))
 	@mkdir -p $$$$(dirname $$@)
 	@ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
 			--config SHAPE_ENCODING WINDOWS-1252 \
