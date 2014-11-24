@@ -24,6 +24,8 @@ RUN \
   rm -rf .node-gyp/ && \
   rm -rf .npm/
 
+# Define mountable directories
+VOLUME ["/app/shp"]
 ENV PORT 8080
 EXPOSE 8080
 
