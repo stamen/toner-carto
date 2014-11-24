@@ -1,3 +1,3 @@
-FROM busybox
+FROM scratch
 
 COPY . /app/shp
