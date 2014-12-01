@@ -58,7 +58,7 @@ clean:
 	@rm -f *.mml *.xml
 
 .env:
-	@echo DATABASE_URL=postgres:///toner > #@
+	@echo DATABASE_URL=postgres:///toner > $@
 
 %: %.mml
 	@cp $< project.mml
