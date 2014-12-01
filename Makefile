@@ -212,10 +212,10 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_10m_admin_0_countries_lakes:data/ne/10m/cultural/ne_10m_admin_0_countries_lakes.zip \
 	ne_10m_admin_0_boundary_lines_map_units:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip \
 	ne_50m_admin_1_states_provinces_lines:data/ne/50m/cultural/ne_50m_admin_1_states_provinces_lines.zip \
-	ne_10m_geography_marine_polys:data/ne/10m/physical/ne_10m_geography_marine_polys.zip \
-	ne_50m_geography_marine_polys:data/ne/50m/physical/ne_50m_geography_marine_polys.zip \
-	ne_110m_geography_marine_polys:data/ne/110m/physical/ne_110m_geography_marine_polys.zip \
-	ne_10m_airports:data/ne/10m/cultural/ne_10m_airports.zip \
+	ne_10m_geography_marine_polys:data/ne-stamen/10m/physical/ne_10m_geography_marine_polys.zip \
+	ne_50m_geography_marine_polys:data/ne-stamen/50m/physical/ne_50m_geography_marine_polys.zip \
+	ne_110m_geography_marine_polys:data/ne-stamen/110m/physical/ne_110m_geography_marine_polys.zip \
+	ne_10m_airports:data/ne-stamen/10m/cultural/ne_10m_airports.zip \
 	ne_10m_roads:data/ne/10m/cultural/ne_10m_roads.zip \
 	ne_10m_lakes:data/ne/10m/physical/ne_10m_lakes.zip \
 	ne_50m_lakes:data/ne/50m/physical/ne_50m_lakes.zip \
@@ -250,6 +250,12 @@ define natural_earth_sources
 data/ne/$(1)/$(2)/%.zip:
 	@mkdir -p $$(dir $$@)
 	@curl -sfL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
+
+.SECONDARY: data/ne/$(1)/$(2)/%.zip
+
+data/ne-stamen/$(1)/$(2)/%.zip:
+	@mkdir -p $$(dir $$@)
+	@curl -sfL "https://github.com/stamen/natural-earth-vector/blob/master/zips/$(1)_$(2)/$$(@:data/ne-stamen/$(1)/$(2)/%=%)?raw=true" -o $$@
 endef
 
 scales=10m 50m 110m
