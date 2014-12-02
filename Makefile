@@ -120,7 +120,7 @@ PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   cle:data/metro/cleveland_ohio.osm.pbf \
 	   MA:data/extract/north-america/us/massachusetts-latest.osm.pbf \
 	   NY:data/extract/north-america/us/new-york-latest.osm.pbf \
-	   OH:data/extract/north-america/us/ohio-latest.osm.pbf
+	   OH:data/extract/north-america/us/ohio-latest.osm.pbf \
 	   sf:data/metro/san-francisco.osm.pbf \
 	   sfbay:data/metro/sf-bay-area.osm.pbf \
 	   seattle:data/metro/seattle_washington.osm.pbf \
