@@ -152,7 +152,7 @@ data/osmdata/land_polygons.zip:
 .PRECIOUS: %.mml
 
 %.mml: %.yml map.mss labels.mss %.mss
-	@cat $< | interp > tmp.mml && mv tmp.mml $@
+	@cat $< | interp | js-yaml > tmp.mml && mv tmp.mml $@
 
 .PRECIOUS: %.xml
 

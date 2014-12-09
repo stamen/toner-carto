@@ -10,6 +10,7 @@
     "cors": "^2.5.2",
     "express": "^4.10.4",
     "interp": "^0.1.0",
+    "js-yaml": "^3.2.3",
     "mapnik": "^1.4.17",
     "memwatch": "^0.2.2",
     "millstone": "^0.6.14",
