@@ -20,7 +20,7 @@ var tessera = require("tessera"),
 
 var app = express().disable("x-powered-by");
 
-require("tessera/modules")(tilelive, {});
+require("tessera/lib/modules")(tilelive, {});
 
 
 var loggingThreshold = +(process.env.LOG_MS || 5000);
