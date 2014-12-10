@@ -1,0 +1,16 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - /bin/true
+
+test:
+  override:
+    - if [ "$(git tag -l --contains HEAD)" != "" ]; then docker build -t quay.io/stamen/toner-data:$(git tag -l --contains HEAD) shp/; fi
+
+deployment:
+  publish:
+    commands:
+      - if [ "$(git tag -l --contains HEAD)" != "" ]; then docker login -e ${DOCKER_EMAIL:null} -u  -u "${DOCKER_USER}" -p "${DOCKER_PASS}" ${DOCKER_HOST}; docker push quay.io/stamen/toner-data:$(git tag -l --contains HEAD) shp/; fi
