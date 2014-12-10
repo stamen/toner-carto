@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   override:
-    - /bin/true
+    - make db/shapefiles
 
 test:
   override:
