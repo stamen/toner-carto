@@ -134,20 +134,20 @@ $(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(c
 
 data/extract/%:
 	@mkdir -p $$(dirname $@)
-	@curl -sLf http://download.geofabrik.de/$(@:data/extract/%=%) -o $@
+	curl -Lf http://download.geofabrik.de/$(@:data/extract/%=%) -o $@
 
 .SECONDARY: data/metro/%
 
 data/metro/%:
 	@mkdir -p $$(dirname $@)
-	@curl -sLf https://s3.amazonaws.com/metro-extracts.mapzen.com/$(@:data/metro/%=%) -o $@
+	curl -Lf https://s3.amazonaws.com/metro-extracts.mapzen.com/$(@:data/metro/%=%) -o $@
 
 .SECONDARY: data/osmdata/land_polygons.zip
 
 # so the zip matches the shapefile name
 data/osmdata/land_polygons.zip:
 	@mkdir -p $$(dirname $@)
-	@curl -sLf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
+	curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
 
 .PRECIOUS: %.mml
 
@@ -164,7 +164,7 @@ data/osmdata/land_polygons.zip:
 
 define natural_earth
 db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) db/postgis
-	@psql -c "\d $$(subst db/,,$$@)" > /dev/null 2>&1 || \
+	psql -c "\d $$(subst db/,,$$@)" > /dev/null 2>&1 || \
 	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
 			--config SHAPE_ENCODING WINDOWS-1252 \
 			--config PG_USE_COPY YES \
@@ -187,7 +187,7 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx: $(strip $(word 2, $(subst :, ,$(1))))
 	@mkdir -p $$$$(dirname $$@)
-	@ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
+	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
 			--config SHAPE_ENCODING WINDOWS-1252 \
 			-t_srs EPSG:3857 \
 			-lco ENCODING=UTF-8 \
@@ -196,7 +196,7 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
 
 shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
-	@shapeindex $$<
+	shapeindex $$<
 
 .SECONDARY: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip
 
@@ -205,7 +205,7 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip: shp/natural_ea
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx \
 	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index
-	@zip -j $$@ $$^
+	zip -j $$@ $$^
 endef
 
 # <name>:<source file>:[shapefile]
@@ -232,10 +232,10 @@ shp/osmdata/%.dbf \
 shp/osmdata/%.prj \
 shp/osmdata/%.shx: data/osmdata/%.zip
 	@mkdir -p $$(dirname $@)
-	@unzip -j $< -d $$(dirname $@)
+	unzip -j $< -d $$(dirname $@)
 
 shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
-	@shapeindex $<
+	shapeindex $<
 
 .SECONDARY: data/osmdata/land-polygons-complete-3857.zip
 
@@ -244,20 +244,20 @@ shp/osmdata/land-polygons-complete-3857.zip: shp/osmdata/land_polygons.shp \
 	shp/osmdata/land_polygons.prj \
 	shp/osmdata/land_polygons.shx \
 	shp/osmdata/land_polygons.index
-	@zip -j $@ $^
+	zip -j $@ $^
 
 define natural_earth_sources
 .SECONDARY: data/ne/$(1)/$(2)/%.zip
 
 data/ne/$(1)/$(2)/%.zip:
 	@mkdir -p $$(dir $$@)
-	@curl -sfL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
+	curl -fL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
 
 .SECONDARY: data/ne/$(1)/$(2)/%.zip
 
 data/ne-stamen/$(1)/$(2)/%.zip:
 	@mkdir -p $$(dir $$@)
-	@curl -sfL "https://github.com/stamen/natural-earth-vector/blob/master/zips/$(1)_$(2)/$$(@:data/ne-stamen/$(1)/$(2)/%=%)?raw=true" -o $$@
+	curl -fL "https://github.com/stamen/natural-earth-vector/blob/master/zips/$(1)_$(2)/$$(@:data/ne-stamen/$(1)/$(2)/%=%)?raw=true" -o $$@
 endef
 
 scales=10m 50m 110m
