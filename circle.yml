@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   override:
-    - make db/shapefiles
+    - if [ "$(git tag -l --contains HEAD)" != "" ]; then make db/shapefiles; fi
 
 test:
   override:
