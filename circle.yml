@@ -3,6 +3,9 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - "shp/osmdata/"
+    - "shp/natural_earth/"
   override:
     - if [ "$(git tag -l --contains HEAD)" != "" ]; then make db/shapefiles; fi
 
