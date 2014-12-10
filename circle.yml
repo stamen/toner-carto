@@ -3,6 +3,11 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - "shp/osmdata/"
+    - "shp/natural_earth/"
+  pre:
+    - sudo apt-add-repository -y ppa:ubuntugis/ubuntugis-unstable && sudo apt-get update && sudo apt-get install -y mapnik-utils gdal-bin make curl git unzip zip
   override:
     - if [ "$(git tag -l --contains HEAD)" != "" ]; then make db/shapefiles; fi
 
