@@ -4,8 +4,7 @@ machine:
 
 dependencies:
   cache_directories:
-    - "shp/osmdata/"
-    - "shp/natural_earth/"
+    - "data/"
   pre:
     - sudo apt-add-repository -y ppa:ubuntugis/ubuntugis-unstable && sudo apt-get update && sudo apt-get install -y mapnik-utils gdal-bin make curl git unzip zip
   override:
