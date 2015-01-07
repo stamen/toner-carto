@@ -67,16 +67,51 @@ xml: $(subst yml,xml,$(filter-out circle.yml,$(wildcard *.yml)))
 
 .PRECIOUS: %.mml
 
-%.mml: %.yml map.mss labels.mss %.mss
+%.mml: %.yml map.mss labels.mss %.mss interp js-yaml
 	@cat $< | interp | js-yaml > tmp.mml && mv tmp.mml $@
 
 .PRECIOUS: %.xml
 
-%.xml: %.mml
+%.xml: %.mml carto
 	@echo
 	@echo Building $@
 	@echo
 	@carto -l $< > $@ || (rm -f $@; false)
+
+.PHONY: carto
+
+carto: node_modules/carto/package.json
+
+.PHONY: interp
+
+interp: node_modules/interp/package.json
+
+.PHONY: js-yaml
+
+js-yaml: node_modules/js-yaml/package.json
+
+node_modules/carto/package.json: PKG = $(word 2,$(subst /, ,$@))
+node_modules/carto/package.json: node node_modules/millstone/package.json
+	@echo "Installing $(PKG)"
+	@npm install $(PKG)
+
+node_modules/interp/package.json: PKG = $(word 2,$(subst /, ,$@))
+node_modules/interp/package.json: node
+	@echo "Installing $(PKG)"
+	@npm install $(PKG)
+
+node_modules/js-yaml/package.json: PKG = $(word 2,$(subst /, ,$@))
+node_modules/js-yaml/package.json: node
+	@echo "Installing $(PKG)"
+	@npm install $(PKG)
+
+node_modules/millstone/package.json: PKG = $(word 2,$(subst /, ,$@))
+node_modules/millstone/package.json: node
+	@echo "Installing $(PKG)"
+	@npm install $(PKG)
+
+node:
+	@type node > /dev/null 2>&1 || (echo "Please install Node.js" && false)
 
 .PHONY: DATABASE_URL
 
