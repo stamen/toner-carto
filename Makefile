@@ -49,7 +49,7 @@ db/osm-$(strip $(word 1, $(subst :, ,$(1)))): db/postgis db/hstore $(strip $(wor
 		-overwritecache
 endef
 
-mml: toner
+default: toner
 
 link:
 	@test -e ${HOME}/Documents/MapBox/project || \
