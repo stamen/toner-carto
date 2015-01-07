@@ -96,27 +96,28 @@ interp: node_modules/interp/package.json
 js-yaml: node_modules/js-yaml/package.json
 
 node_modules/carto/package.json: PKG = $(word 2,$(subst /, ,$@))
-node_modules/carto/package.json: node node_modules/millstone/package.json
+node_modules/carto/package.json: node_modules/millstone/package.json
+	@type node > /dev/null 2>&1 || (echo "Please install Node.js" && false)
 	@echo "Installing $(PKG)"
 	@npm install $(PKG)
 
 node_modules/interp/package.json: PKG = $(word 2,$(subst /, ,$@))
-node_modules/interp/package.json: node
+node_modules/interp/package.json:
+	@type node > /dev/null 2>&1 || (echo "Please install Node.js" && false)
 	@echo "Installing $(PKG)"
 	@npm install $(PKG)
 
 node_modules/js-yaml/package.json: PKG = $(word 2,$(subst /, ,$@))
-node_modules/js-yaml/package.json: node
+node_modules/js-yaml/package.json:
+	@type node > /dev/null 2>&1 || (echo "Please install Node.js" && false)
 	@echo "Installing $(PKG)"
 	@npm install $(PKG)
 
 node_modules/millstone/package.json: PKG = $(word 2,$(subst /, ,$@))
-node_modules/millstone/package.json: node
+node_modules/millstone/package.json:
+	@type node > /dev/null 2>&1 || (echo "Please install Node.js" && false)
 	@echo "Installing $(PKG)"
 	@npm install $(PKG)
-
-node:
-	@type node > /dev/null 2>&1 || (echo "Please install Node.js" && false)
 
 .PHONY: DATABASE_URL
 
