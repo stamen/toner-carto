@@ -5,6 +5,9 @@ define EXPAND_EXPORTS
 export $(word 1, $(subst =, , $(1))) := $(word 2, $(subst =, , $(1)))
 endef
 
+# wrap Makefile body with a check for pgexplode
+ifeq ($(shell test -f node_modules/.bin/pgexplode; echo $$?), 0)
+
 # load .env
 $(foreach a,$(shell cat .env 2> /dev/null),$(eval $(call EXPAND_EXPORTS,$(a))))
 # expand PG* environment vars
@@ -299,3 +302,9 @@ scales=10m 50m 110m
 themes=cultural physical raster
 
 $(foreach a,$(scales),$(foreach b,$(themes),$(eval $(call natural_earth_sources,$(a),$(b)))))
+
+# complete wrapping
+else
+.DEFAULT:
+	$(error Please install pgexplode: "npm install pgexplode")
+endif
