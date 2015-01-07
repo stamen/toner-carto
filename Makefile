@@ -65,6 +65,19 @@ clean:
 
 xml: $(subst yml,xml,$(filter-out circle.yml,$(wildcard *.yml)))
 
+.PRECIOUS: %.mml
+
+%.mml: %.yml map.mss labels.mss %.mss
+	@cat $< | interp | js-yaml > tmp.mml && mv tmp.mml $@
+
+.PRECIOUS: %.xml
+
+%.xml: %.mml
+	@echo
+	@echo Building $@
+	@echo
+	@carto -l $< > $@ || (rm -f $@; false)
+
 .PHONY: DATABASE_URL
 
 DATABASE_URL:
@@ -148,19 +161,6 @@ data/metro/%:
 data/osmdata/land_polygons.zip:
 	@mkdir -p $$(dirname $@)
 	curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
-
-.PRECIOUS: %.mml
-
-%.mml: %.yml map.mss labels.mss %.mss
-	@cat $< | interp | js-yaml > tmp.mml && mv tmp.mml $@
-
-.PRECIOUS: %.xml
-
-%.xml: %.mml
-	@echo
-	@echo Building $@
-	@echo
-	@carto -l $< > $@ || (rm -f $@; false)
 
 define natural_earth
 db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) db/postgis
