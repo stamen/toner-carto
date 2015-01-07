@@ -72,6 +72,7 @@ xml: $(subst yml,xml,$(filter-out circle.yml,$(wildcard *.yml)))
 .PRECIOUS: %.mml
 
 %.mml: %.yml map.mss labels.mss %.mss interp js-yaml
+	@echo Building $@
 	@cat $< | interp | js-yaml > tmp.mml && mv tmp.mml $@
 
 .PRECIOUS: %.xml
