@@ -269,7 +269,7 @@ shp/osmdata/%.dbf \
 shp/osmdata/%.prj \
 shp/osmdata/%.shx: data/osmdata/%.zip
 	@mkdir -p $$(dirname $@)
-	unzip -j $< -d $$(dirname $@)
+	unzip -ju $< -d $$(dirname $@)
 
 shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
 	shapeindex $<
