@@ -63,7 +63,7 @@ clean:
 %: %.mml
 	@cp $< project.mml
 
-xml: $(subst yml,xml,$(wildcard *.yml))
+xml: $(subst yml,xml,$(filter-out circle.yml,$(wildcard *.yml)))
 
 .PHONY: DATABASE_URL
 
