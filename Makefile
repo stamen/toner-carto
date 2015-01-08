@@ -67,9 +67,9 @@ clean:
 %: %.mml
 	@cp $< project.mml
 
-mml: $(subst yml,mml,$(filter-out circle.yml,$(wildcard *.yml)))
+mml: $(subst .yml,.mml,$(filter-out circle.yml,$(wildcard *.yml)))
 
-xml: $(subst yml,xml,$(filter-out circle.yml,$(wildcard *.yml)))
+xml: $(subst .yml,.xml,$(filter-out circle.yml,$(wildcard *.yml)))
 
 .PRECIOUS: %.mml
 
