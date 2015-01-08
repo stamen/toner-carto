@@ -31,6 +31,8 @@ db/functions/$(strip $(1)): db
 		psql -v ON_ERROR_STOP=1 -qX1f sql/functions/$(1).sql
 endef
 
+$(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
+
 # Import PBF ($2) as $1
 define import
 .PHONY: db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/$(strip $(word 1, $(subst :, ,$(1))))
@@ -181,8 +183,6 @@ PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   WA:data/extract/north-america/us/washington-latest.osm.pbf
 
 $(foreach place,$(PLACES),$(eval $(call import,$(place))))
-
-$(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
 
 .SECONDARY: data/extract/%
 
