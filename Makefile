@@ -54,7 +54,7 @@ endef
 default: toner
 
 link:
-	@test -e ${HOME}/Documents/MapBox/project || \
+	@test -e ${HOME}/Documents/MapBox/project && \
 		test -e ${HOME}/Documents/MapBox/project/toner || \
 		ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/toner
 
