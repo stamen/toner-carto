@@ -1,6 +1,6 @@
 {
   "name": "toner",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "scripts": {
     "start": "make xml && SOURCE_CACHE_SIZE=50 node server.js"
