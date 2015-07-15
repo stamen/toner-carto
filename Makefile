@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 PATH := $(PATH):node_modules/.bin
+DATABASE_URL ?= postgres:///toner
 
 define EXPAND_EXPORTS
 export $(word 1, $(subst =, , $(1))) := $(word 2, $(subst =, , $(1)))
