@@ -28,7 +28,7 @@
 @text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
 
-#minor_road_labels {
+#minor_road_labels[zoom>=16] {
   text-name: "[name]";
   text-face-name: @text_font_transport_bold;
   text-placement: line;
