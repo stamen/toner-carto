@@ -197,7 +197,6 @@
   [zoom>=17] {
  	text-name: "[name]";
 	text-face-name: @text_font_water;
-    text-placement: interior;
     text-max-char-angle-delta: 30;
     text-wrap-width: 40;
     text-halo-radius: @text_font_halo_radius_large;
@@ -245,7 +244,6 @@
   [zoom>=17] {
  	text-name: "[name]";
 	text-face-name: @text_font_water;
-    text-placement: interior;
     text-max-char-angle-delta: 30;
     text-wrap-width: 40;
     text-halo-radius: @text_font_halo_radius_large;

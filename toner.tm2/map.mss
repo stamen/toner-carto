@@ -21,6 +21,7 @@
 @pattern_opacity: 1.0;
 
 Map {
+  buffer-size: 128;
   background-color: @color_physical;
   font-directory: url("fonts/");
 }
