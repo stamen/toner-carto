@@ -174,6 +174,7 @@ db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   CA:data/extract/north-america/us/california-latest.osm.pbf \
 	   belize:data/extract/central-america/belize-latest.osm.pbf \
+	   japan:data/extract/asia/japan-latest.osm.pbf \
 	   cle:data/metro/cleveland_ohio.osm.pbf \
 	   MA:data/extract/north-america/us/massachusetts-latest.osm.pbf \
 	   NY:data/extract/north-america/us/new-york-latest.osm.pbf \
