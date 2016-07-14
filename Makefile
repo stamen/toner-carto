@@ -678,13 +678,13 @@ define natural_earth_sources
 
 data/ne/$(1)/$(2)/%.zip:
 	@mkdir -p $$(dir $$@)
-	curl -fL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
+	curl -sfL http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/$(1)/$(2)/$$(@:data/ne/$(1)/$(2)/%=%) -o $$@
 
 .SECONDARY: data/ne/$(1)/$(2)/%.zip
 
 data/ne-stamen/$(1)/$(2)/%.zip:
 	@mkdir -p $$(dir $$@)
-	curl -fL "https://github.com/stamen/natural-earth-vector/blob/master/zips/$(1)_$(2)/$$(@:data/ne-stamen/$(1)/$(2)/%=%)?raw=true" -o $$@
+	curl -sfL "https://github.com/stamen/natural-earth-vector/blob/master/zips/$(1)_$(2)/$$(@:data/ne-stamen/$(1)/$(2)/%=%)?raw=true" -o $$@
 endef
 
 scales=10m 50m 110m
