@@ -4,7 +4,7 @@ name:             Toner
 description:      ''
 attribution:      'Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL.'
 center:           [0, 0, 2]
-format:           png
+format:           png8
 interactivity:    false
 minzoom:          0
 maxzoom:          20
