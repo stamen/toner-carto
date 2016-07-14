@@ -3,8 +3,6 @@
 // increase the libuv threadpool size to 1.5x the number of logical CPUs.
 process.env.UV_THREADPOOL_SIZE = process.env.UV_THREADPOOL_SIZE || Math.ceil(Math.max(4, require('os').cpus().length * 1.5));
 
-require('memwatch').on("leak", console.log);
-
 var path = require("path");
 var raven = require("raven");
 
@@ -20,7 +18,7 @@ var tessera = require("tessera"),
 
 var app = express().disable("x-powered-by");
 
-require("tessera/lib/modules")(tilelive, {});
+require("tilelive-modules/loader")(tilelive);
 
 
 var loggingThreshold = +(process.env.LOG_MS || 5000);

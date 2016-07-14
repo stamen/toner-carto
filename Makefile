@@ -84,7 +84,7 @@ xml: $(subst .yml,.xml,$(filter-out circle.yml,$(wildcard *.yml)))
 	@echo
 	@echo Building $@
 	@echo
-	@carto -l $< > $@ || (rm -f $@; false)
+	@carto -a 3.0.11 $< > $@ || (rm -f $@; false)
 
 .PHONY: carto
 
