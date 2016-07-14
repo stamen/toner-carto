@@ -145,30 +145,432 @@ db/hstore: db
 
 .PHONY: db/shared
 
-db/shared: db/postgres db/shapefiles
+db/shared: db/postgres db/shapefiles db/natearth
 
 .PHONY: db/postgres
 
 db/postgres: db/functions/highroad
 
+.PHONY: db/ne_10m_admin_1_states_provinces_labels
+
+db/ne_10m_admin_1_states_provinces_labels: db/ne_10m_admin_1_states_provinces_scale_rank db/functions/admin1_labels
+
+.PHONY: db/generalizations
+
+db/generalizations: db/ne_10m_admin_1_states_provinces_labels
+
 .PHONY: db/shapefiles
 
-db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
-		   shp/natural_earth/ne_50m_land-merc.zip \
-		   shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip \
-		   shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip \
-		   shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip \
-		   shp/natural_earth/ne_50m_admin_1_states_provinces_lines-merc.zip \
-		   shp/natural_earth/ne_10m_geography_marine_polys-merc.zip \
-		   shp/natural_earth/ne_50m_geography_marine_polys-merc.zip \
-		   shp/natural_earth/ne_110m_geography_marine_polys-merc.zip \
-		   shp/natural_earth/ne_10m_airports-merc.zip \
-		   shp/natural_earth/ne_10m_roads-merc.zip \
-		   shp/natural_earth/ne_10m_lakes-merc.zip \
-		   shp/natural_earth/ne_50m_lakes-merc.zip \
-		   shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip \
-		   shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip \
-		   shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
+db/shapefiles: db/admin_0_countries_110m_points \
+		 db/admin_0_labels_z4 \
+		 db/admin_0_labels_z5 \
+		 db/admin_0_labels_z6 \
+		 db/admin_1_labels_z4 \
+		 db/admin_1_labels_z5 \
+		 db/admin_1_labels_z6 \
+		 db/admin_1_labels_z7 \
+		 db/city_labels_z4 \
+		 db/city_labels_z5 \
+		 db/city_labels_z6 \
+		 db/city_labels_z7 \
+		 db/city_labels_z8 \
+		 db/city_points_z4 \
+		 db/city_points_z5 \
+		 db/city_points_z6 \
+		 db/city_points_z7 \
+		 db/city_points_z8 \
+		 db/city_points_z9 \
+		 db/city_points_z10 \
+		 db/continents \
+		 db/land_polygons \
+		 db/nullisland
+
+.PHONY: db/admin_0_countries_110m_points
+
+db/admin_0_countries_110m_points: db/postgis shp/labels_admin/admin_0_countries_110m-points.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_0_labels_z4
+
+db/admin_0_labels_z4: db/postgis shp/labels_admin/admin-0-labels-z4.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_0_labels_z5
+
+db/admin_0_labels_z5: db/postgis shp/labels_admin/admin-0-labels-z5.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_0_labels_z6
+
+db/admin_0_labels_z6: db/postgis shp/labels_admin/admin-0-labels-z6.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_1_labels_z4
+
+db/admin_1_labels_z4: db/postgis shp/labels_admin/admin-1-labels-z4.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_1_labels_z5
+
+db/admin_1_labels_z5: db/postgis shp/labels_admin/admin-1-labels-z5.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_1_labels_z6
+
+db/admin_1_labels_z6: db/postgis shp/labels_admin/admin-1-labels-z6.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/admin_1_labels_z7
+
+db/admin_1_labels_z7: db/postgis shp/labels_admin/admin-1-labels-z7.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_labels_z4
+
+db/city_labels_z4: db/postgis merged_labels/merged_labels_z4.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_labels_z5
+
+db/city_labels_z5: db/postgis merged_labels/merged_labels_z5.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_labels_z6
+
+db/city_labels_z6: db/postgis merged_labels/merged_labels_z6.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_labels_z7
+
+db/city_labels_z7: db/postgis merged_labels/merged_labels_z7.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_labels_z8
+
+db/city_labels_z8: db/postgis merged_labels/merged_labels_z8.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+db/city_points_z4: db/postgis merged_labels/merged_points_z4.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_points_z5
+
+db/city_points_z5: db/postgis merged_labels/merged_points_z5.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_points_z6
+
+db/city_points_z6: db/postgis merged_labels/merged_points_z6.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_points_z7
+
+db/city_points_z7: db/postgis merged_labels/merged_points_z7.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_points_z8
+
+db/city_points_z8: db/postgis merged_labels/merged_points_z8.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_points_z9
+
+db/city_points_z9: db/postgis merged_labels/merged_points_z9.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/city_points_z10
+
+db/city_points_z10: db/postgis merged_labels/merged_points_z10.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/continents
+
+db/continents: db/postgis shp/continents_900913.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+
+.PHONY: db/land_polygons
+
+db/land_polygons: db/postgis data/osmdata/land_polygons_split.zip
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			/vsizip/$(word 2, $^)/land-polygons-split-3857/land_polygons.shp | psql -q
+
+.PHONY: db/nullisland
+
+db/nullisland: db/postgis shp-local/nullisland.geojson
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/natearth
+
+db/natearth: db/ne_50m_land \
+		   db/ne_50m_lakes \
+		   db/ne_50m_admin_0_countries_lakes \
+		   db/ne_10m_admin_0_countries_lakes \
+		   db/ne_10m_admin_0_boundary_lines_map_units \
+		   db/ne_50m_admin_1_states_provinces_lines \
+		   db/ne_10m_geography_marine_polys \
+		   db/ne_50m_geography_marine_polys \
+		   db/ne_110m_geography_marine_polys \
+		   db/ne_10m_airports \
+		   db/ne_10m_roads \
+		   db/ne_10m_lakes \
+		   db/ne_50m_lakes \
+		   db/ne_10m_admin_0_boundary_lines_land \
+		   db/ne_50m_admin_0_boundary_lines_land \
+		   db/ne_10m_admin_1_states_provinces_scale_rank \
+		   db/ne_10m_admin_1_states_provinces_lines
 
 # TODO places target that lists registered places
 PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
@@ -205,6 +607,12 @@ data/osmdata/land_polygons.zip:
 	@mkdir -p $$(dirname $@)
 	curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
 
+.SECONDARY: data/osmdata/land_polygons_split.zip
+
+data/osmdata/land_polygons_split.zip:
+	@mkdir -p $$(dirname $@)
+	curl -Lf http://data.openstreetmapdata.com/land-polygons-split-3857.zip -o $@
+
 define natural_earth
 db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) db/postgis
 	psql -c "\d $$(subst db/,,$$@)" > /dev/null 2>&1 || \
@@ -224,31 +632,6 @@ db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) 
 			-skipfailures \
 			-f PGDump /vsistdout/ \
 			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
-
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx: $(strip $(word 2, $(subst :, ,$(1))))
-	@mkdir -p $$$$(dirname $$@)
-	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
-			--config SHAPE_ENCODING WINDOWS-1252 \
-			-t_srs EPSG:3857 \
-			-lco ENCODING=UTF-8 \
-			-clipsrc -180 -85.05112878 180 85.05112878 \
-			-segmentize 1 \
-			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
-
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
-	shapeindex $$<
-
-.SECONDARY: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip
-
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index
-	zip -j $$@ $$^
 endef
 
 # <name>:<source file>:[shapefile]
@@ -266,28 +649,29 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_50m_lakes:data/ne/50m/physical/ne_50m_lakes.zip \
 	ne_10m_admin_0_boundary_lines_land:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
 	ne_50m_admin_0_boundary_lines_land:data/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
+	ne_10m_admin_1_states_provinces_scale_rank:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip:ne_10m_admin_1_states_provinces_scale_rank/ne_10m_admin_1_states_provinces_scale_rank.shp \
 	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp
 
 $(foreach shape,$(NATURAL_EARTH),$(eval $(call natural_earth,$(shape))))
 
-shp/osmdata/%.shp \
-shp/osmdata/%.dbf \
-shp/osmdata/%.prj \
-shp/osmdata/%.shx: data/osmdata/%.zip
-	@mkdir -p $$(dirname $@)
-	unzip -ju $< -d $$(dirname $@)
-
-shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
-	shapeindex $<
-
-.SECONDARY: data/osmdata/land-polygons-complete-3857.zip
-
-shp/osmdata/land-polygons-complete-3857.zip: shp/osmdata/land_polygons.shp \
-	shp/osmdata/land_polygons.dbf \
-	shp/osmdata/land_polygons.prj \
-	shp/osmdata/land_polygons.shx \
-	shp/osmdata/land_polygons.index
-	zip -j $@ $^
+# overwrite to specify encoding as UTF-8
+db/ne_10m_admin_1_states_provinces_scale_rank: db/postgis data/ne/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+ 	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
+ 			--config PG_USE_COPY YES \
+ 			-nln $(subst db/,,$@) \
+ 			-t_srs EPSG:3857 \
+ 			-lco ENCODING=UTF-8 \
+ 			-nlt PROMOTE_TO_MULTI \
+ 			-lco POSTGIS_VERSION=2.0 \
+ 			-lco GEOMETRY_NAME=geom \
+ 			-lco SRID=3857 \
+ 			-lco PRECISION=NO \
+ 			-clipsrc -180 -85.05112878 180 85.05112878 \
+ 			-segmentize 1 \
+ 			-skipfailures \
+ 			-f PGDump /vsistdout/ \
+ 			/vsizip/$(word 2, $^) | psql -q
 
 define natural_earth_sources
 .SECONDARY: data/ne/$(1)/$(2)/%.zip

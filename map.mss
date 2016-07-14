@@ -203,8 +203,12 @@ Map {
 #water-bodies-low[type='riverbank'],
 #water-bodies-med[type='riverbank'],
 #water-bodies-high[type='riverbank']
-{ 
+{
   polygon-fill: @color_water;
+}
+
+#land {
+  polygon-gamma: 0;
 }
 
 #land,
