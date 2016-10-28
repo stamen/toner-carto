@@ -3,7 +3,8 @@
 name:             Toner
 description:      ''
 attribution:      'Tiles by Stamen Design, under CC-BY 3.0. Data © OpenStreetMap contributors, under ODbL.'
-center:           [0, 0, 2]
+center:           [18.455,-33.9160,10]
+bounds:           [ 18.3547, -33.9821, 18.547, -33.8761 ]
 format:           png8
 interactivity:    false
 minzoom:          0
@@ -890,7 +891,7 @@ Layer:
                   WHEN highway = 'tertiary' THEN 5
                   ELSE 9 END) AS priority,
             (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'
-                  WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
+                  WHEN highway IN ('residential', 'living-street', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
                   WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'
                   WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
                   ELSE '' END) AS kind,
@@ -924,7 +925,7 @@ Layer:
                       WHEN highway = 'tertiary' THEN 5
                       ELSE 9 END) AS priority,
                 (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'
-                      WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
+                      WHEN highway IN ('residential', 'living-street', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'
                       WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'
                       WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'
                       ELSE '' END) AS kind,
@@ -933,7 +934,7 @@ Layer:
                 (CASE WHEN bridge = 1 THEN 'yes'
                       ELSE 'no' END) AS is_bridge
          FROM osm_roads
-         WHERE highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary')
+         WHERE highway IN ('residential', 'living-street', 'unclassified', 'service', 'minor', 'road', 'tertiary')
          ORDER BY priority ASC, length DESC)
          AS _
 
