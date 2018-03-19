@@ -60,7 +60,7 @@ CREATE VIEW highroad_z12 AS
                ELSE 'no' END) AS is_bridge,
          (CASE WHEN highway IN ('motorway') THEN 0
                WHEN highway IN ('trunk', 'secondary', 'primary') THEN 1
-               WHEN highway IN ('tertiary', 'residential', 'unclassified', 'road') THEN 2
+               WHEN highway IN ('tertiary', 'residential', 'living-street', 'unclassified', 'road') THEN 2
                WHEN highway LIKE '%%_link' THEN 3
                ELSE 99 END) AS priority,
           0 as explicit_layer
@@ -84,7 +84,7 @@ CREATE VIEW highroad_z13 AS
                WHEN highway IN ('motorway_link') THEN 1
                WHEN highway IN ('trunk', 'primary', 'secondary', 'tertiary') THEN 2
                WHEN highway IN ('trunk_link', 'primary_link', 'secondary_link') THEN 3
-               WHEN highway IN ('residential', 'unclassified', 'road') THEN 4
+               WHEN highway IN ('residential', 'living-street', 'unclassified', 'road') THEN 4
                ELSE 99 END) AS priority,
           0 as explicit_layer
       FROM osm_planet_osm_line_z13
@@ -96,7 +96,7 @@ CREATE VIEW highroad_z14 AS
          railway,
          (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway'
                WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road'
-               WHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 'minor_road'
+               WHEN highway IN ('residential', 'living-street', 'unclassified', 'road', 'minor') THEN 'minor_road'
                WHEN railway IN ('rail') THEN 'rail'
                ELSE 'unknown' END) AS kind,
          (CASE WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 'yes'
@@ -115,7 +115,7 @@ CREATE VIEW highroad_z14 AS
                WHEN highway IN ('secondary') THEN 3
                WHEN highway IN ('tertiary') THEN 4
                WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 5
-               WHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 6
+               WHEN highway IN ('residential', 'living-street', 'unclassified', 'road', 'minor') THEN 6
                WHEN railway IN ('rail') THEN 7
                ELSE 99 END) AS priority
       FROM osm_planet_osm_line_z14
@@ -152,13 +152,13 @@ CREATE VIEW highroad_z15plus AS
                WHEN highway IN ('secondary') THEN 3
                WHEN highway IN ('tertiary') THEN 4
                WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 5
-               WHEN highway IN ('residential', 'unclassified', 'road') THEN 6
+               WHEN highway IN ('residential', 'living-street', 'unclassified', 'road') THEN 6
                WHEN highway IN ('unclassified', 'service', 'minor') THEN 7
                ELSE 99 END) AS priority
       FROM osm_roads
       WHERE highway IN ('motorway', 'motorway_link')
          OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')
-         OR highway IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor')
+         OR highway IN ('residential', 'living-street', 'unclassified', 'road', 'unclassified', 'service', 'minor')
          OR highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway')
          OR railway IN ('rail', 'tram', 'light_rail', 'narrow_gauge', 'monorail')
       ORDER BY explicit_layer ASC, implied_layer ASC, priority DESC);
