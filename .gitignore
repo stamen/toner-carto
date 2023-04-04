@@ -1,7 +1,6 @@
 data/
 stuff*/
 *.mml
-*.xml
 .env
 .DS_Store
 *.swp
