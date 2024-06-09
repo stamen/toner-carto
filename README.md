@@ -10,6 +10,8 @@ The original Toner was developed as part of Stamen's
 be found [here](https://github.com/citytracking/toner), for historical
 interest.
 
+UPDATE: As of 2023 this code is not longer used to generate Toner tiles. Stamen's Toner style has been updated to use vector tiles and is now hosted on Stadia Maps. Learn more: https://stadiamaps.com/stamen/
+
 ![Toner screenshot](https://github.com/stamen/toner-carto/raw/master/toner_world.png?raw=true)
 
 ## Developing
