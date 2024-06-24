@@ -22,7 +22,7 @@ UPDATE: As of 2023 this code is not longer used to generate Toner tiles. Stamen'
 * PostGIS
 * Node.js
 * GDAL
-* TileMill 1@`master` (this includes the latest Mapnik): [github.com/mapbox/tilemill](https://github.com/mapbox/tilemill)
+* [TileMill](https://github.com/tilemill-project/tilemill) 1@`master` (this includes the latest Mapnik)
 * [Imposm 3](https://github.com/omniscale/imposm3), which includes dependencies
   of its own: `go`, `leveldb`, and `protobuf`.
 
